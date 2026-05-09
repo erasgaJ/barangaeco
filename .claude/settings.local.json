@@ -1,0 +1,25 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(composer require *)",
+      "PowerShell(composer require laravel/sanctum --no-interaction 2>&1)",
+      "PowerShell(php artisan make:model Barangay --no-interaction 2>&1)",
+      "PowerShell(php artisan make:model Resident --no-interaction 2>&1)",
+      "PowerShell(php artisan make:model Collector --no-interaction 2>&1)",
+      "PowerShell(php artisan make:model WasteCollectionSchedule --no-interaction 2>&1)",
+      "PowerShell(php artisan make:model CollectionStatusUpdate --no-interaction 2>&1)",
+      "PowerShell(php artisan make:model DocumentRequest --no-interaction 2>&1)",
+      "PowerShell(php artisan make:model Complaint --no-interaction 2>&1)",
+      "PowerShell(php artisan make:model Announcement --no-interaction 2>&1)",
+      "PowerShell(php artisan migrate --no-interaction 2>&1)",
+      "PowerShell(php artisan migrate:rollback --no-interaction 2>&1)",
+      "PowerShell(Rename-Item \"C:\\\\herd\\\\barangaeco\\\\database\\\\migrations\\\\2026_05_09_034405_create_schedule_collector_table.php\" \"2026_05_09_034406_create_schedule_collector_table.php\")",
+      "PowerShell(Rename-Item \"C:\\\\herd\\\\barangaeco\\\\database\\\\migrations\\\\2026_05_09_034406_create_collection_status_updates_table.php\" \"2026_05_09_034407_create_collection_status_updates_table.php\")",
+      "PowerShell(Rename-Item \"C:\\\\herd\\\\barangaeco\\\\database\\\\migrations\\\\2026_05_09_034406_create_document_requests_table.php\" \"2026_05_09_034408_create_document_requests_table.php\")",
+      "PowerShell(Rename-Item \"C:\\\\herd\\\\barangaeco\\\\database\\\\migrations\\\\2026_05_09_034407_create_complaints_table.php\" \"2026_05_09_034409_create_complaints_table.php\")",
+      "PowerShell(Rename-Item \"C:\\\\herd\\\\barangaeco\\\\database\\\\migrations\\\\2026_05_09_034407_create_announcements_table.php\" \"2026_05_09_034410_create_announcements_table.php\")",
+      "PowerShell(php artisan tinker --execute \"Schema::drop\\('schedule_collector'\\);\" 2>&1)",
+      "PowerShell(vendor/bin/pint --dirty --format agent 2>&1)"
+    ]
+  }
+}
