@@ -1,0 +1,688 @@
+{
+  "info": {
+    "_postman_id": "7f6ab9f5-1f1c-4da2-b6bb-a18ec0a9e001",
+    "name": "BarangaEco Mobile API",
+    "description": "Postman collection for the Laravel mobile API routes defined in routes/api.php. Set base_url to your Herd site API URL, for example http://barangaeco.test/api or https://barangaeco.test/api.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{token}}",
+        "type": "string"
+      }
+    ]
+  },
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://barangaeco.test/api",
+      "type": "string"
+    },
+    {
+      "key": "token",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "resident_email",
+      "value": "resident@example.com",
+      "type": "string"
+    },
+    {
+      "key": "collector_email",
+      "value": "collector@example.com",
+      "type": "string"
+    },
+    {
+      "key": "password",
+      "value": "password",
+      "type": "string"
+    },
+    {
+      "key": "device_name",
+      "value": "postman",
+      "type": "string"
+    },
+    {
+      "key": "barangay_id",
+      "value": "1",
+      "type": "string"
+    },
+    {
+      "key": "document_request_id",
+      "value": "1",
+      "type": "string"
+    },
+    {
+      "key": "complaint_id",
+      "value": "1",
+      "type": "string"
+    },
+    {
+      "key": "schedule_id",
+      "value": "1",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Login",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('response is successful', function () {",
+                  "  pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+                  "});",
+                  "",
+                  "const json = pm.response.json();",
+                  "if (json.token) {",
+                  "  pm.collectionVariables.set('token', json.token);",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"{{resident_email}}\",\n  \"password\": \"{{password}}\",\n  \"device_name\": \"{{device_name}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/auth/login",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "auth",
+                "login"
+              ]
+            },
+            "description": "Logs in a resident or collector user and stores the Sanctum token in the collection variable `token`."
+          },
+          "response": []
+        },
+        {
+          "name": "Register Resident",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('resident was registered', function () {",
+                  "  pm.expect(pm.response.code).to.eql(201);",
+                  "});",
+                  "",
+                  "const json = pm.response.json();",
+                  "if (json.token) {",
+                  "  pm.collectionVariables.set('token', json.token);",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "name",
+                  "value": "Postman Resident",
+                  "type": "text"
+                },
+                {
+                  "key": "email",
+                  "value": "postman.resident@example.com",
+                  "type": "text"
+                },
+                {
+                  "key": "password",
+                  "value": "{{password}}",
+                  "type": "text"
+                },
+                {
+                  "key": "password_confirmation",
+                  "value": "{{password}}",
+                  "type": "text"
+                },
+                {
+                  "key": "full_name",
+                  "value": "Postman Resident",
+                  "type": "text"
+                },
+                {
+                  "key": "address",
+                  "value": "Sample Address",
+                  "type": "text"
+                },
+                {
+                  "key": "barangay_id",
+                  "value": "{{barangay_id}}",
+                  "type": "text"
+                },
+                {
+                  "key": "contact_number",
+                  "value": "09171234567",
+                  "type": "text"
+                },
+                {
+                  "key": "id_image",
+                  "type": "file",
+                  "src": []
+                },
+                {
+                  "key": "device_name",
+                  "value": "{{device_name}}",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/auth/register",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "auth",
+                "register"
+              ]
+            },
+            "description": "Registers a resident account. Attach an image file to `id_image` before sending."
+          },
+          "response": []
+        },
+        {
+          "name": "Current User",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/auth/me",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "auth",
+                "me"
+              ]
+            },
+            "description": "Returns the authenticated user with the resident or collector relationship."
+          },
+          "response": []
+        },
+        {
+          "name": "Logout",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/auth/logout",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "auth",
+                "logout"
+              ]
+            },
+            "description": "Deletes the current Sanctum access token."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Resident",
+      "item": [
+        {
+          "name": "Dashboard",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/resident/dashboard",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "resident",
+                "dashboard"
+              ]
+            },
+            "description": "Requires a resident token. Returns resident profile, today's schedule, counters, and announcements."
+          },
+          "response": []
+        },
+        {
+          "name": "Document Requests - List",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/resident/document-requests?page=1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "resident",
+                "document-requests"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                }
+              ]
+            },
+            "description": "Paginated resident document requests."
+          },
+          "response": []
+        },
+        {
+          "name": "Document Requests - Create",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('document request was created', function () {",
+                  "  pm.expect(pm.response.code).to.eql(201);",
+                  "});",
+                  "",
+                  "const json = pm.response.json();",
+                  "if (json.id) {",
+                  "  pm.collectionVariables.set('document_request_id', json.id);",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"document_type\": \"Barangay Clearance\",\n  \"purpose\": \"Employment\",\n  \"reason\": \"Required for job application.\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/resident/document-requests",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "resident",
+                "document-requests"
+              ]
+            },
+            "description": "Creates a new resident document request and stores its id in `document_request_id`."
+          },
+          "response": []
+        },
+        {
+          "name": "Document Requests - Show",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/resident/document-requests/{{document_request_id}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "resident",
+                "document-requests",
+                "{{document_request_id}}"
+              ]
+            },
+            "description": "Shows a document request that belongs to the authenticated resident."
+          },
+          "response": []
+        },
+        {
+          "name": "Complaints - List",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/resident/complaints?page=1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "resident",
+                "complaints"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                }
+              ]
+            },
+            "description": "Paginated resident complaints."
+          },
+          "response": []
+        },
+        {
+          "name": "Complaints - Create",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('complaint was created', function () {",
+                  "  pm.expect(pm.response.code).to.eql(201);",
+                  "});",
+                  "",
+                  "const json = pm.response.json();",
+                  "if (json.id) {",
+                  "  pm.collectionVariables.set('complaint_id', json.id);",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"barangay_id\": \"{{barangay_id}}\",\n  \"complaint_type\": \"Waste Collection\",\n  \"complaint_against\": \"Collection Team\",\n  \"description\": \"Missed waste collection on the scheduled day.\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/resident/complaints",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "resident",
+                "complaints"
+              ]
+            },
+            "description": "Creates a complaint and stores its id in `complaint_id`."
+          },
+          "response": []
+        },
+        {
+          "name": "Complaints - Show",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/resident/complaints/{{complaint_id}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "resident",
+                "complaints",
+                "{{complaint_id}}"
+              ]
+            },
+            "description": "Shows a complaint that belongs to the authenticated resident."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Collector",
+      "item": [
+        {
+          "name": "Dashboard",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/collector/dashboard",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "collector",
+                "dashboard"
+              ]
+            },
+            "description": "Requires a collector token. Returns collector details, today's schedules, and upcoming schedules."
+          },
+          "response": []
+        },
+        {
+          "name": "Schedules - List",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/collector/schedules?page=1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "collector",
+                "schedules"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                }
+              ]
+            },
+            "description": "Paginated published schedules assigned to the authenticated collector."
+          },
+          "response": []
+        },
+        {
+          "name": "Schedules - Show",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/collector/schedules/{{schedule_id}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "collector",
+                "schedules",
+                "{{schedule_id}}"
+              ]
+            },
+            "description": "Shows a schedule assigned to the authenticated collector."
+          },
+          "response": []
+        },
+        {
+          "name": "Schedules - Update Status",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status update was saved', function () {",
+                  "  pm.expect(pm.response.code).to.eql(201);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"in_progress\",\n  \"notes\": \"Collection has started.\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/collector/schedules/{{schedule_id}}/status",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "collector",
+                "schedules",
+                "{{schedule_id}}",
+                "status"
+              ]
+            },
+            "description": "Creates or updates the authenticated collector's status for a schedule. Allowed statuses: pending, in_progress, completed."
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}

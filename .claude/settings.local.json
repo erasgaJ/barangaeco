@@ -19,7 +19,28 @@
       "PowerShell(Rename-Item \"C:\\\\herd\\\\barangaeco\\\\database\\\\migrations\\\\2026_05_09_034407_create_complaints_table.php\" \"2026_05_09_034409_create_complaints_table.php\")",
       "PowerShell(Rename-Item \"C:\\\\herd\\\\barangaeco\\\\database\\\\migrations\\\\2026_05_09_034407_create_announcements_table.php\" \"2026_05_09_034410_create_announcements_table.php\")",
       "PowerShell(php artisan tinker --execute \"Schema::drop\\('schedule_collector'\\);\" 2>&1)",
-      "PowerShell(vendor/bin/pint --dirty --format agent 2>&1)"
+      "PowerShell(vendor/bin/pint --dirty --format agent 2>&1)",
+      "PowerShell(php artisan make:middleware EnsureRole --no-interaction 2>&1)",
+      "PowerShell(php artisan make:controller Api/Auth/AuthController --no-interaction)",
+      "PowerShell(php artisan make:controller Api/Resident/ResidentDashboardController --invokable --no-interaction)",
+      "PowerShell(php artisan make:controller Api/Resident/DocumentRequestController --api --no-interaction)",
+      "PowerShell(php artisan make:controller Api/Resident/ComplaintController --api --no-interaction)",
+      "PowerShell(php artisan make:controller Api/Collector/CollectorDashboardController --invokable --no-interaction)",
+      "PowerShell(php artisan make:controller Api/Collector/CollectionScheduleController --no-interaction)",
+      "PowerShell(php artisan make:controller Api/Collector/CollectionStatusController --no-interaction)",
+      "PowerShell(New-Item -ItemType Directory -Force \"C:\\\\herd\\\\barangaeco\\\\app\\\\Http\\\\Controllers\\\\Api\\\\Auth\")",
+      "PowerShell(New-Item -ItemType Directory -Force \"C:\\\\herd\\\\barangaeco\\\\app\\\\Http\\\\Controllers\\\\Api\\\\Resident\")",
+      "PowerShell(New-Item -ItemType Directory -Force \"C:\\\\herd\\\\barangaeco\\\\app\\\\Http\\\\Controllers\\\\Api\\\\Collector\")",
+      "PowerShell(New-Item -ItemType Directory -Force \"C:\\\\herd\\\\barangaeco\\\\app\\\\Http\\\\Controllers\\\\Admin\")",
+      "PowerShell(php artisan route:list --except-vendor 2>&1)",
+      "PowerShell(npm install date-fns --save 2>&1)",
+      "PowerShell(tail -5)",
+      "PowerShell(New-Item -ItemType Directory -Force \"C:\\\\herd\\\\barangaeco\\\\resources\\\\js\\\\pages\\\\admin\\\\residents\")",
+      "PowerShell(New-Item -ItemType Directory -Force \"C:\\\\herd\\\\barangaeco\\\\resources\\\\js\\\\pages\\\\admin\\\\waste-management\")",
+      "PowerShell(npm run types:check 2>&1)",
+      "PowerShell(New-Item -ItemType Directory -Force -Path \"c:\\\\herd\\\\barangaeco\\\\resources\\\\js\\\\pages\\\\admin\\\\document-requests\")",
+      "PowerShell(New-Item -ItemType Directory -Force -Path \"c:\\\\herd\\\\barangaeco\\\\resources\\\\js\\\\pages\\\\admin\\\\complaints\")",
+      "PowerShell(New-Item -ItemType Directory -Force -Path \"c:\\\\herd\\\\barangaeco\\\\resources\\\\js\\\\pages\\\\admin\\\\announcements\")"
     ]
   }
 }

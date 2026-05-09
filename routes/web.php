@@ -1,14 +1,58 @@
 <?php
 
+use App\Http\Controllers\Admin\AnnouncementController;
+use App\Http\Controllers\Admin\CollectorController;
+use App\Http\Controllers\Admin\ComplaintController;
+use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\DocumentRequestController;
+use App\Http\Controllers\Admin\ResidentController;
+use App\Http\Controllers\Admin\WasteCollectionScheduleController;
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Features;
 
-Route::inertia('/', 'welcome', [
-    'canRegister' => Features::enabled(Features::registration()),
-])->name('home');
+Route::redirect('/', '/login')->name('home');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::inertia('dashboard', 'dashboard')->name('dashboard');
+});
+
+// Admin routes
+Route::middleware(['auth', 'verified', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('dashboard', DashboardController::class)->name('dashboard');
+
+    // Residents
+    Route::get('residents', [ResidentController::class, 'index'])->name('residents.index');
+    Route::post('residents', [ResidentController::class, 'store'])->name('residents.store');
+    Route::put('residents/{resident}', [ResidentController::class, 'update'])->name('residents.update');
+    Route::delete('residents/{resident}', [ResidentController::class, 'destroy'])->name('residents.destroy');
+
+    // Waste Management
+    Route::prefix('waste-management')->name('waste.')->group(function () {
+        Route::get('schedules', [WasteCollectionScheduleController::class, 'index'])->name('schedules.index');
+        Route::post('schedules', [WasteCollectionScheduleController::class, 'store'])->name('schedules.store');
+        Route::put('schedules/{schedule}', [WasteCollectionScheduleController::class, 'update'])->name('schedules.update');
+        Route::delete('schedules/{schedule}', [WasteCollectionScheduleController::class, 'destroy'])->name('schedules.destroy');
+
+        Route::get('collectors', [CollectorController::class, 'index'])->name('collectors.index');
+        Route::post('collectors', [CollectorController::class, 'store'])->name('collectors.store');
+        Route::put('collectors/{collector}', [CollectorController::class, 'update'])->name('collectors.update');
+        Route::delete('collectors/{collector}', [CollectorController::class, 'destroy'])->name('collectors.destroy');
+    });
+
+    // Document Requests
+    Route::get('document-requests', [DocumentRequestController::class, 'index'])->name('document-requests.index');
+    Route::post('document-requests/{documentRequest}/approve', [DocumentRequestController::class, 'approve'])->name('document-requests.approve');
+    Route::post('document-requests/{documentRequest}/reject', [DocumentRequestController::class, 'reject'])->name('document-requests.reject');
+
+    // Complaints
+    Route::get('complaints', [ComplaintController::class, 'index'])->name('complaints.index');
+    Route::post('complaints', [ComplaintController::class, 'store'])->name('complaints.store');
+    Route::patch('complaints/{complaint}/status', [ComplaintController::class, 'updateStatus'])->name('complaints.update-status');
+
+    // Announcements
+    Route::get('announcements', [AnnouncementController::class, 'index'])->name('announcements.index');
+    Route::post('announcements', [AnnouncementController::class, 'store'])->name('announcements.store');
+    Route::delete('announcements/{announcement}', [AnnouncementController::class, 'destroy'])->name('announcements.destroy');
 });
 
 require __DIR__.'/settings.php';
