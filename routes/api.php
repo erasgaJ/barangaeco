@@ -28,7 +28,7 @@ Route::prefix('auth')->group(function () {
 });
 
 // Resident mobile routes
-Route::middleware(['auth:sanctum', 'role:resident'])->prefix('resident')->group(function () {
+Route::middleware(['auth:sanctum', 'role:resident,admin'])->prefix('resident')->group(function () {
     Route::get('dashboard', ResidentDashboardController::class);
 
     Route::apiResource('document-requests', ResidentDocumentRequestController::class)
@@ -39,7 +39,7 @@ Route::middleware(['auth:sanctum', 'role:resident'])->prefix('resident')->group(
 });
 
 // Collector/staff mobile routes
-Route::middleware(['auth:sanctum', 'role:collector'])->prefix('collector')->group(function () {
+Route::middleware(['auth:sanctum', 'role:collector,admin'])->prefix('collector')->group(function () {
     Route::get('dashboard', CollectorDashboardController::class);
 
     Route::get('schedules', [CollectionScheduleController::class, 'index']);

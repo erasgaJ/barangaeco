@@ -8,9 +8,15 @@ use App\Http\Controllers\Admin\DocumentRequestController;
 use App\Http\Controllers\Admin\ResidentController;
 use App\Http\Controllers\Admin\WasteCollectionScheduleController;
 use Illuminate\Support\Facades\Route;
-use Laravel\Fortify\Features;
 
 Route::redirect('/', '/login')->name('home');
+
+Route::view('api/documentation', 'swagger')->name('api.documentation');
+Route::get('api/documentation/openapi.json', function () {
+    return response()->file(base_path('openapi.json'), [
+        'Content-Type' => 'application/json',
+    ]);
+})->name('api.documentation.openapi');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::inertia('dashboard', 'dashboard')->name('dashboard');
