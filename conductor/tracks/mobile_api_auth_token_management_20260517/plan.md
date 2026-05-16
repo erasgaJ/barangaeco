@@ -73,13 +73,13 @@ Each task follows Red → Green → Refactor. Run `vendor/bin/pint --dirty --for
 
 ---
 
-## Phase 2: Register Endpoint
+## Phase 2: Register Endpoint [52232b1]
 
 **Goal:** The `POST /api/auth/register` endpoint is fully validated, creates the correct database records, returns the correct 201 response shape, and is covered by feature tests.
 
 ### Tasks
 
-- [ ] **Task 2.1 — Red: write failing tests for register**
+- [x] **Task 2.1 — Red: write failing tests for register**
   In `tests/Feature/Api/AuthTest.php`, add tests:
   - `it('registers a new resident and returns a token')` — happy path, assert 201, `token` present, `user.role === resident`, `user.resident.verification_status === pending`.
   - `it('fails registration with duplicate email')` — assert 422, `errors.email` present.
@@ -91,7 +91,7 @@ Each task follows Red → Green → Refactor. Run `vendor/bin/pint --dirty --for
 
   Run to confirm all new tests are red (failing).
 
-- [ ] **Task 2.2 — Create RegisterRequest Form Request**
+- [x] **Task 2.2 — Create RegisterRequest Form Request**
   Run:
   ```bash
   php artisan make:request Api/Auth/RegisterRequest
@@ -102,7 +102,7 @@ Each task follows Red → Green → Refactor. Run `vendor/bin/pint --dirty --for
   ```
   Run affected tests — should still fail on response shape (no resource yet).
 
-- [ ] **Task 2.3 — Create UserResource and ResidentResource (Eloquent API Resources)**
+- [x] **Task 2.3 — Create UserResource and ResidentResource (Eloquent API Resources)**
   Run:
   ```bash
   php artisan make:resource UserResource
@@ -112,7 +112,7 @@ Each task follows Red → Green → Refactor. Run `vendor/bin/pint --dirty --for
   `UserResource`: expose `id`, `name`, `email`, `role`, and merge the role-appropriate profile resource using `whenLoaded`.
   Update `AuthController::register()` to return `new UserResource($user->load('resident'))` inside the 201 response.
 
-- [ ] **Task 2.4 — Green: implement register logic end-to-end**
+- [x] **Task 2.4 — Green: implement register logic end-to-end**
   Ensure the controller:
   1. Creates `User` with `role: resident`.
   2. Stores `id_image` via `$request->file('id_image')->store('id-images', 'public')`.
@@ -122,15 +122,15 @@ Each task follows Red → Green → Refactor. Run `vendor/bin/pint --dirty --for
 
   Run tests — all register tests should be green.
 
-- [ ] **Task 2.5 — Refactor: extract file storage to a dedicated method or invokable action (optional)**
+- [x] **Task 2.5 — Refactor: extract file storage to a dedicated method or invokable action (optional)**
   If the controller method exceeds ~20 lines, consider extracting `storeIdImage(Request $request): string` as a private method. Re-run tests to confirm still green.
 
-- [ ] **Task 2.6 — Pint formatting**
+- [x] **Task 2.6 — Pint formatting**
   ```bash
   vendor/bin/pint --dirty --format agent
   ```
 
-- [ ] **Verification 2.7 — All register tests pass** [checkpoint]
+- [x] **Verification 2.7 — All register tests pass** [checkpoint]
   ```bash
   php artisan test --compact --filter=Api/AuthTest
   ```
