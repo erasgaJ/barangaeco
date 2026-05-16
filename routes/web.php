@@ -19,12 +19,11 @@ Route::get('api/documentation/openapi.json', function () {
 })->name('api.documentation.openapi');
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::inertia('dashboard', 'dashboard')->name('dashboard');
+    Route::get('dashboard', DashboardController::class)->name('dashboard');
 });
 
 // Admin routes
 Route::middleware(['auth', 'verified', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
-    Route::get('dashboard', DashboardController::class)->name('dashboard');
 
     // Residents
     Route::get('residents', [ResidentController::class, 'index'])->name('residents.index');

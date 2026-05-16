@@ -40,7 +40,29 @@
       "PowerShell(npm run types:check 2>&1)",
       "PowerShell(New-Item -ItemType Directory -Force -Path \"c:\\\\herd\\\\barangaeco\\\\resources\\\\js\\\\pages\\\\admin\\\\document-requests\")",
       "PowerShell(New-Item -ItemType Directory -Force -Path \"c:\\\\herd\\\\barangaeco\\\\resources\\\\js\\\\pages\\\\admin\\\\complaints\")",
-      "PowerShell(New-Item -ItemType Directory -Force -Path \"c:\\\\herd\\\\barangaeco\\\\resources\\\\js\\\\pages\\\\admin\\\\announcements\")"
+      "PowerShell(New-Item -ItemType Directory -Force -Path \"c:\\\\herd\\\\barangaeco\\\\resources\\\\js\\\\pages\\\\admin\\\\announcements\")",
+      "Bash(php artisan *)",
+      "Bash(/usr/bin/php -v)",
+      "Bash(command -v php)",
+      "Bash(powershell.exe *)",
+      "Bash(/c/Users/erasg/.config/herd/bin/php84/php.exe artisan *)",
+      "Bash(/c/Users/erasg/.config/herd/bin/php84/php.exe *)",
+      "Bash(\"C:/Users/erasg/.config/herd/bin/php.bat\" artisan *)",
+      "Bash(\"C:/Users/erasg/.config/herd/bin/php.bat\" vendor/bin/pint --dirty --format agent)",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "Bash(git commit *)",
+      "Read(//usr/local/**)",
+      "Read(//c/Users/erasg/.config/herd/bin/**)",
+      "Bash(php.bat artisan *)",
+      "Bash(php.bat vendor/bin/pint --dirty --format agent)",
+      "Bash(php.bat vendor/bin/pint --test --format agent)",
+      "Bash(php.bat vendor/bin/pint app/Http/Controllers/Api/Auth/AuthController.php routes/api.php tests/Feature/Api/AuthTest.php --test --format agent)",
+      "Bash(where php *)",
+      "Bash(php --version)",
+      "Bash(cmd *)",
+      "Bash(powershell *)",
+      "Bash(git *)"
     ]
   }
 }

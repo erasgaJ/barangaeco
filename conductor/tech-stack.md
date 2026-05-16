@@ -19,7 +19,7 @@
 |------|---------|---------|
 | React | 19 | UI framework |
 | Inertia.js | 3.x | SPA bridge (no separate API for web) |
-| TypeScript | 5.x | Type safety |
+| JavaScript (JSX) | ES2022+ | Frontend language — `.jsx` files, no TypeScript |
 | Tailwind CSS | 4.x | Styling |
 | Shadcn/ui + Radix UI | — | UI components |
 | Vite | 8.x | Build tool |
@@ -29,7 +29,7 @@
 
 - **Web routes** use Inertia (`Inertia::render()`) — no REST JSON for the admin web app
 - **API routes** use Sanctum token auth (`auth:sanctum` guard) — for resident and collector mobile apps
-- **Type-safe routing:** Wayfinder auto-generates `@/actions/` and `@/routes/` — import these; never hardcode URLs
+- **Route generation:** Wayfinder auto-generates `@/actions/` and `@/routes/` — import these; never hardcode URLs
 - **Auth:** Fortify handles all web auth flows; mobile uses `Api\Auth\AuthController`
 - **Role middleware:** `role:admin` restricts admin routes; applied at the route group level
 
