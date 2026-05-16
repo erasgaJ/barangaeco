@@ -17,50 +17,50 @@ Each task follows Red → Green → Refactor. Run `vendor/bin/pint --dirty --for
 
 ---
 
-## Phase 1: Test Infrastructure and Factories
+## Phase 1: Test Infrastructure and Factories [641288f]
 
 **Goal:** Establish the test scaffolding (factories for Barangay, Resident, Collector) and a baseline smoke test so subsequent phases can build on reliable test data.
 
 ### Tasks
 
-- [ ] **Task 1.1 — Read existing migrations and confirm table shapes**
+- [x] **Task 1.1 — Read existing migrations and confirm table shapes**
   Verify that `barangays`, `residents`, `collectors`, and `personal_access_tokens` tables match what the tests will assume. No code changes — just confirm before writing tests.
 
-- [ ] **Task 1.2 — Create BarangayFactory (TDD: factory definition)**
+- [x] **Task 1.2 — Create BarangayFactory (TDD: factory definition)**
   Run:
   ```bash
   php artisan make:factory BarangayFactory --model=Barangay
   ```
   Write a minimal factory with `name` (fake city name) and any required non-nullable columns from the migration. Run `php artisan test --compact --filter=BarangayFactory` to confirm it creates records.
 
-- [ ] **Task 1.3 — Create ResidentFactory (TDD: factory definition)**
+- [x] **Task 1.3 — Create ResidentFactory (TDD: factory definition)**
   Run:
   ```bash
   php artisan make:factory ResidentFactory --model=Resident
   ```
   Include states: `pending()`, `verified()`, `rejected()` matching `verification_status` enum values. Associate with `UserFactory` (role: resident) and `BarangayFactory`. Run smoke test.
 
-- [ ] **Task 1.4 — Create CollectorFactory (TDD: factory definition)**
+- [x] **Task 1.4 — Create CollectorFactory (TDD: factory definition)**
   Run:
   ```bash
   php artisan make:factory CollectorFactory --model=Collector
   ```
   Associate with `UserFactory` (role: collector). Run smoke test.
 
-- [ ] **Task 1.5 — Add role states to UserFactory**
+- [x] **Task 1.5 — Add role states to UserFactory**
   Add `resident()` and `collector()` states to the existing `UserFactory` that set the `role` column. Verify existing tests still pass:
   ```bash
   php artisan test --compact
   ```
 
-- [ ] **Task 1.6 — Create Api/AuthTest feature test file**
+- [x] **Task 1.6 — Create Api/AuthTest feature test file**
   Run:
   ```bash
   php artisan make:test --pest Api/AuthTest
   ```
   Write one passing smoke test (`it('has auth routes')`) that asserts the four route paths exist in the route list. Run to confirm green.
 
-- [ ] **Verification 1.7 — Run full suite, confirm no regressions** [checkpoint]
+- [x] **Verification 1.7 — Run full suite, confirm no regressions** [checkpoint]
   ```bash
   php artisan test --compact
   vendor/bin/pint --dirty --format agent
