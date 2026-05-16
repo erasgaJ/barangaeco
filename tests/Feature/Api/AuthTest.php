@@ -6,10 +6,15 @@ use App\Models\Resident;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
 
 uses(RefreshDatabase::class);
+
+beforeEach(function () {
+    Cache::flush();
+});
 
 it('has auth routes', function () {
     $routes = collect(Route::getRoutes()->getRoutes())->map(fn ($r) => $r->uri());
@@ -273,4 +278,53 @@ it('does not expose sensitive fields in me response', function () {
     expect($data)->not->toHaveKey('password')
         ->and($data)->not->toHaveKey('two_factor_secret')
         ->and($data)->not->toHaveKey('remember_token');
+});
+
+it('rotates the token on refresh', function () {
+    $user = User::factory()->resident()->create();
+    $token = $user->createToken('Test Device')->plainTextToken;
+
+    $response = $this->withToken($token)
+        ->postJson('/api/auth/refresh');
+
+    $response->assertStatus(200)
+        ->assertJsonStructure(['token']);
+
+    $newToken = $response->json('token');
+    expect($newToken)->not->toBe($token);
+
+    // Old token should be invalid
+    auth()->forgetGuards();
+    $this->withToken($token)
+        ->getJson('/api/auth/me')
+        ->assertStatus(401);
+
+    // New token should be valid
+    auth()->forgetGuards();
+    $this->withToken($newToken)
+        ->getJson('/api/auth/me')
+        ->assertStatus(200);
+});
+
+it('returns 401 on refresh without a token', function () {
+    $this->postJson('/api/auth/refresh')
+        ->assertStatus(401);
+});
+
+it('throttles login after too many attempts', function () {
+    $user = User::factory()->resident()->create();
+
+    for ($i = 0; $i < 6; $i++) {
+        $this->postJson('/api/auth/login', [
+            'email' => $user->email,
+            'password' => 'wrongpassword',
+            'device_name' => 'Test Device',
+        ]);
+    }
+
+    $this->postJson('/api/auth/login', [
+        'email' => $user->email,
+        'password' => 'wrongpassword',
+        'device_name' => 'Test Device',
+    ])->assertStatus(429);
 });

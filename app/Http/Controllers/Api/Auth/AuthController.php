@@ -78,4 +78,14 @@ class AuthController extends Controller
             new UserResource($user->load($relationship))
         );
     }
+
+    public function refresh(Request $request): JsonResponse
+    {
+        $currentToken = $request->user()->currentAccessToken();
+        $deviceName = $currentToken->name;
+        $currentToken->delete();
+        $newToken = $request->user()->createToken($deviceName)->plainTextToken;
+
+        return response()->json(['token' => $newToken]);
+    }
 }
