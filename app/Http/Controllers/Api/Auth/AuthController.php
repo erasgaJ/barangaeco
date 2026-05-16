@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Api\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\Auth\RegisterRequest;
+use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -35,20 +37,8 @@ class AuthController extends Controller
         ]);
     }
 
-    public function register(Request $request): JsonResponse
+    public function register(RegisterRequest $request): JsonResponse
     {
-        $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'email', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'full_name' => ['required', 'string', 'max:255'],
-            'address' => ['required', 'string'],
-            'barangay_id' => ['required', 'exists:barangays,id'],
-            'contact_number' => ['required', 'string'],
-            'id_image' => ['required', 'file', 'image', 'max:5120'],
-            'device_name' => ['required', 'string'],
-        ]);
-
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
@@ -71,7 +61,7 @@ class AuthController extends Controller
 
         return response()->json([
             'token' => $token,
-            'user' => $user->load('resident'),
+            'user' => new UserResource($user->load('resident')),
         ], 201);
     }
 
