@@ -57,4 +57,28 @@ class UserFactory extends Factory
             'two_factor_confirmed_at' => now(),
         ]);
     }
+
+    /** Set the user role to resident. */
+    public function resident(): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'role' => 'resident',
+        ]);
+    }
+
+    /** Set the user role to collector. */
+    public function collector(): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'role' => 'collector',
+        ]);
+    }
+
+    /** Set the user role to admin. */
+    public function admin(): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'role' => 'admin',
+        ]);
+    }
 }
