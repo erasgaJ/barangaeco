@@ -225,26 +225,26 @@ Each task follows Red → Green → Refactor. Run `vendor/bin/pint --dirty --for
 
 ---
 
-## Phase 4: Token Rotation, Rate Limiting, and Quality Gates
+## Phase 4: Token Rotation, Rate Limiting, and Quality Gates [08906c1]
 
 **Goal:** Add the `POST /api/auth/refresh` endpoint, apply rate limiting to public auth routes, run the full CI suite, and confirm 80%+ coverage for the auth module.
 
 ### Tasks
 
-- [ ] **Task 4.1 — Red: write failing test for token refresh**
+- [x] **Task 4.1 — Red: write failing test for token refresh**
   Add to `AuthTest`:
   - `it('rotates the token on refresh')` — authenticate, call `POST /api/auth/refresh`, assert 200, `token` present in response, old token now returns 401 on a follow-up `GET /api/auth/me`.
   - `it('returns 401 on refresh without a token')` — assert 401.
 
   Run — confirm red.
 
-- [ ] **Task 4.2 — Add refresh route to routes/api.php**
+- [x] **Task 4.2 — Add refresh route to routes/api.php**
   Inside the `auth:sanctum` group in `routes/api.php`, add:
   ```php
   Route::post('refresh', [AuthController::class, 'refresh']);
   ```
 
-- [ ] **Task 4.3 — Green: implement refresh method in AuthController**
+- [x] **Task 4.3 — Green: implement refresh method in AuthController**
   ```php
   public function refresh(Request $request): JsonResponse
   {
@@ -258,13 +258,13 @@ Each task follows Red → Green → Refactor. Run `vendor/bin/pint --dirty --for
   ```
   Run refresh tests — green.
 
-- [ ] **Task 4.4 — Red: write failing test for rate limiting on login**
+- [x] **Task 4.4 — Red: write failing test for rate limiting on login**
   Add to `AuthTest`:
   - `it('throttles login after too many attempts')` — call `POST /api/auth/login` with wrong credentials 7 times, assert the 7th returns `429`.
 
   Run — confirm red (rate limiting not yet applied).
 
-- [ ] **Task 4.5 — Apply rate limiting to public auth routes**
+- [x] **Task 4.5 — Apply rate limiting to public auth routes**
   In `routes/api.php`, wrap the public auth routes (`login`, `register`) with `throttle:6,1`:
   ```php
   Route::prefix('auth')->group(function () {
@@ -282,18 +282,18 @@ Each task follows Red → Green → Refactor. Run `vendor/bin/pint --dirty --for
   ```
   Run rate-limiting test — green.
 
-- [ ] **Task 4.6 — Pint formatting**
+- [x] **Task 4.6 — Pint formatting**
   ```bash
   vendor/bin/pint --dirty --format agent
   ```
 
-- [ ] **Task 4.7 — Run full CI suite**
+- [x] **Task 4.7 — Run full CI suite**
   ```bash
   composer run ci:check
   ```
   Fix any lint, format, or type errors. Re-run until all gates pass.
 
-- [ ] **Verification 4.8 — All tests green, coverage check** [checkpoint]
+- [x] **Verification 4.8 — All tests green, coverage check** [checkpoint]
   ```bash
   php artisan test --compact
   ```
