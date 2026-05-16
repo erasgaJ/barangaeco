@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\Auth\LoginRequest;
 use App\Http\Requests\Api\Auth\RegisterRequest;
 use App\Http\Resources\UserResource;
 use App\Models\User;
@@ -13,14 +14,8 @@ use Illuminate\Validation\ValidationException;
 
 class AuthController extends Controller
 {
-    public function login(Request $request): JsonResponse
+    public function login(LoginRequest $request): JsonResponse
     {
-        $request->validate([
-            'email' => ['required', 'email'],
-            'password' => ['required'],
-            'device_name' => ['required', 'string'],
-        ]);
-
         $user = User::where('email', $request->email)->first();
 
         if (! $user || ! Hash::check($request->password, $user->password)) {
@@ -31,9 +26,11 @@ class AuthController extends Controller
 
         $token = $user->createToken($request->device_name)->plainTextToken;
 
+        $relationship = $user->isResident() ? 'resident.barangay' : 'collector';
+
         return response()->json([
             'token' => $token,
-            'user' => $user->load($user->isResident() ? 'resident' : 'collector'),
+            'user' => new UserResource($user->load($relationship)),
         ]);
     }
 
@@ -75,9 +72,10 @@ class AuthController extends Controller
     public function me(Request $request): JsonResponse
     {
         $user = $request->user();
+        $relationship = $user->isResident() ? 'resident.barangay' : 'collector';
 
         return response()->json(
-            $user->load($user->isResident() ? 'resident.barangay' : 'collector')
+            new UserResource($user->load($relationship))
         );
     }
 }

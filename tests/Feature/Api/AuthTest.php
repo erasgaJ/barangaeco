@@ -1,6 +1,8 @@
 <?php
 
 use App\Models\Barangay;
+use App\Models\Collector;
+use App\Models\Resident;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
@@ -142,4 +144,133 @@ it('fails registration when id_image is not an image', function () {
         'id_image' => $pdf,
         'device_name' => 'Test',
     ])->assertStatus(422)->assertJsonValidationErrors(['id_image']);
+});
+
+it('logs in a resident and returns a token with resident profile', function () {
+    $barangay = Barangay::factory()->create();
+    $user = User::factory()->resident()->create();
+    Resident::factory()->create(['user_id' => $user->id, 'barangay_id' => $barangay->id]);
+
+    $response = $this->postJson('/api/auth/login', [
+        'email' => $user->email,
+        'password' => 'password',
+        'device_name' => 'Test Device',
+    ]);
+
+    $response->assertStatus(200)
+        ->assertJsonStructure(['token', 'user' => ['id', 'name', 'email', 'role', 'resident']])
+        ->assertJsonPath('user.role', 'resident')
+        ->assertJsonMissing(['password']);
+});
+
+it('logs in a collector and returns a token with collector profile', function () {
+    $user = User::factory()->collector()->create();
+    Collector::factory()->create(['user_id' => $user->id]);
+
+    $response = $this->postJson('/api/auth/login', [
+        'email' => $user->email,
+        'password' => 'password',
+        'device_name' => 'Test Device',
+    ]);
+
+    $response->assertStatus(200)
+        ->assertJsonStructure(['token', 'user' => ['id', 'name', 'email', 'role', 'collector']])
+        ->assertJsonPath('user.role', 'collector');
+});
+
+it('fails login with incorrect password', function () {
+    $user = User::factory()->resident()->create();
+
+    $this->postJson('/api/auth/login', [
+        'email' => $user->email,
+        'password' => 'wrongpassword',
+        'device_name' => 'Test Device',
+    ])->assertStatus(422)->assertJsonValidationErrors(['email']);
+});
+
+it('fails login with non-existent email', function () {
+    $this->postJson('/api/auth/login', [
+        'email' => 'nobody@example.com',
+        'password' => 'password',
+        'device_name' => 'Test Device',
+    ])->assertStatus(422)->assertJsonValidationErrors(['email']);
+});
+
+it('fails login when device_name is missing', function () {
+    $user = User::factory()->resident()->create();
+
+    $this->postJson('/api/auth/login', [
+        'email' => $user->email,
+        'password' => 'password',
+    ])->assertStatus(422)->assertJsonValidationErrors(['device_name']);
+});
+
+it('logs out and revokes the current token', function () {
+    $user = User::factory()->resident()->create();
+    $token = $user->createToken('Test Device')->plainTextToken;
+
+    $this->withToken($token)
+        ->postJson('/api/auth/logout')
+        ->assertStatus(200)
+        ->assertJson(['message' => 'Logged out successfully.']);
+
+    // Token should be deleted from the database
+    expect($user->tokens()->count())->toBe(0);
+
+    // A fresh request with the old token should return 401
+    auth()->forgetGuards();
+    $this->withToken($token)
+        ->getJson('/api/auth/me')
+        ->assertStatus(401);
+});
+
+it('returns 401 when logging out without a token', function () {
+    $this->postJson('/api/auth/logout')
+        ->assertStatus(401);
+});
+
+it('returns authenticated resident profile via me endpoint', function () {
+    $barangay = Barangay::factory()->create();
+    $user = User::factory()->resident()->create();
+    Resident::factory()->create(['user_id' => $user->id, 'barangay_id' => $barangay->id]);
+
+    $token = $user->createToken('Test')->plainTextToken;
+
+    $this->withToken($token)
+        ->getJson('/api/auth/me')
+        ->assertStatus(200)
+        ->assertJsonStructure(['id', 'name', 'email', 'role', 'resident' => ['barangay_id']])
+        ->assertJsonPath('role', 'resident');
+});
+
+it('returns authenticated collector profile via me endpoint', function () {
+    $user = User::factory()->collector()->create();
+    Collector::factory()->create(['user_id' => $user->id]);
+
+    $token = $user->createToken('Test')->plainTextToken;
+
+    $this->withToken($token)
+        ->getJson('/api/auth/me')
+        ->assertStatus(200)
+        ->assertJsonStructure(['id', 'name', 'email', 'role', 'collector'])
+        ->assertJsonPath('role', 'collector');
+});
+
+it('returns 401 on me endpoint without token', function () {
+    $this->getJson('/api/auth/me')
+        ->assertStatus(401);
+});
+
+it('does not expose sensitive fields in me response', function () {
+    $user = User::factory()->resident()->create();
+    Resident::factory()->create(['user_id' => $user->id]);
+    $token = $user->createToken('Test')->plainTextToken;
+
+    $response = $this->withToken($token)->getJson('/api/auth/me');
+
+    $response->assertStatus(200);
+    $data = $response->json();
+    expect($data)->not->toHaveKey('password')
+        ->and($data)->not->toHaveKey('two_factor_secret')
+        ->and($data)->not->toHaveKey('remember_token');
 });
