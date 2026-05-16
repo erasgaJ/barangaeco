@@ -225,7 +225,7 @@ Each task follows Red → Green → Refactor. Run `vendor/bin/pint --dirty --for
 
 ---
 
-## Phase 4: Token Rotation, Rate Limiting, and Quality Gates [08906c1]
+## Phase 4: Token Rotation, Rate Limiting, and Quality Gates [08906c1] [checkpoint: cc98964]
 
 **Goal:** Add the `POST /api/auth/refresh` endpoint, apply rate limiting to public auth routes, run the full CI suite, and confirm 80%+ coverage for the auth module.
 
