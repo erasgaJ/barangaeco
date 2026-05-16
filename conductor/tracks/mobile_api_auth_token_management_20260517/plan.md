@@ -142,13 +142,13 @@ Each task follows Red → Green → Refactor. Run `vendor/bin/pint --dirty --for
 
 ---
 
-## Phase 3: Login, Logout, and Me Endpoints
+## Phase 3: Login, Logout, and Me Endpoints [eb63e17]
 
 **Goal:** The three remaining existing endpoints are covered by tests, use Form Requests and Resources for consistency, and are hardened against edge cases.
 
 ### Tasks
 
-- [ ] **Task 3.1 — Red: write failing tests for login**
+- [x] **Task 3.1 — Red: write failing tests for login**
   Add to `AuthTest`:
   - `it('logs in a resident and returns a token with resident profile')` — assert 200, `token` present, `user.role === resident`, `user.resident` present, `user.resident.barangay` present.
   - `it('logs in a collector and returns a token with collector profile')` — assert 200, `user.role === collector`, `user.collector` present.
@@ -158,7 +158,7 @@ Each task follows Red → Green → Refactor. Run `vendor/bin/pint --dirty --for
 
   Run — confirm red.
 
-- [ ] **Task 3.2 — Create LoginRequest Form Request**
+- [x] **Task 3.2 — Create LoginRequest Form Request**
   Run:
   ```bash
   php artisan make:request Api/Auth/LoginRequest
@@ -166,7 +166,7 @@ Each task follows Red → Green → Refactor. Run `vendor/bin/pint --dirty --for
   Rules: `email` required|email, `password` required, `device_name` required|string.
   Update `AuthController::login()` to use `LoginRequest`.
 
-- [ ] **Task 3.3 — Create CollectorResource**
+- [x] **Task 3.3 — Create CollectorResource**
   Run:
   ```bash
   php artisan make:resource CollectorResource
@@ -174,25 +174,25 @@ Each task follows Red → Green → Refactor. Run `vendor/bin/pint --dirty --for
   Expose `id`, `full_name`, `contact_number`.
   Update `UserResource` to include `CollectorResource` via `whenLoaded('collector')`.
 
-- [ ] **Task 3.4 — Green: update login controller method**
+- [x] **Task 3.4 — Green: update login controller method**
   Update `AuthController::login()` to return `response()->json(['token' => $token, 'user' => new UserResource(...)])`.
   For resident login, eager-load `resident.barangay`. For collector login, eager-load `collector`.
   Run login tests — green.
 
-- [ ] **Task 3.5 — Red: write failing tests for logout**
+- [x] **Task 3.5 — Red: write failing tests for logout**
   Add to `AuthTest`:
   - `it('logs out and revokes the current token')` — authenticate, logout, assert 200 message, then assert a follow-up authenticated request returns 401.
   - `it('returns 401 when logging out without a token')` — assert 401.
 
   Run — confirm red.
 
-- [ ] **Task 3.6 — Green: confirm logout is already implemented**
+- [x] **Task 3.6 — Green: confirm logout is already implemented**
   The `AuthController::logout()` body is complete. Tests should go green once the route is confirmed to use `auth:sanctum`. Run:
   ```bash
   php artisan test --compact --filter=logs_out
   ```
 
-- [ ] **Task 3.7 — Red: write failing tests for me**
+- [x] **Task 3.7 — Red: write failing tests for me**
   Add to `AuthTest`:
   - `it('returns authenticated resident profile via me endpoint')` — assert 200, `user.resident.barangay` present, no `password` key in response.
   - `it('returns authenticated collector profile via me endpoint')` — assert 200, `user.collector` present.
@@ -201,15 +201,15 @@ Each task follows Red → Green → Refactor. Run `vendor/bin/pint --dirty --for
 
   Run — confirm red.
 
-- [ ] **Task 3.8 — Green: update me controller method**
+- [x] **Task 3.8 — Green: update me controller method**
   Update `AuthController::me()` to return `new UserResource(...)`. Ensure resident path eager-loads `resident.barangay`, collector path eager-loads `collector`. Run tests — green.
 
-- [ ] **Task 3.9 — Pint formatting**
+- [x] **Task 3.9 — Pint formatting**
   ```bash
   vendor/bin/pint --dirty --format agent
   ```
 
-- [ ] **Verification 3.10 — All auth tests pass** [checkpoint]
+- [x] **Verification 3.10 — All auth tests pass** [checkpoint]
   ```bash
   php artisan test --compact --filter=Api/AuthTest
   ```
