@@ -4,8 +4,10 @@
 
 | Track ID | Description | Status |
 |---|---|---|
-| `mobile_api_auth_token_management_20260517` | Mobile API auth + token management (register, login, logout, me, refresh) | planned |
+| `mobile_api_auth_token_management_20260517` | Mobile API auth + token management (register, login, logout, me, refresh) | complete |
 
 ## Completed
 
-_None yet._
+| Track ID | Description | Checkpoint |
+|---|---|---|
+| `mobile_api_auth_token_management_20260517` | Mobile API auth + token management (register, login, logout, me, refresh) | cc98964 |
