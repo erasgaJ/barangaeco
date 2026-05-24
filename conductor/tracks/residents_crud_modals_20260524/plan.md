@@ -5,7 +5,7 @@
 
 ---
 
-## Phase 1: Add Resident Modal
+## Phase 1: Add Resident Modal [checkpoint: 75c3ac9]
 
 - [x] Wire "Add Resident" button to open `showAddModal` state [2f99e2f]
 - [x] Create `AddResidentModal` component with fixed overlay and centered panel [2f99e2f]
