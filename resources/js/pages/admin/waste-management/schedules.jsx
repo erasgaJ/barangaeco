@@ -4,6 +4,7 @@ import { CheckCircle2, Pencil, Plus, Trash2, Truck } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { cn } from '@/lib/utils';
 import collectorsRoutes from '@/routes/admin/waste/collectors';
+import CreateScheduleModal from './create-schedule-modal';
 
 const SCHEDULE_COLORS = [
     'bg-green-200 text-green-800',
@@ -369,6 +370,7 @@ function colorFor(barangayId) {
 export default function SchedulesPage({
     schedules,
     today_schedules,
+    barangays,
     collectors,
 }) {
     const [activeTab, setActiveTab] = useState('schedule');
@@ -376,6 +378,8 @@ export default function SchedulesPage({
         startOfWeek(new Date(), { weekStartsOn: 1 }),
     );
     const [showAddModal, setShowAddModal] = useState(false);
+    const [showCreateScheduleModal, setShowCreateScheduleModal] =
+        useState(false);
     const [editingCollector, setEditingCollector] = useState(null);
     const [deletingCollector, setDeletingCollector] = useState(null);
 
@@ -390,6 +394,13 @@ export default function SchedulesPage({
     return (
         <>
             <Head title="Waste Management" />
+            {showCreateScheduleModal && (
+                <CreateScheduleModal
+                    barangays={barangays}
+                    collectors={collectors}
+                    onClose={() => setShowCreateScheduleModal(false)}
+                />
+            )}
             {showAddModal && (
                 <AddCollectorModal onClose={() => setShowAddModal(false)} />
             )}
@@ -417,7 +428,10 @@ export default function SchedulesPage({
                             routes.
                         </p>
                     </div>
-                    <button className="flex items-center gap-2 rounded-lg bg-blue-700 px-4 py-2 text-sm font-medium text-white hover:bg-blue-800">
+                    <button
+                        onClick={() => setShowCreateScheduleModal(true)}
+                        className="flex items-center gap-2 rounded-lg bg-blue-700 px-4 py-2 text-sm font-medium text-white hover:bg-blue-800"
+                    >
                         <Plus className="h-4 w-4" />
                         Create Schedule
                     </button>
@@ -495,52 +509,81 @@ export default function SchedulesPage({
                             </div>
 
                             {/* Calendar grid */}
-                            <div className="grid grid-cols-7 gap-1">
-                                {weekDays.map((day, i) => {
-                                    const isToday = isSameDay(day, new Date());
-                                    const daySchedules = schedulesForDay(day);
-                                    return (
-                                        <div key={i} className="min-h-[100px]">
-                                            <div className="mb-1 pb-1 text-center text-sm">
-                                                <span
+                            <div className="overflow-hidden rounded-lg border border-slate-200">
+                                <div className="grid grid-cols-7 divide-x divide-slate-200 border-b border-slate-200 bg-slate-50">
+                                    {weekDays.map((day, i) => {
+                                        const isToday = isSameDay(
+                                            day,
+                                            new Date(),
+                                        );
+                                        return (
+                                            <div
+                                                key={i}
+                                                className={cn(
+                                                    'px-2 py-2.5 text-center',
+                                                    isToday && 'bg-blue-50',
+                                                )}
+                                            >
+                                                <p
                                                     className={cn(
-                                                        'text-xs font-medium',
+                                                        'text-xs font-medium tracking-wide uppercase',
                                                         isToday
                                                             ? 'text-blue-600'
-                                                            : 'text-slate-500',
+                                                            : 'text-slate-400',
                                                     )}
                                                 >
                                                     {DAYS[i]}
-                                                </span>
+                                                </p>
                                                 <div
                                                     className={cn(
-                                                        'mx-auto mt-0.5 flex h-6 w-6 items-center justify-center rounded-full text-xs',
+                                                        'mx-auto mt-1 flex h-7 w-7 items-center justify-center rounded-full text-sm font-semibold',
                                                         isToday
-                                                            ? 'bg-blue-600 font-bold text-white'
+                                                            ? 'bg-blue-600 text-white'
                                                             : 'text-slate-700',
                                                     )}
                                                 >
                                                     {format(day, 'd')}
                                                 </div>
                                             </div>
-                                            <div className="flex flex-col gap-1">
-                                                {daySchedules.map((s) => (
-                                                    <div
-                                                        key={s.id}
-                                                        className={cn(
-                                                            'cursor-pointer rounded px-1.5 py-1 text-xs leading-tight',
-                                                            colorFor(
-                                                                s.barangay.id,
-                                                            ),
-                                                        )}
-                                                    >
-                                                        {s.barangay.name}
-                                                    </div>
-                                                ))}
+                                        );
+                                    })}
+                                </div>
+                                <div className="grid grid-cols-7 divide-x divide-slate-100">
+                                    {weekDays.map((day, i) => {
+                                        const isToday = isSameDay(
+                                            day,
+                                            new Date(),
+                                        );
+                                        const daySchedules =
+                                            schedulesForDay(day);
+                                        return (
+                                            <div
+                                                key={i}
+                                                className={cn(
+                                                    'min-h-[140px] p-2',
+                                                    isToday && 'bg-blue-50/30',
+                                                )}
+                                            >
+                                                <div className="flex flex-col gap-1">
+                                                    {daySchedules.map((s) => (
+                                                        <div
+                                                            key={s.id}
+                                                            className={cn(
+                                                                'cursor-pointer rounded px-2 py-1 text-xs leading-tight font-medium',
+                                                                colorFor(
+                                                                    s.barangay
+                                                                        .id,
+                                                                ),
+                                                            )}
+                                                        >
+                                                            {s.barangay.name}
+                                                        </div>
+                                                    ))}
+                                                </div>
                                             </div>
-                                        </div>
-                                    );
-                                })}
+                                        );
+                                    })}
+                                </div>
                             </div>
                         </div>
 

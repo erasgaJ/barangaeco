@@ -49,7 +49,7 @@ class WasteCollectionScheduleController extends Controller
 
         $schedule->collectors()->sync($request->collector_ids);
 
-        return redirect()->route('admin.schedules.index');
+        return redirect()->route('admin.waste.schedules.index');
     }
 
     public function update(Request $request, WasteCollectionSchedule $schedule): RedirectResponse
@@ -66,13 +66,13 @@ class WasteCollectionScheduleController extends Controller
         $schedule->update($request->only('barangay_id', 'scheduled_date', 'scheduled_time', 'status'));
         $schedule->collectors()->sync($request->collector_ids);
 
-        return redirect()->route('admin.schedules.index');
+        return redirect()->route('admin.waste.schedules.index');
     }
 
     public function destroy(WasteCollectionSchedule $schedule): RedirectResponse
     {
         $schedule->delete();
 
-        return redirect()->route('admin.schedules.index');
+        return redirect()->route('admin.waste.schedules.index');
     }
 }
