@@ -5,6 +5,11 @@
 | Track ID | Description | Status |
 |---|---|---|
 | `mobile_api_auth_token_management_20260517` | Mobile API auth + token management (register, login, logout, me, refresh) | complete |
+| `waste_collectors_management_20260524` | Waste collectors management — Add, Edit, Delete modals in the Collector Management tab | active |
+| `residents_crud_modals_20260524` | Residents CRUD modals — Add, Edit, Delete connected to backend | pending |
+| `waste_schedules_modals_20260524` | Waste collection schedule modals — Create, Edit, Delete | active |
+| `document_requests_modals_20260524` | Document Request modals — Review (approve/reject), View Reason (rejected), View Copy (resolved) | planned |
+| `complaints_modals_20260524` | Complaint management modals — detail view modal + new complaint form modal for the admin web app | planned |
 
 ## Completed
 

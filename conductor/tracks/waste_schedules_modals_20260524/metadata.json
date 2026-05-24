@@ -1,0 +1,49 @@
+{
+    "track_id": "waste_schedules_modals_20260524",
+    "title": "Waste Collection Schedule Modals",
+    "description": "Create, Edit, and Delete modals for the Waste Management schedules page in the admin web app. Wires existing backend CRUD routes to frontend modal components and adds collector multi-select.",
+    "status": "active",
+    "created_at": "2026-05-24",
+    "priority": "high",
+    "phases": [
+        {
+            "number": 1,
+            "title": "Create Schedule Modal",
+            "status": "pending"
+        },
+        {
+            "number": 2,
+            "title": "Edit Schedule Modal",
+            "status": "pending"
+        },
+        {
+            "number": 3,
+            "title": "Delete Schedule Confirmation",
+            "status": "pending"
+        },
+        {
+            "number": 4,
+            "title": "Backend Tests + Polish",
+            "status": "pending"
+        }
+    ],
+    "files_affected": {
+        "frontend": [
+            "resources/js/pages/admin/waste-management/schedules.jsx",
+            "resources/js/pages/admin/waste-management/create-schedule-modal.jsx",
+            "resources/js/pages/admin/waste-management/edit-schedule-modal.jsx",
+            "resources/js/pages/admin/waste-management/delete-schedule-modal.jsx",
+            "resources/js/components/collector-multi-select.jsx"
+        ],
+        "backend": [
+            "app/Http/Controllers/Admin/ScheduleController.php"
+        ],
+        "tests": [
+            "tests/Feature/Admin/ScheduleControllerTest.php"
+        ]
+    },
+    "dependencies": {
+        "routes": "@/routes/admin/waste/schedules",
+        "props_required": ["schedules", "barangays", "collectors", "today_schedules"]
+    }
+}

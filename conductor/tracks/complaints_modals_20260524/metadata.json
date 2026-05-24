@@ -1,0 +1,12 @@
+{
+  "track_id": "complaints_modals_20260524",
+  "description": "Complaint management modals — detail view modal + new complaint form modal for the admin web app",
+  "created_at": "2026-05-24T00:00:00Z",
+  "status": "planned",
+  "current_phase": null,
+  "phases": [
+    { "id": 1, "name": "Complaint detail modal", "status": "pending" },
+    { "id": 2, "name": "New complaint modal", "status": "pending" },
+    { "id": 3, "name": "Tests and quality gates", "status": "pending" }
+  ]
+}
