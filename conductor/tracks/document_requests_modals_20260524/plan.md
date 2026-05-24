@@ -37,7 +37,7 @@ All work is in `resources/js/pages/admin/document-requests/index.jsx` unless not
 
 - [x] Task: Update `DocumentRequestsIndex` state management — replace `approveTarget`/`rejectTarget` with three state vars: `reviewTarget` (pending), `rejectTarget` (pending), `viewReasonTarget` (rejected placeholder for Phase 2). Wire pending row "Approve" button to `setReviewTarget`, "Reject" button to `setRejectTarget`. Pass `onReject={() => { setReviewTarget(null); setRejectTarget(req); }}` to `ReviewModal`.
 
-- [ ] Verification: Open `https://barangaeco.test/admin/document-requests` in browser. Click "Approve" on a pending row — two-column Review modal appears. Click "Reject Request" inside modal — switches to Reject modal. Click "Reject" directly from table row — Reject modal opens. Submit each action — page reloads with updated status. [checkpoint]
+- [x] Verification: Open `https://barangaeco.test/admin/document-requests` in browser. Click "Approve" on a pending row — two-column Review modal appears. Click "Reject Request" inside modal — switches to Reject modal. Click "Reject" directly from table row — Reject modal opens. Submit each action — page reloads with updated status. [checkpoint: 5f4df7c]
 
 **Phase 1 commit:** eea41ae
 
