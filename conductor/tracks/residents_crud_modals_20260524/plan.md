@@ -19,16 +19,16 @@
 
 ---
 
-## Phase 2: Edit Resident Modal
+## Phase 2: Edit Resident Modal [checkpoint: 1d3f063]
 
-- [ ] Wire Edit (pencil) button per row to open `editingResident` state with the selected resident
-- [ ] Create `EditResidentModal` component with pre-filled form
-- [ ] Show resident photo (or initials avatar fallback) + Resident ID badge (format: `RES-YYYY-NNNN`) in modal header
-- [ ] Pre-fill fields: Full Name, Address, Barangay (select), Contact Number
-- [ ] Implement `router.post` with `_method: PUT` and `forceFormData: true` to handle file uploads on update
-- [ ] Display server-side validation errors inline below each field
-- [ ] Reset editing state on modal close
-- [ ] Commit: `phase(2): Edit resident modal with pre-filled form and PUT submission`
+- [x] Wire Edit (pencil) button per row to open `editingResident` state with the selected resident [1d3f063]
+- [x] Create `EditResidentModal` component with pre-filled form [1d3f063]
+- [x] Show resident photo (or initials avatar fallback) + Resident ID badge (format: `RES-YYYY-NNNN`) in modal header [1d3f063]
+- [x] Pre-fill fields: Full Name, Address, Barangay (select), Contact Number [1d3f063]
+- [x] Implement `router.post` with `_method: PUT` and `forceFormData: true` to handle file uploads on update [1d3f063]
+- [x] Display server-side validation errors inline below each field [1d3f063]
+- [x] Reset editing state on modal close [1d3f063]
+- [x] Commit: `phase(2): Edit resident modal with pre-filled form and PUT submission` [1d3f063]
 
 ---
 
