@@ -7,7 +7,7 @@
 | `mobile_api_auth_token_management_20260517` | Mobile API auth + token management (register, login, logout, me, refresh) | complete |
 | `waste_collectors_management_20260524` | Waste collectors management — Add, Edit, Delete modals in the Collector Management tab | complete |
 | `residents_crud_modals_20260524` | Residents CRUD modals — Add, Edit, Delete connected to backend | complete |
-| `waste_schedules_modals_20260524` | Waste collection schedule modals — Create, Edit, Delete | active |
+| `waste_schedules_modals_20260524` | Waste collection schedule modals — Create, Edit, Delete | complete |
 | `document_requests_modals_20260524` | Document Request modals — Review (approve/reject), View Reason (rejected), View Copy (resolved) | planned |
 | `complaints_modals_20260524` | Complaint management modals — detail view modal + new complaint form modal for the admin web app | planned |
 
@@ -18,3 +18,4 @@
 | `mobile_api_auth_token_management_20260517` | Mobile API auth + token management (register, login, logout, me, refresh) | cc98964 |
 | `waste_collectors_management_20260524` | Waste collectors management — Add, Edit, Delete modals in the Collector Management tab | e46aadd |
 | `residents_crud_modals_20260524` | Residents CRUD modals — Add, Edit, Delete connected to backend | 8432944 |
+| `waste_schedules_modals_20260524` | Waste collection schedule modals — Create, Edit, Delete | d1f7879 |
