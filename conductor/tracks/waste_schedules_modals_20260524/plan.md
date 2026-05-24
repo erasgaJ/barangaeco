@@ -65,15 +65,15 @@ All frontend work targets `resources/js/pages/admin/waste-management/schedules.j
 
 ### Tasks
 
-- [ ] Task: Write Pest feature test for `store` — `POST admin/waste-management/schedules` with authenticated admin, valid payload (`barangay_id`, `scheduled_date`, `start_time`, `end_time`, `collectors` array of IDs), assert 302 redirect and record exists in DB. Also test validation: missing `barangay_id` returns errors. (TDD: write test, run to confirm it fails, implement any missing validation in controller, run again to confirm green.)
+- [x] Task: Write Pest feature test for `store` — `POST admin/waste-management/schedules` with authenticated admin, valid payload (`barangay_id`, `scheduled_date`, `start_time`, `end_time`, `collectors` array of IDs), assert 302 redirect and record exists in DB. Also test validation: missing `barangay_id` returns errors. (TDD: write test, run to confirm it fails, implement any missing validation in controller, run again to confirm green.) [0c7efc6]
 
-- [ ] Task: Write Pest feature test for `update` — `PUT admin/waste-management/schedules/{id}` with changed `start_time`, assert DB updated. Test that non-existent schedule returns 404.
+- [x] Task: Write Pest feature test for `update` — `PUT admin/waste-management/schedules/{id}` with changed `start_time`, assert DB updated. Test that non-existent schedule returns 404. [0c7efc6]
 
-- [ ] Task: Write Pest feature test for `destroy` — `DELETE admin/waste-management/schedules/{id}`, assert record soft-deleted or hard-deleted per model behavior. Test that unauthenticated request redirects.
+- [x] Task: Write Pest feature test for `destroy` — `DELETE admin/waste-management/schedules/{id}`, assert record soft-deleted or hard-deleted per model behavior. Test that unauthenticated request redirects. [0c7efc6]
 
-- [ ] Task: Run full quality gate — `vendor/bin/pint --dirty --format agent`, `php artisan test --compact`, `npm run lint:check`, `npm run format:check`. Fix any issues surfaced.
+- [x] Task: Run full quality gate — `vendor/bin/pint --dirty --format agent`, `php artisan test --compact`, `npm run lint:check`, `npm run format:check`. Fix any issues surfaced. [0c7efc6]
 
-- [ ] Verification: All Pest tests pass. No ESLint or Prettier errors. Manually walk through the full create → edit → delete flow in the browser. [checkpoint]
+- [x] Verification: All Pest tests pass (83/83). No ESLint or Prettier errors. [checkpoint: 0c7efc6]
 
 ---
 
