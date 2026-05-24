@@ -37,11 +37,11 @@ All frontend work targets `resources/js/pages/admin/waste-management/schedules.j
 
 ### Tasks
 
-- [ ] Task: Build `EditScheduleModal` component (`resources/js/pages/admin/waste-management/edit-schedule-modal.jsx`) — accepts `schedule` (the selected schedule object with `barangay`, `start_time`, `end_time`, `scheduled_date`, `collectors`), `barangays`, `collectors` (all), `onClose`, and `onDeleteRequest` props. Pre-fills all fields from the `schedule` prop on mount/when `schedule` changes. Submits via `router.put` using the Wayfinder `update` route. On `onSuccess`: calls `onClose`. Displays Inertia `errors` inline. Footer includes "Delete Schedule" red text link (with `Trash2` lucide icon) that calls `onDeleteRequest`. Cancel (outline) and Save Changes (blue filled) buttons. (TDD: write failing Pest feature test for `PUT admin/waste-management/schedules/{id}` with valid payload before implementing, then verify manually.)
+- [x] Task: Build `EditScheduleModal` component (`resources/js/pages/admin/waste-management/edit-schedule-modal.jsx`) — accepts `schedule` (the selected schedule object with `barangay`, `start_time`, `end_time`, `scheduled_date`, `collectors`), `barangays`, `collectors` (all), `onClose`, and `onDeleteRequest` props. Pre-fills all fields from the `schedule` prop on mount/when `schedule` changes. Submits via `router.put` using the Wayfinder `update` route. On `onSuccess`: calls `onClose`. Displays Inertia `errors` inline. Footer includes "Delete Schedule" red text link (with `Trash2` lucide icon) that calls `onDeleteRequest`. Cancel (outline) and Save Changes (blue filled) buttons. (TDD: write failing Pest feature test for `PUT admin/waste-management/schedules/{id}` with valid payload before implementing, then verify manually.) [fc90005]
 
-- [ ] Task: Wire calendar chips in `schedules.jsx` — add `useState` for `editingSchedule` (null or schedule object). Attach `onClick` to each calendar chip `div` that sets `editingSchedule`. Render `<EditScheduleModal>` conditionally, passing the selected schedule and the `onDeleteRequest` callback (sets `deleteTarget` state, see Phase 3).
+- [x] Task: Wire calendar chips in `schedules.jsx` — add `useState` for `editingSchedule` (null or schedule object). Attach `onClick` to each calendar chip `div` that sets `editingSchedule`. Render `<EditScheduleModal>` conditionally, passing the selected schedule and the `onDeleteRequest` callback (sets `deleteTarget` state, see Phase 3). [fc90005]
 
-- [ ] Verification: Click a schedule chip, verify modal opens pre-filled. Change start time, save, confirm updated time reflects on calendar. Cancel closes without saving. [checkpoint]
+- [x] Verification: Click a schedule chip, verify modal opens pre-filled. Change start time, save, confirm updated time reflects on calendar. Cancel closes without saving. [checkpoint: fc90005]
 
 ---
 
