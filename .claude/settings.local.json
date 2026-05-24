@@ -65,7 +65,13 @@
       "Bash(git *)",
       "PowerShell(php artisan route:list --except-vendor --path=admin)",
       "PowerShell(if \\(\\(Test-Path conductor/tech-stack.md\\) -and \\(Test-Path conductor/workflow.md\\) -and \\(Test-Path conductor/product.md\\)\\) { \"ready\" } else { \"missing\" })",
-      "Bash(C:\\\\Users\\\\erasg\\\\AppData\\\\Local\\\\Herd\\\\resources\\\\bin\\\\php\\\\php8.4\\\\php.exe artisan *)"
+      "Bash(C:\\\\Users\\\\erasg\\\\AppData\\\\Local\\\\Herd\\\\resources\\\\bin\\\\php\\\\php8.4\\\\php.exe artisan *)",
+      "Bash(C:/herd/barangaeco/vendor/bin/pint --version)",
+      "Bash(C:/Users/erasg/.config/herd/bin/php.bat artisan *)",
+      "Bash(C:/Users/erasg/.config/herd/bin/php.bat *)",
+      "Bash(npm run *)",
+      "Bash(vendor/bin/pint --dirty --format agent)",
+      "Bash(C:\\\\Users\\\\erasg\\\\AppData\\\\Local\\\\Programs\\\\herd-lite\\\\bin\\\\php.bat artisan *)"
     ]
   }
 }
