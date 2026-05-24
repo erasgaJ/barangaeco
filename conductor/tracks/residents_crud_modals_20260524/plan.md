@@ -45,7 +45,7 @@
 
 ---
 
-## Phase 4: Tests and Quality Gates
+## Phase 4: Tests and Quality Gates [checkpoint: 8432944]
 
 - [x] Write Pest feature test: `POST /admin/residents` stores resident and returns redirect (pre-existing)
 - [x] Write Pest feature test: `PUT /admin/residents/{id}` updates resident fields (pre-existing)
