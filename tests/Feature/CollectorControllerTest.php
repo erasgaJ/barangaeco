@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Collector;
 use App\Models\User;
 
 test('store creates a collector and user then redirects', function () {
@@ -52,4 +53,38 @@ test('store returns validation error when email is already taken', function () {
     ]);
 
     $response->assertSessionHasErrors(['email']);
+});
+
+test('update changes full_name and contact_number then redirects', function () {
+    $admin = User::factory()->admin()->create();
+    $collector = Collector::factory()->create([
+        'full_name' => 'Old Name',
+        'contact_number' => '09170000000',
+    ]);
+
+    $this->actingAs($admin);
+
+    $response = $this->put(route('admin.waste.collectors.update', $collector), [
+        'full_name' => 'New Name',
+        'contact_number' => '09171111111',
+    ]);
+
+    $response->assertRedirect(route('admin.waste.collectors.index'));
+
+    $this->assertDatabaseHas('collectors', [
+        'id' => $collector->id,
+        'full_name' => 'New Name',
+        'contact_number' => '09171111111',
+    ]);
+});
+
+test('update returns validation errors when required fields are missing', function () {
+    $admin = User::factory()->admin()->create();
+    $collector = Collector::factory()->create();
+
+    $this->actingAs($admin);
+
+    $response = $this->put(route('admin.waste.collectors.update', $collector), []);
+
+    $response->assertSessionHasErrors(['full_name', 'contact_number']);
 });

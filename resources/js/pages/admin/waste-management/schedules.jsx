@@ -158,6 +158,141 @@ function AddCollectorModal({ onClose }) {
     );
 }
 
+function EditCollectorModal({ collector, onClose }) {
+    const [form, setForm] = useState({
+        fullName: collector.full_name,
+        contactNumber: collector.contact_number,
+    });
+    const [errors, setErrors] = useState({});
+
+    useEffect(() => {
+        setForm({
+            fullName: collector.full_name,
+            contactNumber: collector.contact_number,
+        });
+        setErrors({});
+
+        function onKeyDown(e) {
+            if (e.key === 'Escape') {
+                onClose();
+            }
+        }
+
+        document.addEventListener('keydown', onKeyDown);
+        return () => document.removeEventListener('keydown', onKeyDown);
+    }, [collector, onClose]);
+
+    function handleBackdropClick(e) {
+        if (e.target === e.currentTarget) {
+            onClose();
+        }
+    }
+
+    function handleSubmit() {
+        router.put(
+            collectorsRoutes.update.url(collector),
+            {
+                full_name: form.fullName,
+                contact_number: form.contactNumber,
+            },
+            {
+                preserveScroll: true,
+                onSuccess: onClose,
+                onError: setErrors,
+            },
+        );
+    }
+
+    return (
+        <div
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/40"
+            onClick={handleBackdropClick}
+        >
+            <div className="w-full max-w-sm rounded-xl bg-white p-6 shadow-xl">
+                <h2 className="mb-5 text-base font-semibold text-slate-900">
+                    Edit Collector
+                </h2>
+
+                <div className="flex flex-col gap-4">
+                    <div>
+                        <label className="mb-1 block text-xs font-medium text-slate-700">
+                            Full Name
+                        </label>
+                        <input
+                            type="text"
+                            placeholder="e.g. Juan Dela Cruz"
+                            value={form.fullName}
+                            onChange={(e) =>
+                                setForm((f) => ({
+                                    ...f,
+                                    fullName: e.target.value,
+                                }))
+                            }
+                            className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm text-slate-900 outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-100"
+                        />
+                        {errors.full_name && (
+                            <p className="mt-1 text-xs text-red-500">
+                                {errors.full_name}
+                            </p>
+                        )}
+                    </div>
+
+                    <div>
+                        <label className="mb-1 block text-xs font-medium text-slate-700">
+                            Contact Number
+                        </label>
+                        <input
+                            type="text"
+                            placeholder="+63 912 345 6789"
+                            value={form.contactNumber}
+                            onChange={(e) =>
+                                setForm((f) => ({
+                                    ...f,
+                                    contactNumber: e.target.value,
+                                }))
+                            }
+                            className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm text-slate-900 outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-100"
+                        />
+                        {errors.contact_number && (
+                            <p className="mt-1 text-xs text-red-500">
+                                {errors.contact_number}
+                            </p>
+                        )}
+                    </div>
+
+                    <div>
+                        <label className="mb-1 block text-xs font-medium text-slate-700">
+                            Email Address
+                        </label>
+                        <input
+                            type="email"
+                            value={collector.user?.email ?? ''}
+                            disabled
+                            readOnly
+                            className="w-full cursor-not-allowed rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-sm text-slate-400 outline-none"
+                        />
+                    </div>
+                </div>
+
+                <div className="mt-6 flex justify-end gap-2">
+                    <button
+                        onClick={onClose}
+                        className="rounded-lg border border-slate-200 px-4 py-2 text-sm text-slate-600 hover:bg-slate-50"
+                    >
+                        Cancel
+                    </button>
+                    <button
+                        onClick={handleSubmit}
+                        className="rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700"
+                    >
+                        Save Changes
+                    </button>
+                </div>
+            </div>
+        </div>
+    );
+}
+
 function colorFor(barangayId) {
     return SCHEDULE_COLORS[barangayId % SCHEDULE_COLORS.length];
 }
@@ -172,6 +307,7 @@ export default function SchedulesPage({
         startOfWeek(new Date(), { weekStartsOn: 1 }),
     );
     const [showAddModal, setShowAddModal] = useState(false);
+    const [editingCollector, setEditingCollector] = useState(null);
 
     const weekDays = DAYS.map((_, i) => addDays(weekStart, i));
 
@@ -186,6 +322,12 @@ export default function SchedulesPage({
             <Head title="Waste Management" />
             {showAddModal && (
                 <AddCollectorModal onClose={() => setShowAddModal(false)} />
+            )}
+            {editingCollector && (
+                <EditCollectorModal
+                    collector={editingCollector}
+                    onClose={() => setEditingCollector(null)}
+                />
             )}
             <div className="p-6">
                 {/* Header */}
@@ -453,7 +595,14 @@ export default function SchedulesPage({
                                             </td>
                                             <td className="px-5 py-3">
                                                 <div className="flex items-center justify-end gap-2">
-                                                    <button className="rounded p-1.5 text-slate-400 hover:bg-slate-100 hover:text-blue-600">
+                                                    <button
+                                                        onClick={() =>
+                                                            setEditingCollector(
+                                                                collector,
+                                                            )
+                                                        }
+                                                        className="rounded p-1.5 text-slate-400 hover:bg-slate-100 hover:text-blue-600"
+                                                    >
                                                         <Pencil className="h-4 w-4" />
                                                     </button>
                                                     <button className="rounded p-1.5 text-slate-400 hover:bg-red-50 hover:text-red-600">
