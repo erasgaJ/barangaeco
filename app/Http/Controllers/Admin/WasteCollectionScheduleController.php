@@ -24,7 +24,7 @@ class WasteCollectionScheduleController extends Controller
                 ->with('barangay', 'collectors', 'statusUpdates')
                 ->get(),
             'barangays' => Barangay::orderBy('name')->get(),
-            'collectors' => Collector::orderBy('full_name')->get(),
+            'collectors' => Collector::with('user')->orderBy('full_name')->get(),
         ]);
     }
 

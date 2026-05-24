@@ -1,6 +1,6 @@
 import { Head } from '@inertiajs/react';
 import { addDays, format, isSameDay, startOfWeek } from 'date-fns';
-import { CheckCircle2, Plus, Truck } from 'lucide-react';
+import { CheckCircle2, Pencil, Plus, Trash2, Truck } from 'lucide-react';
 import { useState } from 'react';
 import { cn } from '@/lib/utils';
 
@@ -18,7 +18,11 @@ function colorFor(barangayId) {
     return SCHEDULE_COLORS[barangayId % SCHEDULE_COLORS.length];
 }
 
-export default function SchedulesPage({ schedules, today_schedules }) {
+export default function SchedulesPage({
+    schedules,
+    today_schedules,
+    collectors,
+}) {
     const [activeTab, setActiveTab] = useState('schedule');
     const [weekStart, setWeekStart] = useState(() =>
         startOfWeek(new Date(), { weekStartsOn: 1 }),
@@ -27,7 +31,9 @@ export default function SchedulesPage({ schedules, today_schedules }) {
     const weekDays = DAYS.map((_, i) => addDays(weekStart, i));
 
     function schedulesForDay(day) {
-        return schedules.data.filter((s) => isSameDay(new Date(s.scheduled_date), day));
+        return schedules.data.filter((s) =>
+            isSameDay(new Date(s.scheduled_date), day),
+        );
     }
 
     return (
@@ -37,9 +43,12 @@ export default function SchedulesPage({ schedules, today_schedules }) {
                 {/* Header */}
                 <div className="mb-5 flex items-start justify-between">
                     <div>
-                        <h1 className="text-2xl font-bold text-slate-900">Waste Management</h1>
+                        <h1 className="text-2xl font-bold text-slate-900">
+                            Waste Management
+                        </h1>
                         <p className="mt-0.5 text-sm text-slate-500">
-                            Manage collection schedules and monitor active routes.
+                            Manage collection schedules and monitor active
+                            routes.
                         </p>
                     </div>
                     <button className="flex items-center gap-2 rounded-lg bg-blue-700 px-4 py-2 text-sm font-medium text-white hover:bg-blue-800">
@@ -61,7 +70,9 @@ export default function SchedulesPage({ schedules, today_schedules }) {
                                     : 'text-slate-500 hover:text-slate-700',
                             )}
                         >
-                            {tab === 'schedule' ? 'Collection Schedule' : 'Collector Management'}
+                            {tab === 'schedule'
+                                ? 'Collection Schedule'
+                                : 'Collector Management'}
                         </button>
                     ))}
                 </div>
@@ -77,19 +88,30 @@ export default function SchedulesPage({ schedules, today_schedules }) {
                                     </span>
                                     <span className="text-sm text-slate-500">
                                         {format(weekStart, 'MMM d')} –{' '}
-                                        {format(addDays(weekStart, 6), 'MMM d, yyyy')}
+                                        {format(
+                                            addDays(weekStart, 6),
+                                            'MMM d, yyyy',
+                                        )}
                                     </span>
                                 </div>
                                 <div className="flex items-center gap-2">
                                     <div className="flex rounded-lg border border-slate-200 text-sm">
                                         <button
-                                            onClick={() => setWeekStart((d) => addDays(d, -7))}
+                                            onClick={() =>
+                                                setWeekStart((d) =>
+                                                    addDays(d, -7),
+                                                )
+                                            }
                                             className="px-3 py-1.5 text-slate-600 hover:bg-slate-50"
                                         >
                                             ‹
                                         </button>
                                         <button
-                                            onClick={() => setWeekStart((d) => addDays(d, 7))}
+                                            onClick={() =>
+                                                setWeekStart((d) =>
+                                                    addDays(d, 7),
+                                                )
+                                            }
                                             className="border-l border-slate-200 px-3 py-1.5 text-slate-600 hover:bg-slate-50"
                                         >
                                             ›
@@ -114,7 +136,14 @@ export default function SchedulesPage({ schedules, today_schedules }) {
                                     return (
                                         <div key={i} className="min-h-[100px]">
                                             <div className="mb-1 pb-1 text-center text-sm">
-                                                <span className={cn('text-xs font-medium', isToday ? 'text-blue-600' : 'text-slate-500')}>
+                                                <span
+                                                    className={cn(
+                                                        'text-xs font-medium',
+                                                        isToday
+                                                            ? 'text-blue-600'
+                                                            : 'text-slate-500',
+                                                    )}
+                                                >
                                                     {DAYS[i]}
                                                 </span>
                                                 <div
@@ -134,7 +163,9 @@ export default function SchedulesPage({ schedules, today_schedules }) {
                                                         key={s.id}
                                                         className={cn(
                                                             'cursor-pointer rounded px-1.5 py-1 text-xs leading-tight',
-                                                            colorFor(s.barangay.id),
+                                                            colorFor(
+                                                                s.barangay.id,
+                                                            ),
                                                         )}
                                                     >
                                                         {s.barangay.name}
@@ -151,13 +182,17 @@ export default function SchedulesPage({ schedules, today_schedules }) {
                         <div className="rounded-xl border border-slate-200 bg-white p-5">
                             <div className="mb-3 flex items-center gap-2">
                                 <Truck className="h-5 w-5 text-blue-600" />
-                                <h2 className="font-semibold text-slate-900">Today's Routes</h2>
+                                <h2 className="font-semibold text-slate-900">
+                                    Today's Routes
+                                </h2>
                             </div>
                             <div className="flex flex-col gap-2">
                                 {today_schedules.map((schedule) => {
                                     const update = schedule.statusUpdates?.[0];
-                                    const isInProgress = update?.status === 'in_progress';
-                                    const isCompleted = update?.status === 'completed';
+                                    const isInProgress =
+                                        update?.status === 'in_progress';
+                                    const isCompleted =
+                                        update?.status === 'completed';
                                     return (
                                         <div
                                             key={schedule.id}
@@ -166,7 +201,9 @@ export default function SchedulesPage({ schedules, today_schedules }) {
                                             <div
                                                 className={cn(
                                                     'flex h-9 w-9 shrink-0 items-center justify-center rounded-full',
-                                                    isCompleted ? 'bg-green-100' : 'bg-blue-100',
+                                                    isCompleted
+                                                        ? 'bg-green-100'
+                                                        : 'bg-blue-100',
                                                 )}
                                             >
                                                 {isCompleted ? (
@@ -177,10 +214,13 @@ export default function SchedulesPage({ schedules, today_schedules }) {
                                             </div>
                                             <div className="flex-1">
                                                 <p className="font-medium text-slate-900">
-                                                    {schedule.barangay.name} Route
+                                                    {schedule.barangay.name}{' '}
+                                                    Route
                                                 </p>
                                                 <p className="text-xs text-slate-500">
-                                                    {schedule.collectors.map((c) => c.full_name).join(', ')}
+                                                    {schedule.collectors
+                                                        .map((c) => c.full_name)
+                                                        .join(', ')}
                                                 </p>
                                             </div>
                                             <span
@@ -193,7 +233,11 @@ export default function SchedulesPage({ schedules, today_schedules }) {
                                                           : 'bg-slate-100 text-slate-500',
                                                 )}
                                             >
-                                                {isCompleted ? 'COMPLETED' : isInProgress ? '● IN PROGRESS' : 'PENDING'}
+                                                {isCompleted
+                                                    ? 'COMPLETED'
+                                                    : isInProgress
+                                                      ? '● IN PROGRESS'
+                                                      : 'PENDING'}
                                             </span>
                                             <p className="text-xs text-slate-400">
                                                 Est. {schedule.scheduled_time}
@@ -212,8 +256,75 @@ export default function SchedulesPage({ schedules, today_schedules }) {
                 )}
 
                 {activeTab === 'collectors' && (
-                    <div className="rounded-xl border border-slate-200 bg-white p-8 text-center text-sm text-slate-400">
-                        Collector management coming soon.
+                    <div>
+                        <div className="mb-4 flex items-center justify-between">
+                            <p className="text-sm text-slate-500">
+                                {collectors.length} collector
+                                {collectors.length !== 1 ? 's' : ''} registered
+                            </p>
+                            <button className="flex items-center gap-2 rounded-lg bg-blue-700 px-4 py-2 text-sm font-medium text-white hover:bg-blue-800">
+                                <Plus className="h-4 w-4" />
+                                Add Collector
+                            </button>
+                        </div>
+                        <div className="overflow-hidden rounded-xl border border-slate-200 bg-white">
+                            <table className="w-full text-sm">
+                                <thead>
+                                    <tr className="border-b border-slate-100 text-xs font-medium tracking-wide text-slate-400 uppercase">
+                                        <th className="px-5 py-3 text-left">
+                                            Full Name
+                                        </th>
+                                        <th className="px-5 py-3 text-left">
+                                            Contact Number
+                                        </th>
+                                        <th className="px-5 py-3 text-left">
+                                            Email Address
+                                        </th>
+                                        <th className="px-5 py-3 text-right">
+                                            Actions
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {collectors.map((collector) => (
+                                        <tr
+                                            key={collector.id}
+                                            className="border-b border-slate-50 last:border-0 hover:bg-slate-50/50"
+                                        >
+                                            <td className="px-5 py-3 font-medium text-slate-900">
+                                                {collector.full_name}
+                                            </td>
+                                            <td className="px-5 py-3 text-slate-600">
+                                                {collector.contact_number}
+                                            </td>
+                                            <td className="px-5 py-3 text-slate-600">
+                                                {collector.user?.email}
+                                            </td>
+                                            <td className="px-5 py-3">
+                                                <div className="flex items-center justify-end gap-2">
+                                                    <button className="rounded p-1.5 text-slate-400 hover:bg-slate-100 hover:text-blue-600">
+                                                        <Pencil className="h-4 w-4" />
+                                                    </button>
+                                                    <button className="rounded p-1.5 text-slate-400 hover:bg-red-50 hover:text-red-600">
+                                                        <Trash2 className="h-4 w-4" />
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    ))}
+                                    {collectors.length === 0 && (
+                                        <tr>
+                                            <td
+                                                colSpan={4}
+                                                className="px-5 py-10 text-center text-slate-400"
+                                            >
+                                                No collectors found.
+                                            </td>
+                                        </tr>
+                                    )}
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 )}
             </div>
