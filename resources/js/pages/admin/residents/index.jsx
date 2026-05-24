@@ -2,6 +2,7 @@ import { Head } from '@inertiajs/react';
 import { Pencil, Plus, Search, Trash2 } from 'lucide-react';
 import { useState } from 'react';
 import { cn } from '@/lib/utils';
+import AddResidentModal from './add-resident-modal';
 
 const AVATAR_COLORS = [
     'bg-blue-500',
@@ -52,6 +53,7 @@ export default function ResidentsIndex({ residents, barangays }) {
     const [search, setSearch] = useState('');
     const [barangayFilter, setBarangayFilter] = useState('');
     const [statusFilter, setStatusFilter] = useState('');
+    const [showAddModal, setShowAddModal] = useState(false);
 
     const filtered = residents.data.filter((r) => {
         const matchSearch =
@@ -68,6 +70,12 @@ export default function ResidentsIndex({ residents, barangays }) {
     return (
         <>
             <Head title="Residents" />
+            {showAddModal && (
+                <AddResidentModal
+                    barangays={barangays}
+                    onClose={() => setShowAddModal(false)}
+                />
+            )}
             <div className="p-6">
                 {/* Header */}
                 <div className="mb-6 flex items-start justify-between">
@@ -79,7 +87,10 @@ export default function ResidentsIndex({ residents, barangays }) {
                             Manage and view all registered barangay residents.
                         </p>
                     </div>
-                    <button className="flex items-center gap-2 rounded-lg bg-blue-700 px-4 py-2 text-sm font-medium text-white hover:bg-blue-800">
+                    <button
+                        onClick={() => setShowAddModal(true)}
+                        className="flex items-center gap-2 rounded-lg bg-blue-700 px-4 py-2 text-sm font-medium text-white hover:bg-blue-800"
+                    >
                         <Plus className="h-4 w-4" />
                         Add Resident
                     </button>
