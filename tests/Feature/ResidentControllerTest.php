@@ -43,3 +43,36 @@ test('store returns validation errors when required fields are missing', functio
 
     $response->assertSessionHasErrors(['name', 'email', 'full_name', 'address', 'barangay_id', 'contact_number']);
 });
+
+test('authenticated admin can update a resident', function () {
+    $admin = User::factory()->admin()->create();
+    $barangay = Barangay::factory()->create();
+    $newBarangay = Barangay::factory()->create();
+    $residentUser = User::factory()->create(['role' => 'resident']);
+    $resident = Resident::factory()->create([
+        'user_id' => $residentUser->id,
+        'barangay_id' => $barangay->id,
+        'full_name' => 'Old Name',
+        'address' => 'Old Address',
+        'contact_number' => '09000000000',
+    ]);
+
+    $this->actingAs($admin);
+
+    $response = $this->put(route('admin.residents.update', $resident), [
+        'full_name' => 'New Name',
+        'address' => 'New Address',
+        'barangay_id' => $newBarangay->id,
+        'contact_number' => '09181234567',
+    ]);
+
+    $response->assertRedirect(route('admin.residents.index'));
+
+    $this->assertDatabaseHas('residents', [
+        'id' => $resident->id,
+        'full_name' => 'New Name',
+        'address' => 'New Address',
+        'barangay_id' => $newBarangay->id,
+        'contact_number' => '09181234567',
+    ]);
+});

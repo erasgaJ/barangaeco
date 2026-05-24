@@ -3,6 +3,7 @@ import { Pencil, Plus, Search, Trash2 } from 'lucide-react';
 import { useState } from 'react';
 import { cn } from '@/lib/utils';
 import AddResidentModal from './add-resident-modal';
+import EditResidentModal from './edit-resident-modal';
 
 const AVATAR_COLORS = [
     'bg-blue-500',
@@ -54,6 +55,7 @@ export default function ResidentsIndex({ residents, barangays }) {
     const [barangayFilter, setBarangayFilter] = useState('');
     const [statusFilter, setStatusFilter] = useState('');
     const [showAddModal, setShowAddModal] = useState(false);
+    const [editingResident, setEditingResident] = useState(null);
 
     const filtered = residents.data.filter((r) => {
         const matchSearch =
@@ -74,6 +76,13 @@ export default function ResidentsIndex({ residents, barangays }) {
                 <AddResidentModal
                     barangays={barangays}
                     onClose={() => setShowAddModal(false)}
+                />
+            )}
+            {editingResident && (
+                <EditResidentModal
+                    resident={editingResident}
+                    barangays={barangays}
+                    onClose={() => setEditingResident(null)}
                 />
             )}
             <div className="p-6">
@@ -188,7 +197,12 @@ export default function ResidentsIndex({ residents, barangays }) {
                                     </td>
                                     <td className="px-5 py-3">
                                         <div className="flex items-center justify-end gap-2">
-                                            <button className="rounded p-1.5 text-slate-400 hover:bg-slate-100 hover:text-blue-600">
+                                            <button
+                                                onClick={() =>
+                                                    setEditingResident(resident)
+                                                }
+                                                className="rounded p-1.5 text-slate-400 hover:bg-slate-100 hover:text-blue-600"
+                                            >
                                                 <Pencil className="h-4 w-4" />
                                             </button>
                                             <button className="rounded p-1.5 text-slate-400 hover:bg-red-50 hover:text-red-600">
