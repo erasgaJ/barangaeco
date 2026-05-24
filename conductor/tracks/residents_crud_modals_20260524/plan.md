@@ -7,15 +7,15 @@
 
 ## Phase 1: Add Resident Modal
 
-- [ ] Wire "Add Resident" button to open `showAddModal` state
-- [ ] Create `AddResidentModal` component with fixed overlay and centered panel
-- [ ] Implement circular photo upload area (person icon, pencil overlay, "UPLOAD PHOTO" label, "JPG or PNG, max 2MB" hint)
-- [ ] Add client-side 2 MB file size check with inline error feedback
-- [ ] Add form fields: Full Name, Address, Barangay (select from `barangays` prop), Contact Number (+63 prefix), Email Address
-- [ ] Implement `router.post` submission using Wayfinder route with `forceFormData: true`
-- [ ] Display server-side validation errors inline below each field
-- [ ] Reset form state on modal close (Cancel or success)
-- [ ] Commit: `phase(1): Add resident modal with photo upload and form validation`
+- [x] Wire "Add Resident" button to open `showAddModal` state [2f99e2f]
+- [x] Create `AddResidentModal` component with fixed overlay and centered panel [2f99e2f]
+- [x] Implement circular photo upload area (person icon, pencil overlay, "UPLOAD PHOTO" label, "JPG or PNG, max 2MB" hint) [2f99e2f]
+- [x] Add client-side 2 MB file size check with inline error feedback [2f99e2f]
+- [x] Add form fields: Full Name, Address, Barangay (select from `barangays` prop), Contact Number (+63 prefix), Email Address [2f99e2f]
+- [x] Implement `router.post` submission using Wayfinder route with `forceFormData: true` [2f99e2f]
+- [x] Display server-side validation errors inline below each field [2f99e2f]
+- [x] Reset form state on modal close (Cancel or success) [2f99e2f]
+- [x] Commit: `phase(1): Add resident modal with photo upload and form validation` [2f99e2f]
 
 ---
 
