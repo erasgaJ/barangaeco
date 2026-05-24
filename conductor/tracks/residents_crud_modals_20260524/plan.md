@@ -32,7 +32,7 @@
 
 ---
 
-## Phase 3: Delete Resident Confirmation [checkpoint: 5df1e0e]
+## Phase 3: Delete Resident Confirmation [checkpoint: ff15020]
 
 - [x] Wire Delete (trash) button per row to open `deletingResident` state with the selected resident [5df1e0e]
 - [x] Create `DeleteResidentModal` component [5df1e0e]
