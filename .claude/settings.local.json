@@ -71,7 +71,10 @@
       "Bash(C:/Users/erasg/.config/herd/bin/php.bat *)",
       "Bash(npm run *)",
       "Bash(vendor/bin/pint --dirty --format agent)",
-      "Bash(C:\\\\Users\\\\erasg\\\\AppData\\\\Local\\\\Programs\\\\herd-lite\\\\bin\\\\php.bat artisan *)"
+      "Bash(C:\\\\Users\\\\erasg\\\\AppData\\\\Local\\\\Programs\\\\herd-lite\\\\bin\\\\php.bat artisan *)",
+      "Bash(herd which *)",
+      "Read(//c/Users/erasg/AppData/Roaming/Herd/**)",
+      "Bash(cmd.exe /c \"C:/Users/erasg/.config/herd/bin/php.bat artisan test --compact --filter=CollectorController\")"
     ]
   }
 }
