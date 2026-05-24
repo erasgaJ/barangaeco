@@ -23,11 +23,11 @@ Tasks:
 **Goal:** Wire the "Add Collector" button to a modal form that POSTs to `collectors.store` and refreshes the list on success.
 
 Tasks:
-- [ ] Task: Write a Pest feature test for `POST /admin/waste-management/collectors` — covers happy path (collector + user created, redirects) and validation failure (missing required fields returns validation errors) (TDD: red → green)
-- [ ] Task: Implement `AddCollectorModal` as a sub-component inside `schedules.jsx` (or a co-located component) — fixed overlay, modal card, three fields (Full Name, Contact Number, Email Address), Cancel and Save Collector buttons, and ESC/backdrop-click dismissal
-- [ ] Task: Wire `router.post(collectors.store.url(), { name: form.fullName, full_name: form.fullName, email: form.email, contact_number: form.contactNumber }, { preserveScroll: true, onSuccess: closeModal, onError: setErrors })` on Save Collector click
-- [ ] Task: Render field-level validation errors beneath each input when `errors` object is populated
-- [ ] Task: Clear form state when modal is closed or reopened
+- [x] Task: Write a Pest feature test for `POST /admin/waste-management/collectors` — covers happy path (collector + user created, redirects) and validation failure (missing required fields returns validation errors) (TDD: red → green) [b3af32f]
+- [x] Task: Implement `AddCollectorModal` as a sub-component inside `schedules.jsx` (or a co-located component) — fixed overlay, modal card, three fields (Full Name, Contact Number, Email Address), Cancel and Save Collector buttons, and ESC/backdrop-click dismissal [b3af32f]
+- [x] Task: Wire `router.post(collectors.store.url(), { name: form.fullName, full_name: form.fullName, email: form.email, contact_number: form.contactNumber }, { preserveScroll: true, onSuccess: closeModal, onError: setErrors })` on Save Collector click [b3af32f]
+- [x] Task: Render field-level validation errors beneath each input when `errors` object is populated [b3af32f]
+- [x] Task: Clear form state when modal is closed or reopened [b3af32f]
 - [ ] Verification: Create a collector via the modal, confirm they appear in the table without a page refresh [checkpoint]
 
 ---
