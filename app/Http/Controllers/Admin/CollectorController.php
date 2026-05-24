@@ -40,7 +40,7 @@ class CollectorController extends Controller
             'contact_number' => $request->contact_number,
         ]);
 
-        return redirect()->route('admin.collectors.index');
+        return redirect()->route('admin.waste.collectors.index');
     }
 
     public function update(Request $request, Collector $collector): RedirectResponse
@@ -52,7 +52,7 @@ class CollectorController extends Controller
 
         $collector->update($request->only('full_name', 'contact_number'));
 
-        return redirect()->route('admin.collectors.index');
+        return redirect()->route('admin.waste.collectors.index');
     }
 
     public function destroy(Collector $collector): RedirectResponse
@@ -61,6 +61,6 @@ class CollectorController extends Controller
         $collector->delete();
         $user->delete();
 
-        return redirect()->route('admin.collectors.index');
+        return redirect()->route('admin.waste.collectors.index');
     }
 }

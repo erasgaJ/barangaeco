@@ -1,8 +1,9 @@
-import { Head } from '@inertiajs/react';
+import { Head, router } from '@inertiajs/react';
 import { addDays, format, isSameDay, startOfWeek } from 'date-fns';
 import { CheckCircle2, Pencil, Plus, Trash2, Truck } from 'lucide-react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { cn } from '@/lib/utils';
+import collectorsRoutes from '@/routes/admin/waste/collectors';
 
 const SCHEDULE_COLORS = [
     'bg-green-200 text-green-800',
@@ -13,6 +14,149 @@ const SCHEDULE_COLORS = [
 ];
 
 const DAYS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+
+const EMPTY_FORM = { fullName: '', contactNumber: '', email: '' };
+
+function AddCollectorModal({ onClose }) {
+    const [form, setForm] = useState(EMPTY_FORM);
+    const [errors, setErrors] = useState({});
+
+    useEffect(() => {
+        setForm(EMPTY_FORM);
+        setErrors({});
+
+        function onKeyDown(e) {
+            if (e.key === 'Escape') {
+                onClose();
+            }
+        }
+
+        document.addEventListener('keydown', onKeyDown);
+        return () => document.removeEventListener('keydown', onKeyDown);
+    }, [onClose]);
+
+    function handleBackdropClick(e) {
+        if (e.target === e.currentTarget) {
+            onClose();
+        }
+    }
+
+    function handleSubmit() {
+        router.post(
+            collectorsRoutes.store.url(),
+            {
+                name: form.fullName,
+                full_name: form.fullName,
+                email: form.email,
+                contact_number: form.contactNumber,
+            },
+            {
+                preserveScroll: true,
+                onSuccess: onClose,
+                onError: setErrors,
+            },
+        );
+    }
+
+    return (
+        <div
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/40"
+            onClick={handleBackdropClick}
+        >
+            <div className="w-full max-w-sm rounded-xl bg-white p-6 shadow-xl">
+                <h2 className="mb-5 text-base font-semibold text-slate-900">
+                    Add New Collector
+                </h2>
+
+                <div className="flex flex-col gap-4">
+                    <div>
+                        <label className="mb-1 block text-xs font-medium text-slate-700">
+                            Full Name
+                        </label>
+                        <input
+                            type="text"
+                            placeholder="e.g. Juan Dela Cruz"
+                            value={form.fullName}
+                            onChange={(e) =>
+                                setForm((f) => ({
+                                    ...f,
+                                    fullName: e.target.value,
+                                }))
+                            }
+                            className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm text-slate-900 outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-100"
+                        />
+                        {errors.full_name && (
+                            <p className="mt-1 text-xs text-red-500">
+                                {errors.full_name}
+                            </p>
+                        )}
+                    </div>
+
+                    <div>
+                        <label className="mb-1 block text-xs font-medium text-slate-700">
+                            Contact Number
+                        </label>
+                        <input
+                            type="text"
+                            placeholder="09XX XXX XXXX"
+                            value={form.contactNumber}
+                            onChange={(e) =>
+                                setForm((f) => ({
+                                    ...f,
+                                    contactNumber: e.target.value,
+                                }))
+                            }
+                            className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm text-slate-900 outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-100"
+                        />
+                        {errors.contact_number && (
+                            <p className="mt-1 text-xs text-red-500">
+                                {errors.contact_number}
+                            </p>
+                        )}
+                    </div>
+
+                    <div>
+                        <label className="mb-1 block text-xs font-medium text-slate-700">
+                            Email Address
+                        </label>
+                        <input
+                            type="email"
+                            placeholder="e.g. juan@example.com"
+                            value={form.email}
+                            onChange={(e) =>
+                                setForm((f) => ({
+                                    ...f,
+                                    email: e.target.value,
+                                }))
+                            }
+                            className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm text-slate-900 outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-100"
+                        />
+                        {errors.email && (
+                            <p className="mt-1 text-xs text-red-500">
+                                {errors.email}
+                            </p>
+                        )}
+                    </div>
+                </div>
+
+                <div className="mt-6 flex justify-end gap-2">
+                    <button
+                        onClick={onClose}
+                        className="rounded-lg border border-slate-200 px-4 py-2 text-sm text-slate-600 hover:bg-slate-50"
+                    >
+                        Cancel
+                    </button>
+                    <button
+                        onClick={handleSubmit}
+                        className="rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700"
+                    >
+                        Save Collector
+                    </button>
+                </div>
+            </div>
+        </div>
+    );
+}
 
 function colorFor(barangayId) {
     return SCHEDULE_COLORS[barangayId % SCHEDULE_COLORS.length];
@@ -27,6 +171,7 @@ export default function SchedulesPage({
     const [weekStart, setWeekStart] = useState(() =>
         startOfWeek(new Date(), { weekStartsOn: 1 }),
     );
+    const [showAddModal, setShowAddModal] = useState(false);
 
     const weekDays = DAYS.map((_, i) => addDays(weekStart, i));
 
@@ -39,6 +184,9 @@ export default function SchedulesPage({
     return (
         <>
             <Head title="Waste Management" />
+            {showAddModal && (
+                <AddCollectorModal onClose={() => setShowAddModal(false)} />
+            )}
             <div className="p-6">
                 {/* Header */}
                 <div className="mb-5 flex items-start justify-between">
@@ -262,7 +410,10 @@ export default function SchedulesPage({
                                 {collectors.length} collector
                                 {collectors.length !== 1 ? 's' : ''} registered
                             </p>
-                            <button className="flex items-center gap-2 rounded-lg bg-blue-700 px-4 py-2 text-sm font-medium text-white hover:bg-blue-800">
+                            <button
+                                onClick={() => setShowAddModal(true)}
+                                className="flex items-center gap-2 rounded-lg bg-blue-700 px-4 py-2 text-sm font-medium text-white hover:bg-blue-800"
+                            >
                                 <Plus className="h-4 w-4" />
                                 Add Collector
                             </button>
