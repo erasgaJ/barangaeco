@@ -3,6 +3,7 @@ import { Pencil, Plus, Search, Trash2 } from 'lucide-react';
 import { useState } from 'react';
 import { cn } from '@/lib/utils';
 import AddResidentModal from './add-resident-modal';
+import DeleteResidentModal from './delete-resident-modal';
 import EditResidentModal from './edit-resident-modal';
 
 const AVATAR_COLORS = [
@@ -56,6 +57,7 @@ export default function ResidentsIndex({ residents, barangays }) {
     const [statusFilter, setStatusFilter] = useState('');
     const [showAddModal, setShowAddModal] = useState(false);
     const [editingResident, setEditingResident] = useState(null);
+    const [deletingResident, setDeletingResident] = useState(null);
 
     const filtered = residents.data.filter((r) => {
         const matchSearch =
@@ -83,6 +85,12 @@ export default function ResidentsIndex({ residents, barangays }) {
                     resident={editingResident}
                     barangays={barangays}
                     onClose={() => setEditingResident(null)}
+                />
+            )}
+            {deletingResident && (
+                <DeleteResidentModal
+                    resident={deletingResident}
+                    onClose={() => setDeletingResident(null)}
                 />
             )}
             <div className="p-6">
@@ -205,7 +213,14 @@ export default function ResidentsIndex({ residents, barangays }) {
                                             >
                                                 <Pencil className="h-4 w-4" />
                                             </button>
-                                            <button className="rounded p-1.5 text-slate-400 hover:bg-red-50 hover:text-red-600">
+                                            <button
+                                                onClick={() =>
+                                                    setDeletingResident(
+                                                        resident,
+                                                    )
+                                                }
+                                                className="rounded p-1.5 text-slate-400 hover:bg-red-50 hover:text-red-600"
+                                            >
                                                 <Trash2 className="h-4 w-4" />
                                             </button>
                                         </div>

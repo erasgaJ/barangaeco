@@ -44,6 +44,27 @@ test('store returns validation errors when required fields are missing', functio
     $response->assertSessionHasErrors(['name', 'email', 'full_name', 'address', 'barangay_id', 'contact_number']);
 });
 
+test('authenticated admin can delete a resident', function () {
+    $admin = User::factory()->admin()->create();
+    $barangay = Barangay::factory()->create();
+    $residentUser = User::factory()->create(['role' => 'resident']);
+    $resident = Resident::factory()->create([
+        'user_id' => $residentUser->id,
+        'barangay_id' => $barangay->id,
+        'full_name' => 'To Be Deleted',
+        'address' => 'Some Street',
+        'contact_number' => '09000000001',
+    ]);
+
+    $this->actingAs($admin);
+
+    $response = $this->delete(route('admin.residents.destroy', $resident));
+
+    $response->assertRedirect(route('admin.residents.index'));
+
+    $this->assertDatabaseMissing('residents', ['id' => $resident->id]);
+});
+
 test('authenticated admin can update a resident', function () {
     $admin = User::factory()->admin()->create();
     $barangay = Barangay::factory()->create();
