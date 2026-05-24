@@ -6,7 +6,7 @@ Five phases. Phases 1–4 are frontend UI increments inside `schedules.jsx`; Pha
 
 ---
 
-## Phase 1: Collector List in Tab
+## Phase 1: Collector List in Tab [checkpoint: e30b5e9]
 
 **Goal:** Replace the "coming soon" placeholder with a real table of collectors, driven by the `collectors` prop already passed by the schedule controller.
 
@@ -14,7 +14,7 @@ Tasks:
 - [x] Task: Write a Pest feature test asserting `GET /admin/waste-management/schedules` returns a `collectors` prop with `full_name`, `contact_number`, and nested `user.email` (TDD: write failing test, confirm prop is present and shape is correct, refactor if needed) [14b236c]
 - [x] Task: Confirm `WasteCollectionScheduleController::index()` eager-loads `user` on the `collectors` collection — update the query if `user` is not currently loaded [14b236c]
 - [x] Task: Update `SchedulesPage` component signature to accept `collectors` prop (it may already exist) and replace the static placeholder in `activeTab === 'collectors'` with a table component rendering `full_name`, `contact_number`, and `user.email` columns plus an "Add Collector" placeholder button (no modal yet) [14b236c]
-- [ ] Verification: Open `https://barangaeco.test/admin/waste-management/schedules`, switch to Collector Management tab, confirm table renders with real data [checkpoint]
+- [x] Verification: Open `https://barangaeco.test/admin/waste-management/schedules`, switch to Collector Management tab, confirm table renders with real data [checkpoint: e30b5e9]
 
 ---
 
