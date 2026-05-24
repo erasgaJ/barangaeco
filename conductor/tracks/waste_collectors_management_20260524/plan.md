@@ -62,10 +62,10 @@ Tasks:
 **Goal:** Ensure all Pest tests pass, coverage targets are met, and frontend code passes lint/format/type checks.
 
 Tasks:
-- [ ] Task: Run full test suite `php artisan test --compact` — all tests green
-- [ ] Task: Run `vendor/bin/pint --dirty --format agent` if any PHP files were modified in earlier phases
-- [ ] Task: Run `npm run lint:check` and `npm run format:check` — fix any reported issues
-- [ ] Task: Run `npm run types:check` — resolve any TypeScript errors (the Wayfinder route imports are `.ts` files called from `.jsx`)
-- [ ] Task: Review test coverage across `CollectorController` — all four actions (index, store, update, destroy) must be covered by feature tests
-- [ ] Verification: Run `composer run ci:check` — full suite passes with zero errors [checkpoint]
-- [ ] Task: Commit with message `phase(5): waste collectors management UI complete`
+- [x] Task: Run full test suite `php artisan test --compact` — all tests green [b58f441]
+- [x] Task: Run `vendor/bin/pint --dirty --format agent` if any PHP files were modified in earlier phases [b58f441]
+- [x] Task: Run `npm run lint:check` and `npm run format:check` — fix any reported issues [b58f441]
+- [x] Task: Run `npm run types:check` — resolve any TypeScript errors (the Wayfinder route imports are `.ts` files called from `.jsx`) [b58f441]
+- [x] Task: Review test coverage across `CollectorController` — all four actions (index, store, update, destroy) must be covered by feature tests [b58f441]
+- [x] Verification: Run `composer run ci:check` — full suite passes with zero errors [checkpoint: b58f441]
+- [x] Task: Commit with message `phase(5): waste collectors management UI complete` [b58f441]
