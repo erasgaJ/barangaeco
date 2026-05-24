@@ -32,16 +32,16 @@
 
 ---
 
-## Phase 3: Delete Resident Confirmation
+## Phase 3: Delete Resident Confirmation [checkpoint: 5df1e0e]
 
-- [ ] Wire Delete (trash) button per row to open `deletingResident` state with the selected resident
-- [ ] Create `DeleteResidentModal` component
-- [ ] Show warning triangle icon (red/amber), title "Delete Resident Record", confirmation message
-- [ ] Show resident card with photo/initials, full name, formatted ID
-- [ ] Implement `router.delete` submission with loading state on button
-- [ ] CANCEL button closes modal; DELETE RECORD button triggers deletion
-- [ ] Close modal and reset state on success
-- [ ] Commit: `phase(3): Delete resident confirmation modal`
+- [x] Wire Delete (trash) button per row to open `deletingResident` state with the selected resident [5df1e0e]
+- [x] Create `DeleteResidentModal` component [5df1e0e]
+- [x] Show warning triangle icon (red/amber), title "Delete Resident Record", confirmation message [5df1e0e]
+- [x] Show resident card with photo/initials, full name, formatted ID [5df1e0e]
+- [x] Implement `router.delete` submission with loading state on button [5df1e0e]
+- [x] CANCEL button closes modal; DELETE RECORD button triggers deletion [5df1e0e]
+- [x] Close modal and reset state on success [5df1e0e]
+- [x] Commit: `phase(3): Delete resident confirmation modal` [5df1e0e]
 
 ---
 
