@@ -55,7 +55,7 @@ All frontend work targets `resources/js/pages/admin/waste-management/schedules.j
 
 - [x] Task: Wire delete flow in `schedules.jsx` — add `useState` for `deleteTarget` (null or schedule). Pass `onDeleteRequest` to `EditScheduleModal` that sets `deleteTarget`. Render `<DeleteScheduleModal>` when `deleteTarget` is set. `onDeleted` callback clears both `editingSchedule` and `deleteTarget`. `onClose` on the delete modal clears only `deleteTarget` (returns to Edit modal). [1225159]
 
-- [ ] Verification: Open Edit modal, click "Delete Schedule", confirm confirmation modal appears with correct schedule name. Click "Keep Schedule" returns to Edit modal. Click "Delete" removes schedule and closes all modals. [checkpoint]
+- [x] Verification: Open Edit modal, click "Delete Schedule", confirm confirmation modal appears with correct schedule name. Click "Keep Schedule" returns to Edit modal. Click "Delete" removes schedule and closes all modals. [checkpoint: 924bbb7]
 
 ---
 
