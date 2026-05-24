@@ -19,7 +19,7 @@
 
 ---
 
-## Phase 2: Edit Resident Modal [checkpoint: 1d3f063]
+## Phase 2: Edit Resident Modal [checkpoint: fa3490f]
 
 - [x] Wire Edit (pencil) button per row to open `editingResident` state with the selected resident [1d3f063]
 - [x] Create `EditResidentModal` component with pre-filled form [1d3f063]
