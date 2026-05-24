@@ -1,20 +1,42 @@
 import { Head, router } from '@inertiajs/react';
-import { addDays, format, isSameDay, startOfWeek } from 'date-fns';
+import {
+    addDays,
+    addMonths,
+    format,
+    getDay,
+    isSameDay,
+    parse,
+    startOfWeek as dfStartOfWeek,
+} from 'date-fns';
+import { enUS } from 'date-fns/locale';
 import { CheckCircle2, Pencil, Plus, Trash2, Truck } from 'lucide-react';
 import { useEffect, useState } from 'react';
+import { Calendar, dateFnsLocalizer } from 'react-big-calendar';
+import 'react-big-calendar/lib/css/react-big-calendar.css';
 import { cn } from '@/lib/utils';
 import collectorsRoutes from '@/routes/admin/waste/collectors';
 import CreateScheduleModal from './create-schedule-modal';
+import EditScheduleModal from './edit-schedule-modal';
 
-const SCHEDULE_COLORS = [
-    'bg-green-200 text-green-800',
-    'bg-blue-200 text-blue-800',
-    'bg-rose-200 text-rose-800',
-    'bg-purple-200 text-purple-800',
-    'bg-amber-200 text-amber-800',
+const localizer = dateFnsLocalizer({
+    format,
+    parse,
+    startOfWeek: (date) => dfStartOfWeek(date, { weekStartsOn: 1 }),
+    getDay,
+    locales: { 'en-US': enUS },
+});
+
+const EVENT_STYLES = [
+    { backgroundColor: '#bbf7d0', color: '#166534' },
+    { backgroundColor: '#bfdbfe', color: '#1e40af' },
+    { backgroundColor: '#fecdd3', color: '#9f1239' },
+    { backgroundColor: '#e9d5ff', color: '#6b21a8' },
+    { backgroundColor: '#fde68a', color: '#92400e' },
 ];
 
-const DAYS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+function eventStyleFor(barangayId) {
+    return EVENT_STYLES[barangayId % EVENT_STYLES.length];
+}
 
 const EMPTY_FORM = { fullName: '', contactNumber: '', email: '' };
 
@@ -363,10 +385,6 @@ function DeleteCollectorModal({ collector, onClose }) {
     );
 }
 
-function colorFor(barangayId) {
-    return SCHEDULE_COLORS[barangayId % SCHEDULE_COLORS.length];
-}
-
 export default function SchedulesPage({
     schedules,
     today_schedules,
@@ -374,21 +392,46 @@ export default function SchedulesPage({
     collectors,
 }) {
     const [activeTab, setActiveTab] = useState('schedule');
-    const [weekStart, setWeekStart] = useState(() =>
-        startOfWeek(new Date(), { weekStartsOn: 1 }),
-    );
+    const [calendarDate, setCalendarDate] = useState(new Date());
+    const [calendarView, setCalendarView] = useState('week');
     const [showAddModal, setShowAddModal] = useState(false);
     const [showCreateScheduleModal, setShowCreateScheduleModal] =
         useState(false);
     const [editingCollector, setEditingCollector] = useState(null);
     const [deletingCollector, setDeletingCollector] = useState(null);
+    const [editingSchedule, setEditingSchedule] = useState(null);
+    const [deleteTarget, setDeleteTarget] = useState(null);
 
-    const weekDays = DAYS.map((_, i) => addDays(weekStart, i));
+    const calendarEvents = schedules.map((s) => {
+        const dateStr = s.scheduled_date.substring(0, 10);
+        const timeStr = s.scheduled_time
+            ? s.scheduled_time.substring(0, 5)
+            : '08:00';
+        const start = new Date(`${dateStr}T${timeStr}`);
+        const end = new Date(start.getTime() + 60 * 60 * 1000);
+        return {
+            id: s.id,
+            title: s.barangay.name,
+            start,
+            end,
+            resource: s,
+        };
+    });
 
-    function schedulesForDay(day) {
-        return schedules.data.filter((s) =>
-            isSameDay(new Date(s.scheduled_date), day),
+    function navigateCalendar(direction) {
+        setCalendarDate((d) =>
+            calendarView === 'month'
+                ? addMonths(d, direction)
+                : addDays(d, direction * 7),
         );
+    }
+
+    function calendarRangeLabel() {
+        if (calendarView === 'month') {
+            return format(calendarDate, 'MMMM yyyy');
+        }
+        const ws = dfStartOfWeek(calendarDate, { weekStartsOn: 1 });
+        return `${format(ws, 'MMM d')} – ${format(addDays(ws, 6), 'MMM d, yyyy')}`;
     }
 
     return (
@@ -414,6 +457,18 @@ export default function SchedulesPage({
                 <DeleteCollectorModal
                     collector={deletingCollector}
                     onClose={() => setDeletingCollector(null)}
+                />
+            )}
+            {editingSchedule && (
+                <EditScheduleModal
+                    schedule={editingSchedule}
+                    barangays={barangays}
+                    collectors={collectors}
+                    onClose={() => setEditingSchedule(null)}
+                    onDeleteRequest={(s) => {
+                        setEditingSchedule(null);
+                        setDeleteTarget(s);
+                    }}
                 />
             )}
             <div className="p-6">
@@ -461,129 +516,104 @@ export default function SchedulesPage({
                     <>
                         {/* Weekly Calendar */}
                         <div className="mb-4 rounded-xl border border-slate-200 bg-white p-5">
+                            {/* Calendar header */}
                             <div className="mb-4 flex items-center justify-between">
                                 <div className="flex items-center gap-2">
                                     <span className="text-base font-semibold text-slate-900">
-                                        Weekly Schedule
+                                        Collection Schedule
                                     </span>
                                     <span className="text-sm text-slate-500">
-                                        {format(weekStart, 'MMM d')} –{' '}
-                                        {format(
-                                            addDays(weekStart, 6),
-                                            'MMM d, yyyy',
-                                        )}
+                                        {calendarRangeLabel()}
                                     </span>
                                 </div>
                                 <div className="flex items-center gap-2">
                                     <div className="flex rounded-lg border border-slate-200 text-sm">
                                         <button
-                                            onClick={() =>
-                                                setWeekStart((d) =>
-                                                    addDays(d, -7),
-                                                )
-                                            }
+                                            onClick={() => navigateCalendar(-1)}
                                             className="px-3 py-1.5 text-slate-600 hover:bg-slate-50"
                                         >
                                             ‹
                                         </button>
                                         <button
-                                            onClick={() =>
-                                                setWeekStart((d) =>
-                                                    addDays(d, 7),
-                                                )
-                                            }
+                                            onClick={() => navigateCalendar(1)}
                                             className="border-l border-slate-200 px-3 py-1.5 text-slate-600 hover:bg-slate-50"
                                         >
                                             ›
                                         </button>
                                     </div>
                                     <div className="flex rounded-lg border border-slate-200 text-sm">
-                                        <button className="rounded-l-lg bg-blue-600 px-3 py-1.5 font-medium text-white">
+                                        <button
+                                            onClick={() =>
+                                                setCalendarView('week')
+                                            }
+                                            className={cn(
+                                                'rounded-l-lg px-3 py-1.5 font-medium',
+                                                calendarView === 'week'
+                                                    ? 'bg-blue-600 text-white'
+                                                    : 'text-slate-600 hover:bg-slate-50',
+                                            )}
+                                        >
                                             Week
                                         </button>
-                                        <button className="px-3 py-1.5 text-slate-600 hover:bg-slate-50">
+                                        <button
+                                            onClick={() =>
+                                                setCalendarView('month')
+                                            }
+                                            className={cn(
+                                                'rounded-r-lg border-l border-slate-200 px-3 py-1.5 font-medium',
+                                                calendarView === 'month'
+                                                    ? 'bg-blue-600 text-white'
+                                                    : 'text-slate-600 hover:bg-slate-50',
+                                            )}
+                                        >
                                             Month
                                         </button>
                                     </div>
                                 </div>
                             </div>
 
-                            {/* Calendar grid */}
-                            <div className="overflow-hidden rounded-lg border border-slate-200">
-                                <div className="grid grid-cols-7 divide-x divide-slate-200 border-b border-slate-200 bg-slate-50">
-                                    {weekDays.map((day, i) => {
-                                        const isToday = isSameDay(
-                                            day,
-                                            new Date(),
-                                        );
-                                        return (
-                                            <div
-                                                key={i}
-                                                className={cn(
-                                                    'px-2 py-2.5 text-center',
-                                                    isToday && 'bg-blue-50',
-                                                )}
-                                            >
-                                                <p
-                                                    className={cn(
-                                                        'text-xs font-medium tracking-wide uppercase',
-                                                        isToday
-                                                            ? 'text-blue-600'
-                                                            : 'text-slate-400',
-                                                    )}
-                                                >
-                                                    {DAYS[i]}
-                                                </p>
-                                                <div
-                                                    className={cn(
-                                                        'mx-auto mt-1 flex h-7 w-7 items-center justify-center rounded-full text-sm font-semibold',
-                                                        isToday
-                                                            ? 'bg-blue-600 text-white'
-                                                            : 'text-slate-700',
-                                                    )}
-                                                >
-                                                    {format(day, 'd')}
-                                                </div>
-                                            </div>
-                                        );
+                            {/* react-big-calendar */}
+                            <div className="rbc-wrapper">
+                                <Calendar
+                                    localizer={localizer}
+                                    events={calendarEvents}
+                                    startAccessor="start"
+                                    endAccessor="end"
+                                    view={calendarView}
+                                    onView={setCalendarView}
+                                    date={calendarDate}
+                                    onNavigate={setCalendarDate}
+                                    onSelectEvent={(event) =>
+                                        setEditingSchedule(event.resource)
+                                    }
+                                    toolbar={false}
+                                    style={{
+                                        height:
+                                            calendarView === 'month'
+                                                ? 580
+                                                : 440,
+                                    }}
+                                    eventPropGetter={(event) => ({
+                                        style: {
+                                            ...eventStyleFor(
+                                                event.resource.barangay.id,
+                                            ),
+                                            borderRadius: '4px',
+                                            border: 'none',
+                                            fontSize: '12px',
+                                            fontWeight: '500',
+                                            padding: '2px 6px',
+                                        },
                                     })}
-                                </div>
-                                <div className="grid grid-cols-7 divide-x divide-slate-100">
-                                    {weekDays.map((day, i) => {
-                                        const isToday = isSameDay(
-                                            day,
-                                            new Date(),
-                                        );
-                                        const daySchedules =
-                                            schedulesForDay(day);
-                                        return (
-                                            <div
-                                                key={i}
-                                                className={cn(
-                                                    'min-h-[140px] p-2',
-                                                    isToday && 'bg-blue-50/30',
-                                                )}
-                                            >
-                                                <div className="flex flex-col gap-1">
-                                                    {daySchedules.map((s) => (
-                                                        <div
-                                                            key={s.id}
-                                                            className={cn(
-                                                                'cursor-pointer rounded px-2 py-1 text-xs leading-tight font-medium',
-                                                                colorFor(
-                                                                    s.barangay
-                                                                        .id,
-                                                                ),
-                                                            )}
-                                                        >
-                                                            {s.barangay.name}
-                                                        </div>
-                                                    ))}
-                                                </div>
-                                            </div>
-                                        );
+                                    dayPropGetter={(date) => ({
+                                        style: isSameDay(date, new Date())
+                                            ? {
+                                                  backgroundColor:
+                                                      'rgb(239 246 255)',
+                                              }
+                                            : {},
                                     })}
-                                </div>
+                                />
                             </div>
                         </div>
 

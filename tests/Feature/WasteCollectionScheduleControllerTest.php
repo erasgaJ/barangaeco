@@ -68,3 +68,55 @@ test('store schedule returns validation errors for missing required fields', fun
 
     $response->assertSessionHasErrors(['barangay_id', 'scheduled_date', 'scheduled_time', 'collector_ids', 'status']);
 });
+
+test('authenticated admin can update a schedule with valid payload', function () {
+    $admin = User::factory()->admin()->create();
+    $barangay = Barangay::factory()->create();
+    $collector = Collector::factory()->create();
+    $newCollector = Collector::factory()->create();
+
+    $schedule = WasteCollectionSchedule::factory()->create([
+        'barangay_id' => $barangay->id,
+        'scheduled_date' => '2026-06-01',
+        'scheduled_time' => '08:00',
+        'status' => 'draft',
+    ]);
+    $schedule->collectors()->sync([$collector->id]);
+
+    $this->actingAs($admin);
+
+    $response = $this->put(route('admin.waste.schedules.update', $schedule), [
+        'barangay_id' => $barangay->id,
+        'scheduled_date' => '2026-06-02',
+        'scheduled_time' => '09:30',
+        'collector_ids' => [$newCollector->id],
+        'status' => 'published',
+    ]);
+
+    $response->assertRedirect();
+
+    $schedule->refresh();
+    expect($schedule->scheduled_date->format('Y-m-d'))->toBe('2026-06-02');
+    expect($schedule->scheduled_time)->toBe('09:30');
+    expect($schedule->status)->toBe('published');
+    expect($schedule->collectors)->toHaveCount(1);
+    expect($schedule->collectors->first()->id)->toBe($newCollector->id);
+});
+
+test('update schedule returns 404 for non-existent schedule', function () {
+    $admin = User::factory()->admin()->create();
+    $barangay = Barangay::factory()->create();
+    $collector = Collector::factory()->create();
+
+    $this->actingAs($admin);
+
+    $response = $this->put(route('admin.waste.schedules.update', 99999), [
+        'barangay_id' => $barangay->id,
+        'scheduled_date' => '2026-06-01',
+        'scheduled_time' => '08:00',
+        'collector_ids' => [$collector->id],
+        'status' => 'published',
+    ]);
+
+    $response->assertNotFound();
+});
