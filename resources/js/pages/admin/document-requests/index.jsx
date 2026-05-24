@@ -1,9 +1,10 @@
-import { Head, router } from '@inertiajs/react';
+import { Head } from '@inertiajs/react';
 import { format } from 'date-fns';
 import { CheckCircle2, FileText, Search, XCircle } from 'lucide-react';
 import { useState } from 'react';
 import { cn } from '@/lib/utils';
-import documentRequestRoutes from '@/routes/admin/document-requests';
+import ReviewModal from './review-modal';
+import RejectModal from './reject-modal';
 
 const STATUS_STYLES = {
     pending: 'bg-amber-100 text-amber-700',
@@ -18,142 +19,13 @@ const DOC_LABELS = {
     business_permit: 'Business Permit',
 };
 
-function ApproveModal({ request, onClose }) {
-    const [remarks, setRemarks] = useState('');
-    const [loading, setLoading] = useState(false);
-
-    function submit() {
-        setLoading(true);
-        router.post(
-            documentRequestRoutes.approve(request.id).url,
-            { admin_remarks: remarks },
-            {
-                onFinish: () => {
-                    setLoading(false);
-                    onClose();
-                },
-            },
-        );
-    }
-
-    return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
-            <div className="w-full max-w-md rounded-xl bg-white p-6 shadow-xl">
-                <h2 className="mb-1 text-base font-semibold text-slate-900">
-                    Approve Request
-                </h2>
-                <p className="mb-4 text-sm text-slate-500">
-                    Approving{' '}
-                    <span className="font-medium">
-                        {DOC_LABELS[request.document_type] ??
-                            request.document_type}
-                    </span>{' '}
-                    for{' '}
-                    <span className="font-medium">
-                        {request.resident?.full_name}
-                    </span>
-                </p>
-                <label className="mb-1 block text-xs font-medium text-slate-600">
-                    Admin Remarks (optional)
-                </label>
-                <textarea
-                    value={remarks}
-                    onChange={(e) => setRemarks(e.target.value)}
-                    rows={3}
-                    className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-100"
-                    placeholder="Add any notes..."
-                />
-                <div className="mt-4 flex justify-end gap-2">
-                    <button
-                        onClick={onClose}
-                        className="rounded-lg border border-slate-200 px-4 py-2 text-sm text-slate-600 hover:bg-slate-50"
-                    >
-                        Cancel
-                    </button>
-                    <button
-                        onClick={submit}
-                        disabled={loading}
-                        className="rounded-lg bg-green-600 px-4 py-2 text-sm font-medium text-white hover:bg-green-700 disabled:opacity-60"
-                    >
-                        {loading ? 'Approving…' : 'Approve'}
-                    </button>
-                </div>
-            </div>
-        </div>
-    );
-}
-
-function RejectModal({ request, onClose }) {
-    const [feedback, setFeedback] = useState('');
-    const [loading, setLoading] = useState(false);
-
-    function submit() {
-        if (!feedback.trim()) return;
-        setLoading(true);
-        router.post(
-            documentRequestRoutes.reject(request.id).url,
-            { rejection_feedback: feedback },
-            {
-                onFinish: () => {
-                    setLoading(false);
-                    onClose();
-                },
-            },
-        );
-    }
-
-    return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
-            <div className="w-full max-w-md rounded-xl bg-white p-6 shadow-xl">
-                <h2 className="mb-1 text-base font-semibold text-slate-900">
-                    Reject Request
-                </h2>
-                <p className="mb-4 text-sm text-slate-500">
-                    Rejecting{' '}
-                    <span className="font-medium">
-                        {DOC_LABELS[request.document_type] ??
-                            request.document_type}
-                    </span>{' '}
-                    for{' '}
-                    <span className="font-medium">
-                        {request.resident?.full_name}
-                    </span>
-                </p>
-                <label className="mb-1 block text-xs font-medium text-slate-600">
-                    Reason for rejection <span className="text-red-500">*</span>
-                </label>
-                <textarea
-                    value={feedback}
-                    onChange={(e) => setFeedback(e.target.value)}
-                    rows={3}
-                    className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-100"
-                    placeholder="Explain why this request is being rejected..."
-                />
-                <div className="mt-4 flex justify-end gap-2">
-                    <button
-                        onClick={onClose}
-                        className="rounded-lg border border-slate-200 px-4 py-2 text-sm text-slate-600 hover:bg-slate-50"
-                    >
-                        Cancel
-                    </button>
-                    <button
-                        onClick={submit}
-                        disabled={loading || !feedback.trim()}
-                        className="rounded-lg bg-red-600 px-4 py-2 text-sm font-medium text-white hover:bg-red-700 disabled:opacity-60"
-                    >
-                        {loading ? 'Rejecting…' : 'Reject'}
-                    </button>
-                </div>
-            </div>
-        </div>
-    );
-}
-
 export default function DocumentRequestsIndex({ requests, filters }) {
     const [search, setSearch] = useState('');
     const [statusFilter, setStatusFilter] = useState(filters?.status ?? '');
-    const [approveTarget, setApproveTarget] = useState(null);
+    const [reviewTarget, setReviewTarget] = useState(null);
     const [rejectTarget, setRejectTarget] = useState(null);
+    // viewReasonTarget — Phase 2; viewCopyTarget — Phase 3
+    const [viewReasonTarget, setViewReasonTarget] = useState(null);
 
     const filtered = requests.data.filter((r) => {
         const matchSearch =
@@ -168,15 +40,24 @@ export default function DocumentRequestsIndex({ requests, filters }) {
         return matchSearch && matchStatus;
     });
 
+    function handleReviewReject() {
+        const target = reviewTarget;
+        setReviewTarget(null);
+        setRejectTarget(target);
+    }
+
     return (
         <>
             <Head title="Document Requests" />
-            {approveTarget && (
-                <ApproveModal
-                    request={approveTarget}
-                    onClose={() => setApproveTarget(null)}
+
+            {reviewTarget && (
+                <ReviewModal
+                    request={reviewTarget}
+                    onClose={() => setReviewTarget(null)}
+                    onReject={handleReviewReject}
                 />
             )}
+
             {rejectTarget && (
                 <RejectModal
                     request={rejectTarget}
@@ -296,7 +177,7 @@ export default function DocumentRequestsIndex({ requests, filters }) {
                                             <div className="flex items-center justify-end gap-2">
                                                 <button
                                                     onClick={() =>
-                                                        setApproveTarget(req)
+                                                        setReviewTarget(req)
                                                     }
                                                     className="flex items-center gap-1 rounded-lg border border-green-200 bg-green-50 px-3 py-1.5 text-xs font-medium text-green-700 hover:bg-green-100"
                                                 >
@@ -316,8 +197,8 @@ export default function DocumentRequestsIndex({ requests, filters }) {
                                         )}
                                         {req.status !== 'pending' && (
                                             <p className="text-right text-xs text-slate-400">
-                                                {req.resolved_by
-                                                    ? `by ${req.resolved_by.name}`
+                                                {req.resolvedBy
+                                                    ? `by ${req.resolvedBy.name}`
                                                     : '—'}
                                             </p>
                                         )}
