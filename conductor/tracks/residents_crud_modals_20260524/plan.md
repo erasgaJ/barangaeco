@@ -47,13 +47,13 @@
 
 ## Phase 4: Tests and Quality Gates
 
-- [ ] Write Pest feature test: `POST /admin/residents` stores resident and returns redirect
-- [ ] Write Pest feature test: `PUT /admin/residents/{id}` updates resident fields
-- [ ] Write Pest feature test: `DELETE /admin/residents/{id}` deletes resident and returns redirect
-- [ ] Write Pest feature test: `POST /admin/residents` returns 422 on missing required fields
-- [ ] Run `php artisan test --compact --filter=ResidentController` — all tests green
-- [ ] Run `npm run lint:check` — no errors
-- [ ] Run `npm run format:check` — no errors
-- [ ] Run `npm run types:check` — no errors
-- [ ] Run `vendor/bin/pint --dirty --format agent` — PHP formatted
-- [ ] Commit: `phase(4): Feature tests and quality gates for residents CRUD`
+- [x] Write Pest feature test: `POST /admin/residents` stores resident and returns redirect (pre-existing)
+- [x] Write Pest feature test: `PUT /admin/residents/{id}` updates resident fields (pre-existing)
+- [x] Write Pest feature test: `DELETE /admin/residents/{id}` deletes resident and returns redirect (pre-existing)
+- [x] Write Pest feature test: `POST /admin/residents` returns 422 on missing required fields (pre-existing)
+- [x] Run `php artisan test --compact --filter=ResidentController` — 4/4 green
+- [x] Run `npm run lint:check` — no errors
+- [x] Run `npm run format:check` — no errors
+- [x] Run `npm run types:check` — no errors
+- [x] Run `vendor/bin/pint --dirty --format agent` — PHP formatted
+- [x] Commit: `phase(4): Feature tests and quality gates for residents CRUD`
