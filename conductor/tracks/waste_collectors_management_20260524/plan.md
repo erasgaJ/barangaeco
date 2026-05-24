@@ -50,9 +50,9 @@ Tasks:
 **Goal:** Clicking the Delete icon opens a confirmation modal; confirming sends a DELETE request and removes the collector from the list.
 
 Tasks:
-- [ ] Task: Write a Pest feature test for `DELETE /admin/waste-management/collectors/{collector}` — confirms both `Collector` and related `User` records are deleted (TDD: red → green)
-- [ ] Task: Implement `DeleteCollectorModal` — fixed overlay, compact card, "Delete Collector?" title, "This action cannot be undone." subtitle, red-left-border warning paragraph, Cancel (outline) and Delete (red filled) buttons
-- [ ] Task: Wire `router.delete(collectors.destroy.url(deletingCollector), { preserveScroll: true, onSuccess: closeModal })` on Delete button click
+- [x] Task: Write a Pest feature test for `DELETE /admin/waste-management/collectors/{collector}` — confirms both `Collector` and related `User` records are deleted (TDD: red → green) [f7357de]
+- [x] Task: Implement `DeleteCollectorModal` — fixed overlay, compact card, "Delete Collector?" title, "This action cannot be undone." subtitle, red-left-border warning paragraph, Cancel (outline) and Delete (red filled) buttons [f7357de]
+- [x] Task: Wire `router.delete(collectors.destroy.url(deletingCollector), { preserveScroll: true, onSuccess: closeModal })` on Delete button click [f7357de]
 - [ ] Verification: Delete a collector, confirm row is removed from the table and the user account is gone [checkpoint]
 
 ---
