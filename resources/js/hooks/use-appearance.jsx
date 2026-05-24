@@ -57,10 +57,12 @@ export function initializeTheme() {
     mediaQuery()?.addEventListener('change', handleSystemThemeChange);
 }
 export function useAppearance() {
-    const appearance = useSyncExternalStore(subscribe, () => currentAppearance, () => 'system');
-    const resolvedAppearance = isDarkMode(appearance)
-        ? 'dark'
-        : 'light';
+    const appearance = useSyncExternalStore(
+        subscribe,
+        () => currentAppearance,
+        () => 'system',
+    );
+    const resolvedAppearance = isDarkMode(appearance) ? 'dark' : 'light';
     const updateAppearance = (mode) => {
         currentAppearance = mode;
         // Store in localStorage for client-side persistence...

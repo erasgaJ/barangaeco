@@ -27,10 +27,12 @@ createInertiaApp({
     },
     strictMode: true,
     withApp(app) {
-        return (<TooltipProvider delayDuration={0}>
+        return (
+            <TooltipProvider delayDuration={0}>
                 {app}
                 <Toaster />
-            </TooltipProvider>);
+            </TooltipProvider>
+        );
     },
     progress: {
         color: '#4B5563',

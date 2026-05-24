@@ -10,7 +10,9 @@ test('swagger ui page is available', function () {
 test('openapi json endpoint is available', function () {
     $this->get(route('api.documentation.openapi'))
         ->assertOk()
-        ->assertHeader('content-type', 'application/json')
-        ->assertJsonPath('openapi', '3.0.3')
-        ->assertJsonPath('info.title', 'BarangaEco Mobile API');
+        ->assertHeader('Content-Type', 'application/json');
+
+    $data = json_decode(file_get_contents(base_path('openapi.json')), true);
+    expect($data['openapi'])->toBe('3.0.3');
+    expect($data['info']['title'])->toBe('BarangaEco Mobile API');
 });

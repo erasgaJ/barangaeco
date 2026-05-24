@@ -23,14 +23,18 @@ export default function Login({ status, canResetPassword }) {
                     <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-blue-600">
                         <Leaf className="h-7 w-7 text-white" strokeWidth={2} />
                     </div>
-                    <p className="text-xl font-bold text-slate-900">BarangaECO</p>
+                    <p className="text-xl font-bold text-slate-900">
+                        BarangaECO
+                    </p>
                     <p className="text-sm text-slate-500">Admin Portal</p>
                 </div>
 
                 <hr className="mb-6 border-slate-200" />
 
                 {status && (
-                    <p className="mb-4 text-center text-sm font-medium text-green-600">{status}</p>
+                    <p className="mb-4 text-center text-sm font-medium text-green-600">
+                        {status}
+                    </p>
                 )}
 
                 <Form
@@ -44,7 +48,7 @@ export default function Login({ status, canResetPassword }) {
                             <div className="flex flex-col gap-1.5">
                                 <Label
                                     htmlFor="email"
-                                    className="text-xs font-semibold uppercase tracking-wide text-slate-500"
+                                    className="text-xs font-semibold tracking-wide text-slate-500 uppercase"
                                 >
                                     Email Address
                                 </Label>
@@ -69,7 +73,7 @@ export default function Login({ status, canResetPassword }) {
                                 <div className="flex items-center justify-between">
                                     <Label
                                         htmlFor="password"
-                                        className="text-xs font-semibold uppercase tracking-wide text-slate-500"
+                                        className="text-xs font-semibold tracking-wide text-slate-500 uppercase"
                                     >
                                         Password
                                     </Label>
@@ -86,7 +90,9 @@ export default function Login({ status, canResetPassword }) {
                                     <Lock className="absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 text-slate-400" />
                                     <Input
                                         id="password"
-                                        type={showPassword ? 'text' : 'password'}
+                                        type={
+                                            showPassword ? 'text' : 'password'
+                                        }
                                         name="password"
                                         required
                                         autoComplete="current-password"
@@ -95,7 +101,9 @@ export default function Login({ status, canResetPassword }) {
                                     />
                                     <button
                                         type="button"
-                                        onClick={() => setShowPassword((v) => !v)}
+                                        onClick={() =>
+                                            setShowPassword((v) => !v)
+                                        }
                                         className="absolute top-1/2 right-3 -translate-y-1/2 text-slate-400 hover:text-slate-600"
                                     >
                                         {showPassword ? (
@@ -124,8 +132,12 @@ export default function Login({ status, canResetPassword }) {
             {/* Footer */}
             <div className="mt-6 flex flex-col items-center gap-1 text-xs text-slate-400">
                 <div className="flex gap-4">
-                    <a href="#" className="hover:underline">Privacy Policy</a>
-                    <a href="#" className="hover:underline">Terms of Service</a>
+                    <a href="#" className="hover:underline">
+                        Privacy Policy
+                    </a>
+                    <a href="#" className="hover:underline">
+                        Terms of Service
+                    </a>
                 </div>
                 <p>© 2024 BARANGAECO</p>
             </div>

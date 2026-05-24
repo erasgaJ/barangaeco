@@ -13,9 +13,21 @@ import { cn } from '@/lib/utils';
 const navItems = [
     { title: 'Overview', href: '/admin/dashboard', icon: LayoutDashboard },
     { title: 'Residents', href: '/admin/residents', icon: Users },
-    { title: 'Waste Management', href: '/admin/waste-management/schedules', icon: Recycle },
-    { title: 'Document Requests', href: '/admin/document-requests', icon: FileText },
-    { title: 'Complaint Management', href: '/admin/complaints', icon: MessageCircleWarning },
+    {
+        title: 'Waste Management',
+        href: '/admin/waste-management/schedules',
+        icon: Recycle,
+    },
+    {
+        title: 'Document Requests',
+        href: '/admin/document-requests',
+        icon: FileText,
+    },
+    {
+        title: 'Complaint Management',
+        href: '/admin/complaints',
+        icon: MessageCircleWarning,
+    },
     { title: 'Announcements', href: '/admin/announcements', icon: Bell },
 ];
 
@@ -32,8 +44,12 @@ export default function AdminLayout({ children }) {
                         B
                     </div>
                     <div>
-                        <p className="text-sm font-bold leading-none text-slate-900">BarangaECO</p>
-                        <p className="mt-0.5 text-[10px] leading-none text-slate-500">Admin Portal</p>
+                        <p className="text-sm leading-none font-bold text-slate-900">
+                            BarangaECO
+                        </p>
+                        <p className="mt-0.5 text-[10px] leading-none text-slate-500">
+                            Admin Portal
+                        </p>
                     </div>
                 </div>
 

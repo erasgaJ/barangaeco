@@ -31,9 +31,18 @@ function StatusBadge({ status }) {
         pending: 'bg-amber-100 text-amber-700',
         rejected: 'bg-red-100 text-red-700',
     };
-    const labels = { verified: 'Active', pending: 'Pending', rejected: 'Rejected' };
+    const labels = {
+        verified: 'Active',
+        pending: 'Pending',
+        rejected: 'Rejected',
+    };
     return (
-        <span className={cn('rounded-full px-3 py-0.5 text-xs font-medium', styles[status])}>
+        <span
+            className={cn(
+                'rounded-full px-3 py-0.5 text-xs font-medium',
+                styles[status],
+            )}
+        >
             {labels[status]}
         </span>
     );
@@ -49,8 +58,10 @@ export default function ResidentsIndex({ residents, barangays }) {
             !search ||
             r.full_name.toLowerCase().includes(search.toLowerCase()) ||
             r.address.toLowerCase().includes(search.toLowerCase());
-        const matchBarangay = !barangayFilter || String(r.barangay.id) === barangayFilter;
-        const matchStatus = !statusFilter || r.verification_status === statusFilter;
+        const matchBarangay =
+            !barangayFilter || String(r.barangay.id) === barangayFilter;
+        const matchStatus =
+            !statusFilter || r.verification_status === statusFilter;
         return matchSearch && matchBarangay && matchStatus;
     });
 
@@ -61,7 +72,9 @@ export default function ResidentsIndex({ residents, barangays }) {
                 {/* Header */}
                 <div className="mb-6 flex items-start justify-between">
                     <div>
-                        <h1 className="text-2xl font-bold text-slate-900">Resident Records</h1>
+                        <h1 className="text-2xl font-bold text-slate-900">
+                            Resident Records
+                        </h1>
                         <p className="mt-0.5 text-sm text-slate-500">
                             Manage and view all registered barangay residents.
                         </p>
@@ -112,12 +125,16 @@ export default function ResidentsIndex({ residents, barangays }) {
                 <div className="overflow-hidden rounded-xl border border-slate-200 bg-white">
                     <table className="w-full text-sm">
                         <thead>
-                            <tr className="border-b border-slate-100 text-xs font-medium uppercase tracking-wide text-slate-400">
+                            <tr className="border-b border-slate-100 text-xs font-medium tracking-wide text-slate-400 uppercase">
                                 <th className="px-5 py-3 text-left">ID</th>
-                                <th className="px-5 py-3 text-left">Resident Name</th>
+                                <th className="px-5 py-3 text-left">
+                                    Resident Name
+                                </th>
                                 <th className="px-5 py-3 text-left">Address</th>
                                 <th className="px-5 py-3 text-left">Status</th>
-                                <th className="px-5 py-3 text-right">Actions</th>
+                                <th className="px-5 py-3 text-right">
+                                    Actions
+                                </th>
                             </tr>
                         </thead>
                         <tbody>
@@ -134,19 +151,29 @@ export default function ResidentsIndex({ residents, barangays }) {
                                             <div
                                                 className={cn(
                                                     'flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-xs font-bold text-white',
-                                                    getAvatarColor(resident.full_name),
+                                                    getAvatarColor(
+                                                        resident.full_name,
+                                                    ),
                                                 )}
                                             >
-                                                {getInitials(resident.full_name)}
+                                                {getInitials(
+                                                    resident.full_name,
+                                                )}
                                             </div>
                                             <span className="font-medium text-slate-900">
                                                 {resident.full_name}
                                             </span>
                                         </div>
                                     </td>
-                                    <td className="px-5 py-3 text-slate-600">{resident.address}</td>
+                                    <td className="px-5 py-3 text-slate-600">
+                                        {resident.address}
+                                    </td>
                                     <td className="px-5 py-3">
-                                        <StatusBadge status={resident.verification_status} />
+                                        <StatusBadge
+                                            status={
+                                                resident.verification_status
+                                            }
+                                        />
                                     </td>
                                     <td className="px-5 py-3">
                                         <div className="flex items-center justify-end gap-2">
@@ -162,7 +189,10 @@ export default function ResidentsIndex({ residents, barangays }) {
                             ))}
                             {filtered.length === 0 && (
                                 <tr>
-                                    <td colSpan={5} className="px-5 py-10 text-center text-slate-400">
+                                    <td
+                                        colSpan={5}
+                                        className="px-5 py-10 text-center text-slate-400"
+                                    >
                                         No residents found.
                                     </td>
                                 </tr>
@@ -173,7 +203,8 @@ export default function ResidentsIndex({ residents, barangays }) {
                     {/* Pagination */}
                     <div className="flex items-center justify-between border-t border-slate-100 px-5 py-3">
                         <p className="text-xs text-slate-500">
-                            Showing {residents.data.length} of {residents.total} entries
+                            Showing {residents.data.length} of {residents.total}{' '}
+                            entries
                         </p>
                         <div className="flex items-center gap-1">
                             {residents.links.map((link, i) => (
@@ -185,9 +216,12 @@ export default function ResidentsIndex({ residents, barangays }) {
                                         link.active
                                             ? 'bg-blue-600 font-medium text-white'
                                             : 'text-slate-500 hover:bg-slate-100',
-                                        !link.url && 'pointer-events-none opacity-40',
+                                        !link.url &&
+                                            'pointer-events-none opacity-40',
                                     )}
-                                    dangerouslySetInnerHTML={{ __html: link.label }}
+                                    dangerouslySetInnerHTML={{
+                                        __html: link.label,
+                                    }}
                                 />
                             ))}
                         </div>
