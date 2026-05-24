@@ -120,3 +120,13 @@ test('update schedule returns 404 for non-existent schedule', function () {
 
     $response->assertNotFound();
 });
+
+it('deletes a schedule', function () {
+    $admin = User::factory()->admin()->create();
+    $schedule = WasteCollectionSchedule::factory()->create();
+
+    $response = $this->actingAs($admin)->delete(route('admin.waste.schedules.destroy', $schedule));
+
+    $response->assertRedirect(route('admin.waste.schedules.index'));
+    $this->assertDatabaseMissing('waste_collection_schedules', ['id' => $schedule->id]);
+});

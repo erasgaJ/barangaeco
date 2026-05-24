@@ -16,6 +16,7 @@ import 'react-big-calendar/lib/css/react-big-calendar.css';
 import { cn } from '@/lib/utils';
 import collectorsRoutes from '@/routes/admin/waste/collectors';
 import CreateScheduleModal from './create-schedule-modal';
+import DeleteScheduleModal from './delete-schedule-modal';
 import EditScheduleModal from './edit-schedule-modal';
 
 const localizer = dateFnsLocalizer({
@@ -459,15 +460,22 @@ export default function SchedulesPage({
                     onClose={() => setDeletingCollector(null)}
                 />
             )}
-            {editingSchedule && (
+            {editingSchedule && !deleteTarget && (
                 <EditScheduleModal
                     schedule={editingSchedule}
                     barangays={barangays}
                     collectors={collectors}
                     onClose={() => setEditingSchedule(null)}
-                    onDeleteRequest={(s) => {
+                    onDeleteRequest={(s) => setDeleteTarget(s)}
+                />
+            )}
+            {deleteTarget && (
+                <DeleteScheduleModal
+                    schedule={deleteTarget}
+                    onClose={() => setDeleteTarget(null)}
+                    onDeleted={() => {
+                        setDeleteTarget(null);
                         setEditingSchedule(null);
-                        setDeleteTarget(s);
                     }}
                 />
             )}
