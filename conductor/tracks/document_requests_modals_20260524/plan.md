@@ -14,13 +14,13 @@ All work is in `resources/js/pages/admin/document-requests/index.jsx` unless not
 
 ### Tasks
 
-- [ ] Task: Audit current `ApproveModal` and `RejectModal` implementations in `index.jsx` and confirm the exact Inertia prop shape for `requests.data` items (check `resident`, `resolvedBy`, `attachments`, `notes`, `rejection_feedback` fields). Note any field name discrepancies (e.g. `rejection_feedback` vs `rejection_reason`).
+- [x] Task: Audit current `ApproveModal` and `RejectModal` implementations in `index.jsx` and confirm the exact Inertia prop shape for `requests.data` items (check `resident`, `resolvedBy`, `attachments`, `notes`, `rejection_feedback` fields). Note any field name discrepancies (e.g. `rejection_feedback` vs `rejection_reason`). — Field audit: `rejection_feedback` confirmed (matches controller). No `attachments` or `notes` column in DB — `reason` is the free-text field. `resolvedBy` relation serialises as `req.resolvedBy?.name`.
 
-- [ ] Task: (TDD) Write a Pest feature test `DocumentRequestApproveTest` — test that `POST admin/document-requests/{id}/approve` with `admin_remarks` updates status to `resolved` and redirects, and that unauthenticated requests are rejected. Run test — expect red.
+- [x] Task: (TDD) Write a Pest feature test `DocumentRequestApproveTest` — test that `POST admin/document-requests/{id}/approve` with `admin_remarks` updates status to `resolved` and redirects, and that unauthenticated requests are rejected. Run test — expect red.
 
-- [ ] Task: (TDD) Run existing approve controller code — confirm the test goes green without backend changes. Refactor test assertions if field names differ from spec.
+- [x] Task: (TDD) Run existing approve controller code — confirm the test goes green without backend changes. Refactor test assertions if field names differ from spec. — All 3 tests passed (GREEN) on first run; controller correct.
 
-- [ ] Task: Rewrite `ReviewModal` component (replaces `ApproveModal`) with two-column layout:
+- [x] Task: Rewrite `ReviewModal` component (replaces `ApproveModal`) with two-column layout:
   - Left column: REQUEST DETAILS (applicant name, address, purpose, document type label, submission date).
   - Right column: SUBMITTED DOCUMENT (attachment thumbnail or placeholder, "View Receipt" link, payment info line, `notes` field).
   - ADMIN REMARKS textarea below columns.
@@ -28,16 +28,18 @@ All work is in `resources/js/pages/admin/document-requests/index.jsx` unless not
   - Backdrop click and X button close via `onClose()` prop.
   - Escape key listener to call `onClose()`.
 
-- [ ] Task: Rewrite `RejectModal` component:
+- [x] Task: Rewrite `RejectModal` component:
   - Header: "Reject Request" + formatted request ID.
   - Required rejection reason textarea (minimum 10 characters).
   - Submit button disabled until min length met.
   - Footer: "Cancel" calls `onClose()`; "Submit Rejection" fires `router.post` to reject route with `{ rejection_feedback }`.
   - Escape key listener.
 
-- [ ] Task: Update `DocumentRequestsIndex` state management — replace `approveTarget`/`rejectTarget` with three state vars: `reviewTarget` (pending), `rejectTarget` (pending), `viewReasonTarget` (rejected placeholder for Phase 2). Wire pending row "Approve" button to `setReviewTarget`, "Reject" button to `setRejectTarget`. Pass `onReject={() => { setReviewTarget(null); setRejectTarget(req); }}` to `ReviewModal`.
+- [x] Task: Update `DocumentRequestsIndex` state management — replace `approveTarget`/`rejectTarget` with three state vars: `reviewTarget` (pending), `rejectTarget` (pending), `viewReasonTarget` (rejected placeholder for Phase 2). Wire pending row "Approve" button to `setReviewTarget`, "Reject" button to `setRejectTarget`. Pass `onReject={() => { setReviewTarget(null); setRejectTarget(req); }}` to `ReviewModal`.
 
 - [ ] Verification: Open `https://barangaeco.test/admin/document-requests` in browser. Click "Approve" on a pending row — two-column Review modal appears. Click "Reject Request" inside modal — switches to Reject modal. Click "Reject" directly from table row — Reject modal opens. Submit each action — page reloads with updated status. [checkpoint]
+
+**Phase 1 commit:** eea41ae
 
 ---
 
