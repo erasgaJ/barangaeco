@@ -19,13 +19,13 @@ All frontend work targets `resources/js/pages/admin/waste-management/schedules.j
 
 ### Tasks
 
-- [ ] Task: Pass `collectors` prop from `ScheduleController@index` — add `Collector::all()` to the Inertia render array alongside existing `schedules`, `barangays`, and `today_schedules` props. (TDD: write failing Pest test asserting `collectors` key exists in Inertia response, then implement, then run test.)
+- [x] Task: Pass `collectors` prop from `ScheduleController@index` — add `Collector::all()` to the Inertia render array alongside existing `schedules`, `barangays`, and `today_schedules` props. (TDD: write failing Pest test asserting `collectors` key exists in Inertia response, then implement, then run test.) [d50eee5]
 
-- [ ] Task: Build `CollectorMultiSelect` component (`resources/js/components/collector-multi-select.jsx`) — accepts `collectors` (all), `value` (array of selected IDs), `onChange` callback, and optional `error` string prop. Renders a search input that filters by `full_name`, a dropdown list of matching unselected collectors, and selected collectors as removable chips. (TDD: manual verification in browser; unit test not required for pure-UI component but cover integration in Phase 4.)
+- [x] Task: Build `CollectorMultiSelect` component (`resources/js/components/collector-multi-select.jsx`) — accepts `collectors` (all), `value` (array of selected IDs), `onChange` callback, and optional `error` string prop. Renders a search input that filters by `full_name`, a dropdown list of matching unselected collectors, and selected collectors as removable chips. (TDD: manual verification in browser; unit test not required for pure-UI component but cover integration in Phase 4.) [d50eee5]
 
-- [ ] Task: Build `CreateScheduleModal` component (`resources/js/pages/admin/waste-management/create-schedule-modal.jsx`) — fixed overlay modal with fields: Select Barangay (dropdown), Scheduled Date (`<input type="date">`), Start Time (`<input type="time">`), End Time (`<input type="time">`), `CollectorMultiSelect`. Submits via `router.post` using the Wayfinder `store` route. On `onSuccess` callback: closes modal and resets form state. Displays Inertia `errors` inline. Cancel button closes modal. (TDD: write failing Pest feature test for `POST admin/waste-management/schedules` with valid payload, then verify modal wiring manually.)
+- [x] Task: Build `CreateScheduleModal` component (`resources/js/pages/admin/waste-management/create-schedule-modal.jsx`) — fixed overlay modal with fields: Select Barangay (dropdown), Scheduled Date (`<input type="date">`), Start Time (`<input type="time">`), `CollectorMultiSelect`, Status. Submits via `router.post` using the Wayfinder `store` route. On `onSuccess` callback: closes modal and resets form state. Displays Inertia `errors` inline. Cancel button closes modal. [d50eee5]
 
-- [ ] Task: Wire "Create Schedule" button in `schedules.jsx` — add `useState` for `showCreateModal`, attach `onClick` to the button, render `<CreateScheduleModal>` conditionally passing `barangays` and `collectors` props.
+- [x] Task: Wire "Create Schedule" button in `schedules.jsx` — add `useState` for `showCreateScheduleModal`, attach `onClick` to the button, render `<CreateScheduleModal>` conditionally passing `barangays` and `collectors` props. [d50eee5]
 
 - [ ] Verification: Navigate to `/admin/waste-management/schedules`, click "Create Schedule", fill in all fields, submit, confirm schedule appears on calendar. Also submit empty form and confirm validation errors display. [checkpoint]
 
