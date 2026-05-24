@@ -37,10 +37,10 @@ Tasks:
 **Goal:** Clicking the Edit icon pre-fills a modal and PUTs updated `full_name` and `contact_number` to `collectors.update`.
 
 Tasks:
-- [ ] Task: Write a Pest feature test for `PUT /admin/waste-management/collectors/{collector}` — happy path and validation failure (TDD: red → green)
-- [ ] Task: Implement `EditCollectorModal` — same overlay pattern, pre-fill Full Name and Contact Number from the selected collector, Email field shown as read-only (display only, not submitted), Cancel and Save Changes buttons
-- [ ] Task: Wire `router.put(collectors.update.url(editingCollector), { full_name: form.fullName, contact_number: form.contactNumber }, { preserveScroll: true, onSuccess: closeModal, onError: setErrors })` on Save Changes click
-- [ ] Task: Render field-level validation errors beneath each input; reset errors when modal closes
+- [x] Task: Write a Pest feature test for `PUT /admin/waste-management/collectors/{collector}` — happy path and validation failure (TDD: red → green) [1d268dd]
+- [x] Task: Implement `EditCollectorModal` — same overlay pattern, pre-fill Full Name and Contact Number from the selected collector, Email field shown as read-only (display only, not submitted), Cancel and Save Changes buttons [1d268dd]
+- [x] Task: Wire `router.put(collectors.update.url(editingCollector), { full_name: form.fullName, contact_number: form.contactNumber }, { preserveScroll: true, onSuccess: closeModal, onError: setErrors })` on Save Changes click [1d268dd]
+- [x] Task: Render field-level validation errors beneath each input; reset errors when modal closes [1d268dd]
 - [ ] Verification: Edit a collector's name, confirm table updates correctly [checkpoint]
 
 ---
