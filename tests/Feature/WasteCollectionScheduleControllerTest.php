@@ -130,3 +130,12 @@ it('deletes a schedule', function () {
     $response->assertRedirect(route('admin.waste.schedules.index'));
     $this->assertDatabaseMissing('waste_collection_schedules', ['id' => $schedule->id]);
 });
+
+test('unauthenticated user cannot delete a schedule and is redirected to login', function () {
+    $schedule = WasteCollectionSchedule::factory()->create();
+
+    $response = $this->delete(route('admin.waste.schedules.destroy', $schedule));
+
+    $response->assertRedirect(route('login'));
+    $this->assertDatabaseHas('waste_collection_schedules', ['id' => $schedule->id]);
+});
