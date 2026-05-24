@@ -41,7 +41,7 @@ All frontend work targets `resources/js/pages/admin/waste-management/schedules.j
 
 - [x] Task: Wire calendar chips in `schedules.jsx` — add `useState` for `editingSchedule` (null or schedule object). Attach `onClick` to each calendar chip `div` that sets `editingSchedule`. Render `<EditScheduleModal>` conditionally, passing the selected schedule and the `onDeleteRequest` callback (sets `deleteTarget` state, see Phase 3). [fc90005]
 
-- [x] Verification: Click a schedule chip, verify modal opens pre-filled. Change start time, save, confirm updated time reflects on calendar. Cancel closes without saving. [checkpoint: fc90005]
+- [x] Verification: Click a schedule chip, verify modal opens pre-filled. Change start time, save, confirm updated time reflects on calendar. Cancel closes without saving. [checkpoint: c5f8382]
 
 ---
 
