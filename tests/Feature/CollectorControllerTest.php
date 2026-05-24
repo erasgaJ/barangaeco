@@ -88,3 +88,18 @@ test('update returns validation errors when required fields are missing', functi
 
     $response->assertSessionHasErrors(['full_name', 'contact_number']);
 });
+
+test('destroy deletes the collector and associated user then redirects', function () {
+    $admin = User::factory()->admin()->create();
+    $collector = Collector::factory()->create();
+    $userId = $collector->user_id;
+
+    $this->actingAs($admin);
+
+    $response = $this->delete(route('admin.waste.collectors.destroy', $collector));
+
+    $response->assertRedirect(route('admin.waste.collectors.index'));
+
+    $this->assertDatabaseMissing('collectors', ['id' => $collector->id]);
+    $this->assertDatabaseMissing('users', ['id' => $userId]);
+});

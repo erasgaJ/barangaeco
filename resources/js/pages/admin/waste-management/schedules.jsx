@@ -293,6 +293,75 @@ function EditCollectorModal({ collector, onClose }) {
     );
 }
 
+function DeleteCollectorModal({ collector, onClose }) {
+    const [processing, setProcessing] = useState(false);
+
+    useEffect(() => {
+        function onKeyDown(e) {
+            if (e.key === 'Escape') {
+                onClose();
+            }
+        }
+
+        document.addEventListener('keydown', onKeyDown);
+        return () => document.removeEventListener('keydown', onKeyDown);
+    }, [onClose]);
+
+    function handleBackdropClick(e) {
+        if (e.target === e.currentTarget) {
+            onClose();
+        }
+    }
+
+    function handleDelete() {
+        setProcessing(true);
+        router.delete(collectorsRoutes.destroy.url(collector), {
+            preserveScroll: true,
+            onSuccess: onClose,
+            onFinish: () => setProcessing(false),
+        });
+    }
+
+    return (
+        <div
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/40"
+            onClick={handleBackdropClick}
+        >
+            <div className="w-full max-w-sm rounded-xl bg-white p-6 shadow-xl">
+                <h2 className="text-base font-bold text-slate-900">
+                    Delete Collector?
+                </h2>
+                <p className="mt-1 text-xs text-slate-400">
+                    This action cannot be undone.
+                </p>
+
+                <div className="mt-4 border-l-4 border-red-500 bg-red-50 p-3 text-sm text-red-700">
+                    Are you sure you want to delete this collector? All
+                    associated records and schedules will be permanently removed
+                    from the system.
+                </div>
+
+                <div className="mt-6 flex justify-end gap-2">
+                    <button
+                        onClick={onClose}
+                        disabled={processing}
+                        className="rounded-lg border border-slate-200 px-4 py-2 text-sm text-slate-600 hover:bg-slate-50 disabled:opacity-50"
+                    >
+                        Cancel
+                    </button>
+                    <button
+                        onClick={handleDelete}
+                        disabled={processing}
+                        className="rounded-lg bg-red-600 px-4 py-2 text-sm font-medium text-white hover:bg-red-700 disabled:opacity-50"
+                    >
+                        {processing ? 'Deleting…' : 'Delete'}
+                    </button>
+                </div>
+            </div>
+        </div>
+    );
+}
+
 function colorFor(barangayId) {
     return SCHEDULE_COLORS[barangayId % SCHEDULE_COLORS.length];
 }
@@ -308,6 +377,7 @@ export default function SchedulesPage({
     );
     const [showAddModal, setShowAddModal] = useState(false);
     const [editingCollector, setEditingCollector] = useState(null);
+    const [deletingCollector, setDeletingCollector] = useState(null);
 
     const weekDays = DAYS.map((_, i) => addDays(weekStart, i));
 
@@ -327,6 +397,12 @@ export default function SchedulesPage({
                 <EditCollectorModal
                     collector={editingCollector}
                     onClose={() => setEditingCollector(null)}
+                />
+            )}
+            {deletingCollector && (
+                <DeleteCollectorModal
+                    collector={deletingCollector}
+                    onClose={() => setDeletingCollector(null)}
                 />
             )}
             <div className="p-6">
@@ -605,7 +681,14 @@ export default function SchedulesPage({
                                                     >
                                                         <Pencil className="h-4 w-4" />
                                                     </button>
-                                                    <button className="rounded p-1.5 text-slate-400 hover:bg-red-50 hover:text-red-600">
+                                                    <button
+                                                        onClick={() =>
+                                                            setDeletingCollector(
+                                                                collector,
+                                                            )
+                                                        }
+                                                        className="rounded p-1.5 text-slate-400 hover:bg-red-50 hover:text-red-600"
+                                                    >
                                                         <Trash2 className="h-4 w-4" />
                                                     </button>
                                                 </div>
