@@ -57,7 +57,7 @@ Tasks:
 
 ---
 
-## Phase 5: Tests and Quality Gates
+## Phase 5: Tests and Quality Gates [checkpoint: e46aadd]
 
 **Goal:** Ensure all Pest tests pass, coverage targets are met, and frontend code passes lint/format/type checks.
 
