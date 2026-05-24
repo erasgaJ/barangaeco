@@ -32,7 +32,7 @@ Tasks:
 
 ---
 
-## Phase 3: Edit Collector Modal
+## Phase 3: Edit Collector Modal [checkpoint: 6c9cbb1]
 
 **Goal:** Clicking the Edit icon pre-fills a modal and PUTs updated `full_name` and `contact_number` to `collectors.update`.
 
@@ -41,7 +41,7 @@ Tasks:
 - [x] Task: Implement `EditCollectorModal` — same overlay pattern, pre-fill Full Name and Contact Number from the selected collector, Email field shown as read-only (display only, not submitted), Cancel and Save Changes buttons [1d268dd]
 - [x] Task: Wire `router.put(collectors.update.url(editingCollector), { full_name: form.fullName, contact_number: form.contactNumber }, { preserveScroll: true, onSuccess: closeModal, onError: setErrors })` on Save Changes click [1d268dd]
 - [x] Task: Render field-level validation errors beneath each input; reset errors when modal closes [1d268dd]
-- [ ] Verification: Edit a collector's name, confirm table updates correctly [checkpoint]
+- [x] Verification: Edit a collector's name, confirm table updates correctly [checkpoint: 6c9cbb1]
 
 ---
 
