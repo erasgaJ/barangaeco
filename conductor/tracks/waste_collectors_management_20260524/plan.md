@@ -18,7 +18,7 @@ Tasks:
 
 ---
 
-## Phase 2: Add Collector Modal
+## Phase 2: Add Collector Modal [checkpoint: 3fa27f7]
 
 **Goal:** Wire the "Add Collector" button to a modal form that POSTs to `collectors.store` and refreshes the list on success.
 
@@ -28,7 +28,7 @@ Tasks:
 - [x] Task: Wire `router.post(collectors.store.url(), { name: form.fullName, full_name: form.fullName, email: form.email, contact_number: form.contactNumber }, { preserveScroll: true, onSuccess: closeModal, onError: setErrors })` on Save Collector click [b3af32f]
 - [x] Task: Render field-level validation errors beneath each input when `errors` object is populated [b3af32f]
 - [x] Task: Clear form state when modal is closed or reopened [b3af32f]
-- [ ] Verification: Create a collector via the modal, confirm they appear in the table without a page refresh [checkpoint]
+- [x] Verification: Create a collector via the modal, confirm they appear in the table without a page refresh [checkpoint: 3fa27f7]
 
 ---
 
