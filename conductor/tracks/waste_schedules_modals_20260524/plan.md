@@ -13,7 +13,7 @@ All frontend work targets `resources/js/pages/admin/waste-management/schedules.j
 
 ---
 
-## Phase 1: Create Schedule Modal
+## Phase 1: Create Schedule Modal [checkpoint: 77177a3]
 
 **Goal:** Wire the "Create Schedule" button to a functional modal that submits via Inertia POST and shows validation errors.
 
@@ -27,7 +27,7 @@ All frontend work targets `resources/js/pages/admin/waste-management/schedules.j
 
 - [x] Task: Wire "Create Schedule" button in `schedules.jsx` — add `useState` for `showCreateScheduleModal`, attach `onClick` to the button, render `<CreateScheduleModal>` conditionally passing `barangays` and `collectors` props. [d50eee5]
 
-- [ ] Verification: Navigate to `/admin/waste-management/schedules`, click "Create Schedule", fill in all fields, submit, confirm schedule appears on calendar. Also submit empty form and confirm validation errors display. [checkpoint]
+- [x] Verification: Navigate to `/admin/waste-management/schedules`, click "Create Schedule", fill in all fields, submit, confirm schedule appears on calendar. Also submit empty form and confirm validation errors display. [checkpoint: 77177a3]
 
 ---
 
