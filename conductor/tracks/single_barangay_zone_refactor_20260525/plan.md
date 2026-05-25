@@ -283,29 +283,23 @@ Five phases covering database schema changes, a new Zones admin UI, wiring zones
 
 ### Tasks
 
-- [ ] **Task 5.1 — PHP formatting: Pint full pass**
-  `vendor/bin/pint --dirty --format agent`
-  Fix any remaining style issues. Re-run until clean.
+- [x] **Task 5.1 — PHP formatting: Pint full pass**
+  `vendor/bin/pint --dirty --format agent` — passed
 
-- [ ] **Task 5.2 — JS/JSX: ESLint check**
-  `npm run lint:check`
-  Fix any reported issues with `npm run lint`.
+- [x] **Task 5.2 — JS/JSX: ESLint check**
+  `npm run lint:check` — passed (no errors)
 
-- [ ] **Task 5.3 — JS/JSX: Prettier check**
-  `npm run format:check`
-  Fix with `npm run format`.
+- [x] **Task 5.3 — JS/JSX: Prettier check**
+  `npm run format:check` — All matched files use Prettier code style!
 
-- [ ] **Task 5.4 — TypeScript check**
-  `npm run types:check`
-  Fix any type errors in existing `.ts`/`.tsx` files. (No new TS files added in this track.)
+- [x] **Task 5.4 — TypeScript check**
+  `npm run types:check` — passed (no type errors)
 
-- [ ] **Task 5.5 — Full Pest suite**
-  `php artisan test --compact`
-  All tests must pass. No skips without documented reason.
+- [x] **Task 5.5 — Full Pest suite**
+  `php artisan test --compact` — 122/122 passed
 
-- [ ] **Task 5.6 — Build frontend**
-  `npm run build`
-  No build errors. Wayfinder actions for `ZoneController` present in dist.
+- [x] **Task 5.6 — Build frontend**
+  `npm run build` — built in 13.39s, no errors. Wayfinder actions and zones bundle present.
 
 - [ ] **Verification [checkpoint marker]**
   - `composer run ci:check` — complete suite passes.
