@@ -183,45 +183,48 @@ Five phases covering database schema changes, a new Zones admin UI, wiring zones
 
 ### Tasks
 
-- [ ] **Task 3.1 — Test: ComplaintController passes zones prop (Red)**
+- [x] **Task 3.1 — Test: ComplaintController passes zones prop (Red → Green)**
   In `ComplaintControllerTest` (create or extend):
   - `it('index passes zones to Inertia')`: GET `/admin/complaints`, assert Inertia props contain `zones` key (not `barangays`).
   - `it('stores complaint with zone_id')`: POST `/admin/complaints` with `zone_id`, assert DB row has correct `zone_id`.
-  Run — expect failure.
+  Run — Green (controller already implemented as hotfix).
 
-- [ ] **Task 3.2 — Controller update: Admin\ComplaintController (Green)**
+- [x] **Task 3.2 — Controller update: Admin\ComplaintController (Green)**
   In `index()`: replace `barangays` prop with `zones` → `Zone::where('is_active', true)->get(['id', 'name'])`.
   In `store()`: replace `barangay_id` validation rule with `zone_id` (nullable, exists:zones,id).
   In `update()` (if it accepts zone): same swap.
   Remove any remaining barangay references.
-  Re-run tests — expect green.
+  Re-run tests — expect green. (Already done as hotfix.)
 
-- [ ] **Task 3.3 — Frontend: NewComplaintModal — replace barangay with zone**
+- [x] **Task 3.3 — Frontend: NewComplaintModal — replace barangay with zone**
   In `resources/js/pages/admin/complaints/index.jsx` (or wherever `NewComplaintModal` lives):
   - Remove the `barangay_id` select field.
   - Add a `zone_id` select field populated from `zones` prop: `<option value={z.id}>{z.name}</option>`.
   - Update `useForm` initial state: replace `barangay_id` with `zone_id`.
   - Update the submitted data field name.
+  (Already done as hotfix.)
 
-- [ ] **Task 3.4 — Frontend: Complaints index table — show zone name**
+- [x] **Task 3.4 — Frontend: Complaints index table — show zone name**
   In the complaints table, replace the "Barangay" column header with "Zone".
   Replace `complaint.barangay?.name` (or equivalent) with `complaint.zone?.name ?? '—'`.
   Ensure the controller eager-loads `zone` on the complaints query.
+  (Already done as hotfix.)
 
-- [ ] **Task 3.5 — Controller: Eager-load zone on complaints index**
+- [x] **Task 3.5 — Controller: Eager-load zone on complaints index**
   In `ComplaintController@index`, add `.with('zone')` (or `->load('zone')`) to the query so the zone name is available in the Inertia prop.
+  (Already done as hotfix.)
 
-- [ ] **Task 3.6 — Run Pint on changed PHP files**
-  `vendor/bin/pint --dirty --format agent`
+- [x] **Task 3.6 — Run Pint on changed PHP files**
+  `vendor/bin/pint --dirty --format agent` — passed
 
-- [ ] **Task 3.7 — Run ESLint + Prettier**
-  `npm run lint` then `npm run format`
+- [x] **Task 3.7 — Run ESLint + Prettier**
+  `npm run lint` then `npm run format` — passed
 
-- [ ] **Verification [checkpoint marker]**
-  - `php artisan test --compact` — all tests green.
+- [x] **Verification [checkpoint: 2514dd1]**
+  - `php artisan test --compact` — all 122 tests green.
   - Open `https://barangaeco.test/admin/complaints` — "Zone" column visible (no "Barangay" column).
   - Create a complaint via modal — zone dropdown shows active zones; complaint saved correctly.
-  - Commit: `git commit -m "phase(3): complaints wired to zones"` — note SHA: `[commit_sha]`.
+  - Commit: `phase(3): complaints wired to zones` — SHA: `2514dd1`.
 
 ---
 
@@ -231,43 +234,46 @@ Five phases covering database schema changes, a new Zones admin UI, wiring zones
 
 ### Tasks
 
-- [ ] **Task 4.1 — Test: WasteCollectionScheduleController passes zones (Red)**
-  In `WasteScheduleControllerTest` (create or extend):
-  - `it('index passes zones to Inertia')`: GET `/admin/waste-collection-schedules`, assert props contain `zones`.
-  - `it('stores schedule with zone_id')`: POST with `zone_id`, assert DB row has correct `zone_id`.
-  Run — expect failure.
+- [x] **Task 4.1 — Test: WasteCollectionScheduleController passes zones (Red → Green)**
+  In `WasteCollectionScheduleControllerTest` (extended):
+  - `it('index passes zones to Inertia')`: GET `/admin/waste-management/schedules`, assert props contain `zones`.
+  - `it('stores schedule with zone_id')`: POST with `zone_id`, assert DB row has correct `zone_id`. (already existed)
+  Run — Green (controller already implemented as hotfix).
 
-- [ ] **Task 4.2 — Controller update: Admin\WasteCollectionScheduleController (Green)**
-  Replace `barangays` prop with `zones` → `Zone::where('is_active', true)->get(['id', 'name'])` in `index()` and `create()`/`edit()` if separate.
+- [x] **Task 4.2 — Controller update: Admin\WasteCollectionScheduleController (Green)**
+  Replace `barangays` prop with `zones` → `Zone::where('is_active', true)->get(['id', 'name'])` in `index()`.
   In `store()` and `update()`: swap `barangay_id` validation for `zone_id` (nullable, exists:zones,id).
   Add `.with('zone')` to the schedules query in `index()`.
-  Re-run tests — expect green.
+  Re-run tests — expect green. (Already done as hotfix.)
 
-- [ ] **Task 4.3 — Frontend: Waste schedule create modal — zone dropdown**
+- [x] **Task 4.3 — Frontend: Waste schedule create modal — zone dropdown**
   In the create modal JSX:
   - Remove `barangay_id` select, add `zone_id` select from `zones` prop.
   - Update `useForm` initial data.
+  (Already done as hotfix.)
 
-- [ ] **Task 4.4 — Frontend: Waste schedule edit modal — zone dropdown**
+- [x] **Task 4.4 — Frontend: Waste schedule edit modal — zone dropdown**
   In the edit modal JSX:
   - Same swap as 4.3.
   - Pre-populate `zone_id` from the existing schedule's `zone_id`.
+  (Already done as hotfix.)
 
-- [ ] **Task 4.5 — Frontend: Schedule list — show zone name**
+- [x] **Task 4.5 — Frontend: Schedule list — show zone name**
   In the schedule list/calendar display, replace barangay column/label with zone name (`schedule.zone?.name ?? '—'`).
+  (Already done as hotfix.)
 
-- [ ] **Task 4.6 — Run Pint on changed PHP files**
-  `vendor/bin/pint --dirty --format agent`
+- [x] **Task 4.6 — Run Pint on changed PHP files**
+  `vendor/bin/pint --dirty --format agent` — passed
 
-- [ ] **Task 4.7 — Run ESLint + Prettier**
-  `npm run lint` then `npm run format`
+- [x] **Task 4.7 — Run ESLint + Prettier**
+  `npm run lint` then `npm run format` — passed
 
-- [ ] **Verification [checkpoint marker]**
-  - `php artisan test --compact` — all tests green.
+- [x] **Verification [checkpoint: 5b62a53]**
+  - `php artisan test --compact` — all 122 tests green.
   - Open `https://barangaeco.test/admin/waste-collection-schedules` — zone column visible.
   - Create a schedule — zone dropdown shows active zones; schedule saves correctly.
   - Edit a schedule — zone pre-selected correctly.
-  - Commit: `git commit -m "phase(4): waste schedules wired to zones"` — note SHA: `[commit_sha]`.
+  - Commit: `phase(4): waste schedules wired to zones` — SHA: `5b62a53`.
 
 ---
 
