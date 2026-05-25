@@ -11,7 +11,6 @@ return new class extends Migration
         Schema::create('complaints', function (Blueprint $table) {
             $table->id();
             $table->foreignId('resident_id')->nullable()->constrained()->nullOnDelete();
-            $table->foreignId('barangay_id')->constrained()->restrictOnDelete();
             $table->string('complaint_type');
             $table->string('complaint_against');
             $table->text('description');

@@ -13,9 +13,14 @@ return new class extends Migration
     {
         Schema::disableForeignKeyConstraints();
         Schema::table('complaints', function (Blueprint $table) {
-            $table->dropColumn('barangay_id');
-            $table->unsignedBigInteger('zone_id')->nullable()->after('resident_id');
-            $table->foreign('zone_id')->references('id')->on('zones')->nullOnDelete();
+            if (Schema::hasColumn('complaints', 'barangay_id')) {
+                $table->dropForeign(['barangay_id']);
+                $table->dropColumn('barangay_id');
+            }
+            if (! Schema::hasColumn('complaints', 'zone_id')) {
+                $table->unsignedBigInteger('zone_id')->nullable()->after('resident_id');
+                $table->foreign('zone_id')->references('id')->on('zones')->nullOnDelete();
+            }
         });
         Schema::enableForeignKeyConstraints();
     }

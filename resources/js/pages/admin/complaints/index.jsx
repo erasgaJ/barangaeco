@@ -490,9 +490,7 @@ function ComplaintDetailModal({ complaint, onClose, onUpdateStatus }) {
 
 export default function ComplaintsIndex({ complaints, zones, filters }) {
     const [search, setSearch] = useState('');
-    const [zoneFilter, setZoneFilter] = useState(
-        filters?.zone_id ?? '',
-    );
+    const [zoneFilter, setZoneFilter] = useState(filters?.zone_id ?? '');
     const [priorityFilter, setPriorityFilter] = useState(
         filters?.priority ?? '',
     );
@@ -506,8 +504,7 @@ export default function ComplaintsIndex({ complaints, zones, filters }) {
             c.complaint_type.toLowerCase().includes(search.toLowerCase()) ||
             c.complaint_against.toLowerCase().includes(search.toLowerCase()) ||
             c.description.toLowerCase().includes(search.toLowerCase());
-        const matchZone =
-            !zoneFilter || String(c.zone?.id) === zoneFilter;
+        const matchZone = !zoneFilter || String(c.zone?.id) === zoneFilter;
         const matchPriority = !priorityFilter || c.priority === priorityFilter;
         return matchSearch && matchZone && matchPriority;
     });
@@ -602,9 +599,7 @@ export default function ComplaintsIndex({ complaints, zones, filters }) {
                                 <th className="px-5 py-3 text-left">
                                     Type / Against
                                 </th>
-                                <th className="px-5 py-3 text-left">
-                                    Zone
-                                </th>
+                                <th className="px-5 py-3 text-left">Zone</th>
                                 <th className="px-5 py-3 text-left">
                                     Priority
                                 </th>
