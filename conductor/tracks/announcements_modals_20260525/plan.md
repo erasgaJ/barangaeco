@@ -49,7 +49,7 @@ Tasks:
 
 - [x] Task: Render `{editTarget && <EditModal announcement={editTarget} onClose={() => setEditTarget(null)} />}` in `AnnouncementsIndex` adjacent to the existing `{showCreate && <CreateModal ... />}`. (TDD: Manual — open EditModal, save a change, confirm the card updates on the list) [bf437d2]
 
-- [x] Verification: Click the Pencil icon on an announcement — EditModal opens pre-filled. Change the title and save — the card title updates. Try saving with an empty title — inline error appears. Press Escape — modal closes without saving. [checkpoint: bf437d2]
+- [x] Verification: Click the Pencil icon on an announcement — EditModal opens pre-filled. Change the title and save — the card title updates. Try saving with an empty title — inline error appears. Press Escape — modal closes without saving. [checkpoint: 54fc434]
 
 ---
 
