@@ -17,13 +17,13 @@ Goal: Fix invisible input text, show server-side validation errors, and support 
 
 Tasks:
 
-- [ ] Task: Add `bg-white text-slate-900` to all three form elements in `CreateModal` — the title `<input>`, the message `<textarea>`, and the target_audience `<select>`. Also add `bg-white text-slate-900` to the scheduled_at `<input type="datetime-local">`. (TDD: Manual — open the modal, type in each field, confirm text is visible)
+- [x] Task: Add `bg-white text-slate-900` to all three form elements in `CreateModal` — the title `<input>`, the message `<textarea>`, and the target_audience `<select>`. Also add `bg-white text-slate-900` to the scheduled_at `<input type="datetime-local">`. [492a105]
 
-- [ ] Task: Add local `errors` state (`useState({})`) to `CreateModal`. Update `router.post` call: add `preserveScroll: true`, add `onError: (e) => setErrors(e)` callback, and clear errors on `onFinish` when closing. Render inline error messages below each field — `{errors.title && <p className="mt-1 text-xs text-red-500">{errors.title}</p>}` — for all four fields. (TDD: Write Pest feature test `AnnouncementsStoreTest` — POST with title exceeding 255 chars, assert redirect back with errors; run test Red, then verify it passes once error display is confirmed via manual test)
+- [x] Task: Add local `errors` state (`useState({})`) to `CreateModal`. Update `router.post` call: add `preserveScroll: true`, add `onError: (e) => setErrors(e)` callback, and clear errors on `onFinish` when closing. Render inline error messages below each field — `{errors.title && <p className="mt-1 text-xs text-red-500">{errors.title}</p>}` — for all four fields. [492a105]
 
-- [ ] Task: Add Escape key handler and backdrop click handler to `CreateModal`. Use `useEffect(() => { function handler(e) { if (e.key === 'Escape') onClose(); } document.addEventListener('keydown', handler); return () => document.removeEventListener('keydown', handler); }, [onClose])`. Add `onClick={onClose}` on the backdrop `div` and `onClick={(e) => e.stopPropagation()}` on the inner panel. (TDD: Manual — open modal, press Escape, confirm close; click outside panel, confirm close)
+- [x] Task: Add Escape key handler and backdrop click handler to `CreateModal`. Use `useEffect(() => { function handler(e) { if (e.key === 'Escape') onClose(); } document.addEventListener('keydown', handler); return () => document.removeEventListener('keydown', handler); }, [onClose])`. Add `onClick={onClose}` on the backdrop `div` and `onClick={(e) => e.stopPropagation()}` on the inner panel. [492a105]
 
-- [ ] Verification: Open the browser at `https://barangaeco.test/admin/announcements`. Open CreateModal, type in every field — text must be visible. Submit a title longer than 255 characters — the modal stays open and shows an inline error under the title field. Press Escape — modal closes. Click the backdrop — modal closes. [checkpoint marker]
+- [x] Verification: Open the browser at `https://barangaeco.test/admin/announcements`. Open CreateModal, type in every field — text must be visible. Submit a title longer than 255 characters — the modal stays open and shows an inline error under the title field. Press Escape — modal closes. Click the backdrop — modal closes. [checkpoint marker] [492a105]
 
 ---
 
