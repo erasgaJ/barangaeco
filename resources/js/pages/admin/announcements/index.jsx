@@ -342,14 +342,71 @@ function EditModal({ announcement, onClose }) {
     );
 }
 
+function DeleteModal({ announcement, onClose }) {
+    const [loading, setLoading] = useState(false);
+
+    useEffect(() => {
+        function handler(e) {
+            if (e.key === 'Escape') onClose();
+        }
+        document.addEventListener('keydown', handler);
+        return () => document.removeEventListener('keydown', handler);
+    }, [onClose]);
+
+    function handleDelete() {
+        setLoading(true);
+        router.delete(announcementRoutes.destroy(announcement.id).url, {
+            preserveScroll: true,
+            onFinish: onClose,
+        });
+    }
+
+    return (
+        <div
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/40"
+            onClick={onClose}
+        >
+            <div
+                className="w-full max-w-sm rounded-xl bg-white p-6 shadow-xl text-center"
+                onClick={(e) => e.stopPropagation()}
+            >
+                <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-red-100">
+                    <Trash2 className="h-7 w-7 text-red-600" />
+                </div>
+                <h2 className="mb-2 text-base font-semibold text-slate-900">
+                    Delete Announcement
+                </h2>
+                <p className="mb-5 text-sm text-slate-500">
+                    Are you sure you want to delete{' '}
+                    <strong className="text-slate-700">
+                        &ldquo;{announcement.title}&rdquo;
+                    </strong>
+                    ? This action cannot be undone.
+                </p>
+                <div className="flex justify-center gap-3">
+                    <button
+                        onClick={onClose}
+                        className="rounded-lg border border-slate-200 px-4 py-2 text-sm text-slate-600 hover:bg-slate-50"
+                    >
+                        Cancel
+                    </button>
+                    <button
+                        onClick={handleDelete}
+                        disabled={loading}
+                        className="rounded-lg bg-red-600 px-4 py-2 text-sm font-medium text-white hover:bg-red-700 disabled:opacity-60"
+                    >
+                        {loading ? 'Deleting…' : 'Delete'}
+                    </button>
+                </div>
+            </div>
+        </div>
+    );
+}
+
 export default function AnnouncementsIndex({ announcements }) {
     const [showCreate, setShowCreate] = useState(false);
     const [editTarget, setEditTarget] = useState(null);
-
-    function destroy(id) {
-        if (!confirm('Delete this announcement?')) return;
-        router.delete(announcementRoutes.destroy(id).url);
-    }
+    const [deleteTarget, setDeleteTarget] = useState(null);
 
     return (
         <>
@@ -359,6 +416,12 @@ export default function AnnouncementsIndex({ announcements }) {
                 <EditModal
                     announcement={editTarget}
                     onClose={() => setEditTarget(null)}
+                />
+            )}
+            {deleteTarget && (
+                <DeleteModal
+                    announcement={deleteTarget}
+                    onClose={() => setDeleteTarget(null)}
                 />
             )}
 
@@ -434,7 +497,7 @@ export default function AnnouncementsIndex({ announcements }) {
                                 <Pencil className="h-4 w-4" />
                             </button>
                             <button
-                                onClick={() => destroy(ann.id)}
+                                onClick={() => setDeleteTarget(ann)}
                                 className="rounded p-1.5 text-slate-400 hover:bg-red-50 hover:text-red-600"
                             >
                                 <Trash2 className="h-4 w-4" />
