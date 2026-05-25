@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { cn } from '@/lib/utils';
 import ReviewModal from './review-modal';
 import RejectModal from './reject-modal';
+import ViewReasonModal from './view-reason-modal';
 
 const STATUS_STYLES = {
     pending: 'bg-amber-100 text-amber-700',
@@ -62,6 +63,13 @@ export default function DocumentRequestsIndex({ requests, filters }) {
                 <RejectModal
                     request={rejectTarget}
                     onClose={() => setRejectTarget(null)}
+                />
+            )}
+
+            {viewReasonTarget && (
+                <ViewReasonModal
+                    request={viewReasonTarget}
+                    onClose={() => setViewReasonTarget(null)}
                 />
             )}
 
@@ -195,7 +203,24 @@ export default function DocumentRequestsIndex({ requests, filters }) {
                                                 </button>
                                             </div>
                                         )}
-                                        {req.status !== 'pending' && (
+                                        {req.status === 'rejected' && (
+                                            <div className="flex flex-col items-end gap-1.5">
+                                                <button
+                                                    onClick={() =>
+                                                        setViewReasonTarget(req)
+                                                    }
+                                                    className="flex items-center gap-1 rounded-lg border border-slate-200 bg-slate-50 px-3 py-1.5 text-xs font-medium text-slate-600 hover:bg-slate-100"
+                                                >
+                                                    View Reason
+                                                </button>
+                                                <p className="text-right text-xs text-slate-400">
+                                                    {req.resolvedBy
+                                                        ? `by ${req.resolvedBy.name}`
+                                                        : '—'}
+                                                </p>
+                                            </div>
+                                        )}
+                                        {req.status === 'resolved' && (
                                             <p className="text-right text-xs text-slate-400">
                                                 {req.resolvedBy
                                                     ? `by ${req.resolvedBy.name}`

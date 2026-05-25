@@ -172,9 +172,7 @@ export default function ReviewModal({ request, onClose, onReject }) {
                         </p>
 
                         <div>
-                            <p className="mb-1 text-xs text-slate-400">
-                                Notes
-                            </p>
+                            <p className="mb-1 text-xs text-slate-400">Notes</p>
                             <p className="text-sm text-slate-700">
                                 {request.notes ||
                                     request.reason ||
