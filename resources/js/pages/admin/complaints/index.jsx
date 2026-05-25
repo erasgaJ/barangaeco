@@ -113,6 +113,230 @@ function StatusModal({ complaint, onClose }) {
     );
 }
 
+function NewComplaintModal({ barangays, onClose }) {
+    const [form, setForm] = useState({
+        barangay_id: '',
+        complaint_type: '',
+        complaint_against: '',
+        priority: '',
+        description: '',
+    });
+    const [errors, setErrors] = useState({});
+    const [loading, setLoading] = useState(false);
+
+    useEffect(() => {
+        function handleKeyDown(e) {
+            if (e.key === 'Escape') {
+                onClose();
+            }
+        }
+        document.addEventListener('keydown', handleKeyDown);
+        return () => document.removeEventListener('keydown', handleKeyDown);
+    }, [onClose]);
+
+    function handleChange(field, value) {
+        setForm((prev) => ({ ...prev, [field]: value }));
+    }
+
+    function handleSubmit() {
+        const newErrors = {};
+        if (!form.barangay_id) newErrors.barangay_id = 'Barangay is required.';
+        if (!form.complaint_type)
+            newErrors.complaint_type = 'Complaint type is required.';
+        if (!form.complaint_against.trim())
+            newErrors.complaint_against = 'Complain against is required.';
+        if (!form.priority) newErrors.priority = 'Priority is required.';
+        if (!form.description.trim())
+            newErrors.description = 'Description is required.';
+        if (Object.keys(newErrors).length > 0) {
+            setErrors(newErrors);
+            return;
+        }
+
+        setLoading(true);
+        router.post(complaintRoutes.store().url, form, {
+            onSuccess: onClose,
+            onError: (e) => setErrors(e),
+            onFinish: () => setLoading(false),
+        });
+    }
+
+    return (
+        <div
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/40"
+            onClick={onClose}
+        >
+            <div
+                className="w-full max-w-lg rounded-xl bg-white shadow-xl"
+                onClick={(e) => e.stopPropagation()}
+            >
+                {/* Header */}
+                <div className="flex items-center justify-between border-b border-slate-100 px-6 py-4">
+                    <div>
+                        <h2 className="text-base font-semibold text-slate-900">
+                            New Complaint
+                        </h2>
+                        <p className="mt-0.5 text-sm text-slate-500">
+                            Log a resident issue for tracking and resolution.
+                        </p>
+                    </div>
+                    <button
+                        onClick={onClose}
+                        className="rounded-lg p-1.5 text-slate-400 hover:bg-slate-100 hover:text-slate-600"
+                    >
+                        <X className="h-4 w-4" />
+                    </button>
+                </div>
+
+                {/* Body */}
+                <div className="flex flex-col gap-4 px-6 py-5">
+                    {/* Barangay */}
+                    <div>
+                        <label className="mb-1 block text-sm font-medium text-slate-700">
+                            Barangay <span className="text-red-500">*</span>
+                        </label>
+                        <select
+                            value={form.barangay_id}
+                            onChange={(e) =>
+                                handleChange('barangay_id', e.target.value)
+                            }
+                            className="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-900 outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-100"
+                        >
+                            <option value="">Select barangay…</option>
+                            {barangays.map((b) => (
+                                <option key={b.id} value={b.id}>
+                                    {b.name}
+                                </option>
+                            ))}
+                        </select>
+                        {errors.barangay_id && (
+                            <p className="mt-1 text-xs text-red-600">
+                                {errors.barangay_id}
+                            </p>
+                        )}
+                    </div>
+
+                    {/* Complaint Type */}
+                    <div>
+                        <label className="mb-1 block text-sm font-medium text-slate-700">
+                            Complaint Type{' '}
+                            <span className="text-red-500">*</span>
+                        </label>
+                        <select
+                            value={form.complaint_type}
+                            onChange={(e) =>
+                                handleChange('complaint_type', e.target.value)
+                            }
+                            className="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-900 outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-100"
+                        >
+                            <option value="">Select type…</option>
+                            <option value="Road">Road</option>
+                            <option value="Noise">Noise</option>
+                            <option value="Environment">Environment</option>
+                            <option value="Infrastructure">
+                                Infrastructure
+                            </option>
+                            <option value="Other">Other</option>
+                        </select>
+                        {errors.complaint_type && (
+                            <p className="mt-1 text-xs text-red-600">
+                                {errors.complaint_type}
+                            </p>
+                        )}
+                    </div>
+
+                    {/* Complain Against */}
+                    <div>
+                        <label className="mb-1 block text-sm font-medium text-slate-700">
+                            Complain Against{' '}
+                            <span className="text-red-500">*</span>
+                        </label>
+                        <input
+                            type="text"
+                            value={form.complaint_against}
+                            onChange={(e) =>
+                                handleChange(
+                                    'complaint_against',
+                                    e.target.value,
+                                )
+                            }
+                            placeholder="Name of person or entity"
+                            className="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-900 outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-100"
+                        />
+                        {errors.complaint_against && (
+                            <p className="mt-1 text-xs text-red-600">
+                                {errors.complaint_against}
+                            </p>
+                        )}
+                    </div>
+
+                    {/* Priority */}
+                    <div>
+                        <label className="mb-1 block text-sm font-medium text-slate-700">
+                            Priority <span className="text-red-500">*</span>
+                        </label>
+                        <select
+                            value={form.priority}
+                            onChange={(e) =>
+                                handleChange('priority', e.target.value)
+                            }
+                            className="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-900 outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-100"
+                        >
+                            <option value="">Select priority…</option>
+                            <option value="low">Low</option>
+                            <option value="medium">Medium</option>
+                            <option value="high">High</option>
+                        </select>
+                        {errors.priority && (
+                            <p className="mt-1 text-xs text-red-600">
+                                {errors.priority}
+                            </p>
+                        )}
+                    </div>
+
+                    {/* Description */}
+                    <div>
+                        <label className="mb-1 block text-sm font-medium text-slate-700">
+                            Description <span className="text-red-500">*</span>
+                        </label>
+                        <textarea
+                            rows={4}
+                            value={form.description}
+                            onChange={(e) =>
+                                handleChange('description', e.target.value)
+                            }
+                            placeholder="Describe the complaint in detail…"
+                            className="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-900 outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-100"
+                        />
+                        {errors.description && (
+                            <p className="mt-1 text-xs text-red-600">
+                                {errors.description}
+                            </p>
+                        )}
+                    </div>
+                </div>
+
+                {/* Footer */}
+                <div className="flex justify-end gap-2 border-t border-slate-100 px-6 py-4">
+                    <button
+                        onClick={onClose}
+                        className="rounded-lg border border-slate-200 px-4 py-2 text-sm text-slate-600 hover:bg-slate-50"
+                    >
+                        Cancel
+                    </button>
+                    <button
+                        onClick={handleSubmit}
+                        disabled={loading}
+                        className="rounded-lg bg-blue-700 px-4 py-2 text-sm font-medium text-white hover:bg-blue-800 disabled:opacity-60"
+                    >
+                        {loading ? 'Saving…' : 'Create Complaint'}
+                    </button>
+                </div>
+            </div>
+        </div>
+    );
+}
+
 function ComplaintDetailModal({ complaint, onClose, onUpdateStatus }) {
     const residentName =
         complaint.resident?.name ?? complaint.resident_name ?? 'Anonymous';
@@ -274,6 +498,7 @@ export default function ComplaintsIndex({ complaints, barangays, filters }) {
     );
     const [statusTarget, setStatusTarget] = useState(null);
     const [detailTarget, setDetailTarget] = useState(null);
+    const [showNewModal, setShowNewModal] = useState(false);
 
     const filtered = complaints.data.filter((c) => {
         const matchSearch =
@@ -290,6 +515,12 @@ export default function ComplaintsIndex({ complaints, barangays, filters }) {
     return (
         <>
             <Head title="Complaints" />
+            {showNewModal && (
+                <NewComplaintModal
+                    barangays={barangays}
+                    onClose={() => setShowNewModal(false)}
+                />
+            )}
             {statusTarget && (
                 <StatusModal
                     complaint={statusTarget}
@@ -318,7 +549,10 @@ export default function ComplaintsIndex({ complaints, barangays, filters }) {
                             Track and manage resident complaints and issues.
                         </p>
                     </div>
-                    <button className="flex items-center gap-2 rounded-lg bg-blue-700 px-4 py-2 text-sm font-medium text-white hover:bg-blue-800">
+                    <button
+                        onClick={() => setShowNewModal(true)}
+                        className="flex items-center gap-2 rounded-lg bg-blue-700 px-4 py-2 text-sm font-medium text-white hover:bg-blue-800"
+                    >
                         <Plus className="h-4 w-4" />
                         Log Complaint
                     </button>
