@@ -41,6 +41,25 @@ class AnnouncementController extends Controller
         return redirect()->route('admin.announcements.index');
     }
 
+    public function update(Request $request, Announcement $announcement): RedirectResponse
+    {
+        $request->validate([
+            'title' => ['required', 'string', 'max:255'],
+            'message' => ['required', 'string'],
+            'target_audience' => ['required', 'in:all,residents,collectors'],
+            'scheduled_at' => ['nullable', 'date'],
+        ]);
+
+        $announcement->update([
+            'title' => $request->title,
+            'message' => $request->message,
+            'target_audience' => $request->target_audience,
+            'scheduled_at' => $request->scheduled_at,
+        ]);
+
+        return redirect()->route('admin.announcements.index');
+    }
+
     public function destroy(Announcement $announcement): RedirectResponse
     {
         $announcement->delete();

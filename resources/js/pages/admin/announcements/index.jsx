@@ -1,6 +1,6 @@
 import { Head, router } from '@inertiajs/react';
 import { format } from 'date-fns';
-import { Megaphone, Plus, Trash2, X } from 'lucide-react';
+import { Megaphone, Pencil, Plus, Trash2, X } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { cn } from '@/lib/utils';
 import announcementRoutes from '@/routes/admin/announcements';
@@ -180,8 +180,171 @@ function CreateModal({ onClose }) {
     );
 }
 
+function EditModal({ announcement, onClose }) {
+    const [form, setForm] = useState({
+        title: announcement.title ?? '',
+        message: announcement.message ?? '',
+        target_audience: announcement.target_audience ?? 'all',
+        scheduled_at: announcement.scheduled_at
+            ? format(new Date(announcement.scheduled_at), "yyyy-MM-dd'T'HH:mm")
+            : '',
+    });
+    const [loading, setLoading] = useState(false);
+    const [errors, setErrors] = useState({});
+
+    useEffect(() => {
+        function handler(e) {
+            if (e.key === 'Escape') onClose();
+        }
+        document.addEventListener('keydown', handler);
+        return () => document.removeEventListener('keydown', handler);
+    }, [onClose]);
+
+    function set(key, value) {
+        setForm((f) => ({ ...f, [key]: value }));
+        setErrors((prev) => ({ ...prev, [key]: null }));
+    }
+
+    function handleSubmit() {
+        setLoading(true);
+        router.put(
+            announcementRoutes.update(announcement.id).url,
+            { ...form, scheduled_at: form.scheduled_at || null },
+            {
+                preserveScroll: true,
+                onSuccess: onClose,
+                onError: (e) => {
+                    setErrors(e);
+                    setLoading(false);
+                },
+                onFinish: () => setLoading(false),
+            },
+        );
+    }
+
+    return (
+        <div
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/40"
+            onClick={onClose}
+        >
+            <div
+                className="w-full max-w-lg rounded-xl bg-white p-6 shadow-xl"
+                onClick={(e) => e.stopPropagation()}
+            >
+                <div className="mb-4 flex items-center justify-between">
+                    <h2 className="text-base font-semibold text-slate-900">
+                        Edit Announcement
+                    </h2>
+                    <button
+                        onClick={onClose}
+                        className="rounded p-1 text-slate-400 hover:bg-slate-100"
+                    >
+                        <X className="h-4 w-4" />
+                    </button>
+                </div>
+
+                <div className="flex flex-col gap-4">
+                    <div>
+                        <label className="mb-1 block text-xs font-medium text-slate-600">
+                            Title <span className="text-red-500">*</span>
+                        </label>
+                        <input
+                            type="text"
+                            value={form.title}
+                            onChange={(e) => set('title', e.target.value)}
+                            placeholder="Announcement title"
+                            className="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-900 outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-100"
+                        />
+                        {errors.title && (
+                            <p className="mt-1 text-xs text-red-500">
+                                {errors.title}
+                            </p>
+                        )}
+                    </div>
+                    <div>
+                        <label className="mb-1 block text-xs font-medium text-slate-600">
+                            Message <span className="text-red-500">*</span>
+                        </label>
+                        <textarea
+                            value={form.message}
+                            onChange={(e) => set('message', e.target.value)}
+                            rows={4}
+                            placeholder="Write your announcement..."
+                            className="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-900 outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-100"
+                        />
+                        {errors.message && (
+                            <p className="mt-1 text-xs text-red-500">
+                                {errors.message}
+                            </p>
+                        )}
+                    </div>
+                    <div>
+                        <label className="mb-1 block text-xs font-medium text-slate-600">
+                            Target Audience
+                        </label>
+                        <select
+                            value={form.target_audience}
+                            onChange={(e) =>
+                                set('target_audience', e.target.value)
+                            }
+                            className="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-900 outline-none focus:border-blue-400"
+                        >
+                            <option value="all">Everyone</option>
+                            <option value="residents">Residents only</option>
+                            <option value="collectors">Collectors only</option>
+                        </select>
+                        {errors.target_audience && (
+                            <p className="mt-1 text-xs text-red-500">
+                                {errors.target_audience}
+                            </p>
+                        )}
+                    </div>
+                    <div>
+                        <label className="mb-1 block text-xs font-medium text-slate-600">
+                            Schedule (optional)
+                        </label>
+                        <input
+                            type="datetime-local"
+                            value={form.scheduled_at}
+                            onChange={(e) =>
+                                set('scheduled_at', e.target.value)
+                            }
+                            className="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-900 outline-none focus:border-blue-400"
+                        />
+                        {errors.scheduled_at && (
+                            <p className="mt-1 text-xs text-red-500">
+                                {errors.scheduled_at}
+                            </p>
+                        )}
+                        <p className="mt-1 text-xs text-slate-400">
+                            Leave empty to publish immediately.
+                        </p>
+                    </div>
+                </div>
+
+                <div className="mt-5 flex justify-end gap-2">
+                    <button
+                        onClick={onClose}
+                        className="rounded-lg border border-slate-200 px-4 py-2 text-sm text-slate-600 hover:bg-slate-50"
+                    >
+                        Cancel
+                    </button>
+                    <button
+                        onClick={handleSubmit}
+                        disabled={loading}
+                        className="rounded-lg bg-blue-700 px-4 py-2 text-sm font-medium text-white hover:bg-blue-800 disabled:opacity-60"
+                    >
+                        {loading ? 'Saving…' : 'Save Changes'}
+                    </button>
+                </div>
+            </div>
+        </div>
+    );
+}
+
 export default function AnnouncementsIndex({ announcements }) {
     const [showCreate, setShowCreate] = useState(false);
+    const [editTarget, setEditTarget] = useState(null);
 
     function destroy(id) {
         if (!confirm('Delete this announcement?')) return;
@@ -192,6 +355,12 @@ export default function AnnouncementsIndex({ announcements }) {
         <>
             <Head title="Announcements" />
             {showCreate && <CreateModal onClose={() => setShowCreate(false)} />}
+            {editTarget && (
+                <EditModal
+                    announcement={editTarget}
+                    onClose={() => setEditTarget(null)}
+                />
+            )}
 
             <div className="p-6">
                 {/* Header */}
@@ -258,6 +427,12 @@ export default function AnnouncementsIndex({ announcements }) {
                                           : 'Draft'}
                                 </p>
                             </div>
+                            <button
+                                onClick={() => setEditTarget(ann)}
+                                className="rounded p-1.5 text-slate-400 hover:bg-blue-50 hover:text-blue-600"
+                            >
+                                <Pencil className="h-4 w-4" />
+                            </button>
                             <button
                                 onClick={() => destroy(ann.id)}
                                 className="rounded p-1.5 text-slate-400 hover:bg-red-50 hover:text-red-600"
