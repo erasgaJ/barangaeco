@@ -1,7 +1,7 @@
 import { Head, router } from '@inertiajs/react';
 import { format } from 'date-fns';
 import { Megaphone, Plus, Trash2, X } from 'lucide-react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { cn } from '@/lib/utils';
 import announcementRoutes from '@/routes/admin/announcements';
 
@@ -19,9 +19,19 @@ function CreateModal({ onClose }) {
         scheduled_at: '',
     });
     const [loading, setLoading] = useState(false);
+    const [errors, setErrors] = useState({});
+
+    useEffect(() => {
+        function handler(e) {
+            if (e.key === 'Escape') onClose();
+        }
+        document.addEventListener('keydown', handler);
+        return () => document.removeEventListener('keydown', handler);
+    }, [onClose]);
 
     function set(key, value) {
         setForm((f) => ({ ...f, [key]: value }));
+        setErrors((prev) => ({ ...prev, [key]: null }));
     }
 
     function submit() {
@@ -31,17 +41,26 @@ function CreateModal({ onClose }) {
             announcementRoutes.store().url,
             { ...form, scheduled_at: form.scheduled_at || null },
             {
-                onFinish: () => {
+                preserveScroll: true,
+                onSuccess: onClose,
+                onError: (e) => {
+                    setErrors(e);
                     setLoading(false);
-                    onClose();
                 },
+                onFinish: () => setLoading(false),
             },
         );
     }
 
     return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
-            <div className="w-full max-w-lg rounded-xl bg-white p-6 shadow-xl">
+        <div
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/40"
+            onClick={onClose}
+        >
+            <div
+                className="w-full max-w-lg rounded-xl bg-white p-6 shadow-xl"
+                onClick={(e) => e.stopPropagation()}
+            >
                 <div className="mb-4 flex items-center justify-between">
                     <h2 className="text-base font-semibold text-slate-900">
                         New Announcement
@@ -64,8 +83,13 @@ function CreateModal({ onClose }) {
                             value={form.title}
                             onChange={(e) => set('title', e.target.value)}
                             placeholder="Announcement title"
-                            className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-100"
+                            className="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-900 outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-100"
                         />
+                        {errors.title && (
+                            <p className="mt-1 text-xs text-red-500">
+                                {errors.title}
+                            </p>
+                        )}
                     </div>
                     <div>
                         <label className="mb-1 block text-xs font-medium text-slate-600">
@@ -76,8 +100,13 @@ function CreateModal({ onClose }) {
                             onChange={(e) => set('message', e.target.value)}
                             rows={4}
                             placeholder="Write your announcement..."
-                            className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-100"
+                            className="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-900 outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-100"
                         />
+                        {errors.message && (
+                            <p className="mt-1 text-xs text-red-500">
+                                {errors.message}
+                            </p>
+                        )}
                     </div>
                     <div>
                         <label className="mb-1 block text-xs font-medium text-slate-600">
@@ -88,12 +117,17 @@ function CreateModal({ onClose }) {
                             onChange={(e) =>
                                 set('target_audience', e.target.value)
                             }
-                            className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm outline-none focus:border-blue-400"
+                            className="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-900 outline-none focus:border-blue-400"
                         >
                             <option value="all">Everyone</option>
                             <option value="residents">Residents only</option>
                             <option value="collectors">Collectors only</option>
                         </select>
+                        {errors.target_audience && (
+                            <p className="mt-1 text-xs text-red-500">
+                                {errors.target_audience}
+                            </p>
+                        )}
                     </div>
                     <div>
                         <label className="mb-1 block text-xs font-medium text-slate-600">
@@ -105,8 +139,13 @@ function CreateModal({ onClose }) {
                             onChange={(e) =>
                                 set('scheduled_at', e.target.value)
                             }
-                            className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm outline-none focus:border-blue-400"
+                            className="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-900 outline-none focus:border-blue-400"
                         />
+                        {errors.scheduled_at && (
+                            <p className="mt-1 text-xs text-red-500">
+                                {errors.scheduled_at}
+                            </p>
+                        )}
                         <p className="mt-1 text-xs text-slate-400">
                             Leave empty to publish immediately.
                         </p>
