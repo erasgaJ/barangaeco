@@ -16,19 +16,19 @@ Goal: Clicking any complaint row opens a two-panel detail modal. "Update Status"
 
 Tasks:
 
-- [ ] Task: Verify the complaints controller index response eager-loads the `barangay` relationship on each complaint; confirm which resident fields (name, contact, email) are available directly on the complaint object vs. a nested relationship. Note findings to align modal field access. (TDD: Read controller + check existing page prop shape)
+- [x] Task: Verify the complaints controller index response eager-loads the `barangay` relationship on each complaint; confirm which resident fields (name, contact, email) are available directly on the complaint object vs. a nested relationship. Note findings to align modal field access. (TDD: Read controller + check existing page prop shape) [180fe52]
 
-- [ ] Task: Add `detailTarget` state to `ComplaintsIndex` (`useState(null)`); wire `onClick={() => setDetailTarget(c)}` to each `<tr>` in the table body; update the "Update Status" action button to call `setDetailTarget(c)` and stop propagation so the row click and button click behave consistently. (TDD: Write Pest test asserting the index page renders complaint rows, confirm no breakage)
+- [x] Task: Add `detailTarget` state to `ComplaintsIndex` (`useState(null)`); wire `onClick={() => setDetailTarget(c)}` to each `<tr>` in the table body; update the "Update Status" action button to call `setDetailTarget(c)` and stop propagation so the row click and button click behave consistently. (TDD: Write Pest test asserting the index page renders complaint rows, confirm no breakage) [180fe52]
 
-- [ ] Task: Implement `ComplaintDetailModal` component in `index.jsx`. Structure: `fixed inset-0 z-50` backdrop, centered white panel (`max-w-2xl`), header with formatted complaint ID (`CMP-YYYY-NNN`) and status badge, two-column body (left: resident info with colored avatar initials, right: complaint details), footer with Close + Update Status buttons. Pass `complaint`, `onClose`, and `onUpdateStatus` props. (TDD: Manual — open the page, click a row, verify layout matches Figma)
+- [x] Task: Implement `ComplaintDetailModal` component in `index.jsx`. Structure: `fixed inset-0 z-50` backdrop, centered white panel (`max-w-2xl`), header with formatted complaint ID (`CMP-YYYY-NNN`) and status badge, two-column body (left: resident info with colored avatar initials, right: complaint details), footer with Close + Update Status buttons. Pass `complaint`, `onClose`, and `onUpdateStatus` props. (TDD: Manual — open the page, click a row, verify layout matches Figma) [180fe52]
 
-- [ ] Task: Implement the `formatComplaintId(complaint)` helper inside the file — takes `{ id, created_at }` and returns `CMP-${year}-${String(id).padStart(3, '0')}`. (TDD: Write a simple inline unit assertion or a Pest unit test for this pure function)
+- [x] Task: Implement the `formatComplaintId(complaint)` helper inside the file — takes `{ id, created_at }` and returns `CMP-${year}-${String(id).padStart(3, '0')}`. (TDD: Write a simple inline unit assertion or a Pest unit test for this pure function) [180fe52]
 
-- [ ] Task: Add backdrop click and Escape key handlers to `ComplaintDetailModal` so both close the modal. Use `useEffect` for the keydown listener; clean up on unmount. (TDD: Manual — press Escape and click backdrop, modal closes)
+- [x] Task: Add backdrop click and Escape key handlers to `ComplaintDetailModal` so both close the modal. Use `useEffect` for the keydown listener; clean up on unmount. (TDD: Manual — press Escape and click backdrop, modal closes) [180fe52]
 
-- [ ] Task: Wire the "Update Status" button in `ComplaintDetailModal` to call `onUpdateStatus(complaint)`. In `ComplaintsIndex`, implement `handleUpdateStatusFromDetail(complaint)` that sets `detailTarget(null)` then `setStatusTarget(complaint)`. Render `<ComplaintDetailModal>` adjacent to the existing `<StatusModal>` render. (TDD: Manual — open detail modal, click Update Status, verify StatusModal opens for the correct complaint)
+- [x] Task: Wire the "Update Status" button in `ComplaintDetailModal` to call `onUpdateStatus(complaint)`. In `ComplaintsIndex`, implement `handleUpdateStatusFromDetail(complaint)` that sets `detailTarget(null)` then `setStatusTarget(complaint)`. Render `<ComplaintDetailModal>` adjacent to the existing `<StatusModal>` render. (TDD: Manual — open detail modal, click Update Status, verify StatusModal opens for the correct complaint) [180fe52]
 
-- [ ] Verification: Open the complaints page in the browser, click a row, confirm the detail modal shows correct data, click Update Status, confirm the status picker opens, change status, confirm it saves and the table row updates. [checkpoint]
+- [x] Verification: Open the complaints page in the browser, click a row, confirm the detail modal shows correct data, click Update Status, confirm the status picker opens, change status, confirm it saves and the table row updates. [checkpoint] [180fe52]
 
 ---
 
