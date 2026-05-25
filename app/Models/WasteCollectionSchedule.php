@@ -9,11 +9,14 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-#[Fillable(['barangay_id', 'scheduled_date', 'scheduled_time', 'status', 'created_by'])]
+#[Fillable(['zone_id', 'scheduled_date', 'scheduled_time', 'status', 'created_by'])]
 class WasteCollectionSchedule extends Model
 {
     use HasFactory;
 
+    /**
+     * @return array<string, string>
+     */
     protected function casts(): array
     {
         return [
@@ -21,9 +24,9 @@ class WasteCollectionSchedule extends Model
         ];
     }
 
-    public function barangay(): BelongsTo
+    public function zone(): BelongsTo
     {
-        return $this->belongsTo(Barangay::class);
+        return $this->belongsTo(Zone::class);
     }
 
     public function createdBy(): BelongsTo

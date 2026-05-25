@@ -2,9 +2,9 @@
 
 namespace Database\Factories;
 
-use App\Models\Barangay;
 use App\Models\Complaint;
 use App\Models\User;
+use App\Models\Zone;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -21,7 +21,7 @@ class ComplaintFactory extends Factory
     {
         return [
             'resident_id' => null,
-            'barangay_id' => Barangay::factory(),
+            'zone_id' => Zone::factory(),
             'complaint_type' => fake()->randomElement(['Road', 'Noise', 'Environment', 'Infrastructure', 'Other']),
             'complaint_against' => fake()->name(),
             'description' => fake()->paragraph(),

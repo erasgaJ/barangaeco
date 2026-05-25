@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Barangay;
 use App\Models\Complaint;
+use App\Models\Zone;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -14,10 +14,10 @@ class ComplaintController extends Controller
 {
     public function index(Request $request): Response
     {
-        $query = Complaint::with('resident', 'barangay', 'createdBy')->latest();
+        $query = Complaint::with('resident', 'zone', 'createdBy')->latest();
 
-        if ($request->filled('barangay_id')) {
-            $query->where('barangay_id', $request->barangay_id);
+        if ($request->filled('zone_id')) {
+            $query->where('zone_id', $request->zone_id);
         }
 
         if ($request->filled('priority')) {
@@ -30,8 +30,8 @@ class ComplaintController extends Controller
 
         return Inertia::render('admin/complaints/index', [
             'complaints' => $query->paginate(20)->withQueryString(),
-            'barangays' => Barangay::orderBy('name')->get(),
-            'filters' => $request->only('barangay_id', 'priority', 'complaint_type'),
+            'zones' => Zone::where('is_active', true)->get(['id', 'name']),
+            'filters' => $request->only('zone_id', 'priority', 'complaint_type'),
         ]);
     }
 
@@ -39,7 +39,7 @@ class ComplaintController extends Controller
     {
         $request->validate([
             'resident_id' => ['nullable', 'exists:residents,id'],
-            'barangay_id' => ['required', 'exists:barangays,id'],
+            'zone_id' => ['nullable', 'exists:zones,id'],
             'complaint_type' => ['required', 'string', 'max:255'],
             'complaint_against' => ['required', 'string', 'max:255'],
             'description' => ['required', 'string'],
@@ -48,7 +48,7 @@ class ComplaintController extends Controller
 
         Complaint::create([
             'resident_id' => $request->resident_id,
-            'barangay_id' => $request->barangay_id,
+            'zone_id' => $request->zone_id,
             'complaint_type' => $request->complaint_type,
             'complaint_against' => $request->complaint_against,
             'description' => $request->description,

@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Barangay;
 use App\Models\Collector;
 use App\Models\WasteCollectionSchedule;
+use App\Models\Zone;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -16,14 +16,14 @@ class WasteCollectionScheduleController extends Controller
     public function index(): Response
     {
         return Inertia::render('admin/waste-management/schedules', [
-            'schedules' => WasteCollectionSchedule::with('barangay', 'collectors')
-                ->orderBy('scheduled_date', 'desc')
-                ->paginate(30),
+            'schedules' => WasteCollectionSchedule::with('zone', 'collectors')
+                ->orderBy('scheduled_date', 'asc')
+                ->get(),
             'today_schedules' => WasteCollectionSchedule::where('scheduled_date', today())
                 ->where('status', 'published')
-                ->with('barangay', 'collectors', 'statusUpdates')
+                ->with('zone', 'collectors', 'statusUpdates')
                 ->get(),
-            'barangays' => Barangay::orderBy('name')->get(),
+            'zones' => Zone::where('is_active', true)->get(['id', 'name']),
             'collectors' => Collector::with('user')->orderBy('full_name')->get(),
         ]);
     }
@@ -31,7 +31,7 @@ class WasteCollectionScheduleController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $request->validate([
-            'barangay_id' => ['required', 'exists:barangays,id'],
+            'zone_id' => ['nullable', 'exists:zones,id'],
             'scheduled_date' => ['required', 'date'],
             'scheduled_time' => ['required', 'date_format:H:i'],
             'collector_ids' => ['required', 'array', 'min:1'],
@@ -40,7 +40,7 @@ class WasteCollectionScheduleController extends Controller
         ]);
 
         $schedule = WasteCollectionSchedule::create([
-            'barangay_id' => $request->barangay_id,
+            'zone_id' => $request->zone_id,
             'scheduled_date' => $request->scheduled_date,
             'scheduled_time' => $request->scheduled_time,
             'status' => $request->status,
@@ -55,7 +55,7 @@ class WasteCollectionScheduleController extends Controller
     public function update(Request $request, WasteCollectionSchedule $schedule): RedirectResponse
     {
         $request->validate([
-            'barangay_id' => ['required', 'exists:barangays,id'],
+            'zone_id' => ['nullable', 'exists:zones,id'],
             'scheduled_date' => ['required', 'date'],
             'scheduled_time' => ['required', 'date_format:H:i'],
             'collector_ids' => ['required', 'array', 'min:1'],
@@ -63,7 +63,7 @@ class WasteCollectionScheduleController extends Controller
             'status' => ['required', 'in:draft,published,completed,cancelled'],
         ]);
 
-        $schedule->update($request->only('barangay_id', 'scheduled_date', 'scheduled_time', 'status'));
+        $schedule->update($request->only('zone_id', 'scheduled_date', 'scheduled_time', 'status'));
         $schedule->collectors()->sync($request->collector_ids);
 
         return redirect()->route('admin.waste.schedules.index');

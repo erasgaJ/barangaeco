@@ -1,14 +1,14 @@
 <?php
 
-use App\Models\Barangay;
 use App\Models\User;
+use App\Models\Zone;
 
 it('allows admin to store a complaint', function () {
     $admin = User::factory()->admin()->create();
-    $barangay = Barangay::factory()->create();
+    $zone = Zone::factory()->create();
 
     $response = $this->actingAs($admin)->post(route('admin.complaints.store'), [
-        'barangay_id' => $barangay->id,
+        'zone_id' => $zone->id,
         'complaint_type' => 'Road',
         'complaint_against' => 'DPWH contractor',
         'description' => 'Maraming butas sa kalsada.',
@@ -17,7 +17,7 @@ it('allows admin to store a complaint', function () {
 
     $response->assertRedirect(route('admin.complaints.index'));
     $this->assertDatabaseHas('complaints', [
-        'barangay_id' => $barangay->id,
+        'zone_id' => $zone->id,
         'complaint_type' => 'Road',
     ]);
 });
@@ -27,7 +27,7 @@ it('requires all fields when storing a complaint', function () {
 
     $this->actingAs($admin)
         ->post(route('admin.complaints.store'), [])
-        ->assertSessionHasErrors(['barangay_id', 'complaint_type', 'complaint_against', 'description', 'priority']);
+        ->assertSessionHasErrors(['complaint_type', 'complaint_against', 'description', 'priority']);
 });
 
 it('rejects unauthenticated complaint store', function () {

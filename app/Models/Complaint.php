@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 #[Fillable([
     'resident_id',
-    'barangay_id',
+    'zone_id',
     'complaint_type',
     'complaint_against',
     'description',
@@ -26,9 +26,9 @@ class Complaint extends Model
         return $this->belongsTo(Resident::class);
     }
 
-    public function barangay(): BelongsTo
+    public function zone(): BelongsTo
     {
-        return $this->belongsTo(Barangay::class);
+        return $this->belongsTo(Zone::class);
     }
 
     public function createdBy(): BelongsTo

@@ -2,9 +2,9 @@
 
 namespace Database\Factories;
 
-use App\Models\Barangay;
 use App\Models\User;
 use App\Models\WasteCollectionSchedule;
+use App\Models\Zone;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -20,7 +20,7 @@ class WasteCollectionScheduleFactory extends Factory
     public function definition(): array
     {
         return [
-            'barangay_id' => Barangay::factory(),
+            'zone_id' => Zone::factory(),
             'scheduled_date' => fake()->dateTimeBetween('now', '+30 days')->format('Y-m-d'),
             'scheduled_time' => fake()->time('H:i'),
             'status' => fake()->randomElement(['draft', 'published']),
