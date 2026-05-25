@@ -23,7 +23,7 @@ Tasks:
 
 - [x] Task: Add Escape key handler and backdrop click handler to `CreateModal`. Use `useEffect(() => { function handler(e) { if (e.key === 'Escape') onClose(); } document.addEventListener('keydown', handler); return () => document.removeEventListener('keydown', handler); }, [onClose])`. Add `onClick={onClose}` on the backdrop `div` and `onClick={(e) => e.stopPropagation()}` on the inner panel. [492a105]
 
-- [x] Verification: Open the browser at `https://barangaeco.test/admin/announcements`. Open CreateModal, type in every field — text must be visible. Submit a title longer than 255 characters — the modal stays open and shows an inline error under the title field. Press Escape — modal closes. Click the backdrop — modal closes. [checkpoint marker] [492a105]
+- [x] Verification: Open the browser at `https://barangaeco.test/admin/announcements`. Open CreateModal, type in every field — text must be visible. Submit a title longer than 255 characters — the modal stays open and shows an inline error under the title field. Press Escape — modal closes. Click the backdrop — modal closes. [checkpoint: 5158025]
 
 ---
 
