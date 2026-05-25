@@ -103,12 +103,12 @@ Five phases covering database schema changes, a new Zones admin UI, wiring zones
 
 ### Tasks
 
-- [ ] **Task 2.1 — Test: ZoneController index returns Inertia response (Red)**
+- [x] **Task 2.1 — Test: ZoneController index returns Inertia response (Red)**
   Write `ZoneControllerTest` with:
   - `it('shows zones index page')`: POST /login as admin, GET `/admin/zones`, assert Inertia component `admin/zones/index`, assert response has `zones` prop.
   Run — expect failure (no route or controller).
 
-- [ ] **Task 2.2 — Controller: Admin\ZoneController (Green)**
+- [x] **Task 2.2 — Controller: Admin\ZoneController (Green)**
   Run `php artisan make:controller Admin/ZoneController --no-interaction`.
   Implement:
   - `index()`: `Inertia::render('admin/zones/index', ['zones' => Zone::orderBy('name')->get()])`.
@@ -121,7 +121,7 @@ Five phases covering database schema changes, a new Zones admin UI, wiring zones
   ```
   Re-run test — expect green.
 
-- [ ] **Task 2.3 — Test: ZoneController store validation (Red → Green)**
+- [x] **Task 2.3 — Test: ZoneController store validation (Red → Green)**
   Extend `ZoneControllerTest`:
   - `it('validates zone name is required on store')`: POST `/admin/zones` with empty name, assert redirect with errors.
   - `it('validates zone name is unique on store')`: create a zone, POST with the same name, assert error.
@@ -130,11 +130,11 @@ Five phases covering database schema changes, a new Zones admin UI, wiring zones
   - `it('deletes a zone')`: DELETE `/admin/zones/{zone}`, assert row gone.
   Run — implement any missing validation — re-run green.
 
-- [ ] **Task 2.4 — Wayfinder: Regenerate routes**
+- [x] **Task 2.4 — Wayfinder: Regenerate routes**
   Run `npm run build` to trigger Wayfinder regeneration of `@/actions/Admin/ZoneController.*`.
   Verify the generated file exists in `resources/js/actions/Admin/`.
 
-- [ ] **Task 2.5 — Frontend: Zones index page**
+- [x] **Task 2.5 — Frontend: Zones index page**
   Create `resources/js/pages/admin/zones/index.jsx`.
   Follow the Collectors page pattern:
   - Display a table with columns: Name, Description, Status (Active badge / Inactive badge), Actions.
@@ -142,38 +142,38 @@ Five phases covering database schema changes, a new Zones admin UI, wiring zones
   - Rows have Edit and Delete icon buttons.
   Accept props: `zones` (array), `flash` (for success messages).
 
-- [ ] **Task 2.6 — Frontend: Create Zone modal**
+- [x] **Task 2.6 — Frontend: Create Zone modal**
   Add `CreateZoneModal` component (inline or in `resources/js/pages/admin/zones/`).
   Fields: Name (Input, required), Description (Textarea, optional), Is Active (Checkbox, default checked).
   On submit: `router.post(action(ZoneController.store), data, { onSuccess: closeModal })`.
   Show Inertia form errors inline.
 
-- [ ] **Task 2.7 — Frontend: Edit Zone modal**
+- [x] **Task 2.7 — Frontend: Edit Zone modal**
   Add `EditZoneModal` component.
   Pre-populate fields from the selected zone.
   On submit: `router.put(action(ZoneController.update, zone.id), data, { onSuccess: closeModal })`.
 
-- [ ] **Task 2.8 — Frontend: Delete Zone modal**
+- [x] **Task 2.8 — Frontend: Delete Zone modal**
   Add confirmation AlertDialog.
   On confirm: `router.delete(action(ZoneController.destroy, zone.id), { onSuccess: closeModal })`.
 
-- [ ] **Task 2.9 — Admin nav: Add Zones link**
+- [x] **Task 2.9 — Admin nav: Add Zones link**
   In the admin sidebar/nav component, add a "Zones" link pointing to the zones index route.
   Place it alongside or under the Waste Management section.
 
-- [ ] **Task 2.10 — Run Pint on changed PHP files**
+- [x] **Task 2.10 — Run Pint on changed PHP files**
   `vendor/bin/pint --dirty --format agent`
 
-- [ ] **Task 2.11 — Run ESLint + Prettier on changed JS files**
+- [x] **Task 2.11 — Run ESLint + Prettier on changed JS files**
   `npm run lint` then `npm run format`
 
-- [ ] **Verification [checkpoint marker]**
-  - `php artisan test --compact` — all tests green.
+- [x] **Verification [checkpoint: c280493]**
+  - `php artisan test --compact` — all 119 tests green.
   - Navigate to `https://barangaeco.test/admin/zones` — page loads with table.
   - Create a zone: "Sityo Bagong Pag-asa" — appears in table, flash shown.
   - Edit the zone — name updates.
   - Delete the zone — removed from table.
-  - Commit: `git commit -m "phase(2): zones admin CRUD — list, create, edit, delete"` — note SHA: `[commit_sha]`.
+  - Commit: `git commit -m "phase(2): zones admin CRUD — list, create, edit, delete"` — SHA: `c280493`.
 
 ---
 
