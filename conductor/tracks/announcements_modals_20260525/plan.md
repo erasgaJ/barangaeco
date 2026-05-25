@@ -67,7 +67,7 @@ Tasks:
 
 - [x] Task: Render `{deleteTarget && <DeleteModal announcement={deleteTarget} onClose={() => setDeleteTarget(null)} />}` in `AnnouncementsIndex`. (TDD: Manual — open DeleteModal, click Delete, confirm announcement disappears from the list) [16c2828]
 
-- [ ] Verification: Click the Trash2 icon on an announcement — styled DeleteModal opens showing the announcement title. Click "Cancel" — modal closes, announcement remains. Click Trash2 again, click "Delete" — modal closes and announcement is removed from the list. Press Escape in the modal — modal closes without deleting. [checkpoint marker]
+- [x] Verification: Click the Trash2 icon on an announcement — styled DeleteModal opens showing the announcement title. Click "Cancel" — modal closes, announcement remains. Click Trash2 again, click "Delete" — modal closes and announcement is removed from the list. Press Escape in the modal — modal closes without deleting. [checkpoint: 37c5420]
 
 ---
 
