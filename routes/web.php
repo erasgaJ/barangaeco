@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\DocumentRequestController;
 use App\Http\Controllers\Admin\ResidentController;
 use App\Http\Controllers\Admin\WasteCollectionScheduleController;
+use App\Http\Controllers\Admin\ZoneController;
 use Illuminate\Support\Facades\Route;
 
 Route::redirect('/', '/login')->name('home');
@@ -59,6 +60,12 @@ Route::middleware(['auth', 'verified', 'role:admin'])->prefix('admin')->name('ad
     Route::post('announcements', [AnnouncementController::class, 'store'])->name('announcements.store');
     Route::put('announcements/{announcement}', [AnnouncementController::class, 'update'])->name('announcements.update');
     Route::delete('announcements/{announcement}', [AnnouncementController::class, 'destroy'])->name('announcements.destroy');
+
+    // Zones
+    Route::get('zones', [ZoneController::class, 'index'])->name('zones.index');
+    Route::post('zones', [ZoneController::class, 'store'])->name('zones.store');
+    Route::put('zones/{zone}', [ZoneController::class, 'update'])->name('zones.update');
+    Route::delete('zones/{zone}', [ZoneController::class, 'destroy'])->name('zones.destroy');
 });
 
 require __DIR__.'/settings.php';

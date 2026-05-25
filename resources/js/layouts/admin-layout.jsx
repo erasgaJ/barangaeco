@@ -4,6 +4,7 @@ import {
     FileText,
     LayoutDashboard,
     LogOut,
+    Map,
     MessageCircleWarning,
     Recycle,
     Users,
@@ -18,6 +19,7 @@ const navItems = [
         href: '/admin/waste-management/schedules',
         icon: Recycle,
     },
+    { title: 'Zones', href: '/admin/zones', icon: Map },
     {
         title: 'Document Requests',
         href: '/admin/document-requests',
