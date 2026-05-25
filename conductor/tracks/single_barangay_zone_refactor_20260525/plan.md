@@ -301,10 +301,9 @@ Five phases covering database schema changes, a new Zones admin UI, wiring zones
 - [x] **Task 5.6 — Build frontend**
   `npm run build` — built in 13.39s, no errors. Wayfinder actions and zones bundle present.
 
-- [ ] **Verification [checkpoint marker]**
-  - `composer run ci:check` — complete suite passes.
-  - Review `conductor/tracks.md` — mark track complete.
-  - Commit: `git commit -m "phase(5): quality gates passed"` — note SHA: `[commit_sha]`.
+- [x] **Verification [checkpoint: 2a58656]**
+  - All quality gates passed (Pint, ESLint, Prettier, TypeScript, Pest 122/122, build).
+  - Commit: `phase(5): quality gates passed` — SHA: `2a58656`.
 
 ---
 
