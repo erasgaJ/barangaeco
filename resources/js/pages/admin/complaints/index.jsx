@@ -1,7 +1,7 @@
 import { Head, router } from '@inertiajs/react';
 import { format } from 'date-fns';
-import { AlertTriangle, Plus, Search } from 'lucide-react';
-import { useState } from 'react';
+import { AlertTriangle, CheckCircle2, Plus, Search, X } from 'lucide-react';
+import { useEffect, useState } from 'react';
 import { cn } from '@/lib/utils';
 import complaintRoutes from '@/routes/admin/complaints';
 
@@ -16,6 +16,33 @@ const STATUS_STYLES = {
     in_progress: 'bg-purple-100 text-purple-700',
     resolved: 'bg-green-100 text-green-700',
 };
+
+const AVATAR_COLORS = [
+    'bg-blue-500',
+    'bg-purple-500',
+    'bg-green-500',
+    'bg-amber-500',
+    'bg-rose-500',
+    'bg-teal-500',
+];
+
+function getAvatarColor(name) {
+    return AVATAR_COLORS[(name?.charCodeAt(0) ?? 0) % AVATAR_COLORS.length];
+}
+
+function getInitials(name) {
+    return (name ?? '?')
+        .split(' ')
+        .slice(0, 2)
+        .map((n) => n[0])
+        .join('')
+        .toUpperCase();
+}
+
+function formatComplaintId(complaint) {
+    const year = new Date(complaint.created_at).getFullYear();
+    return `CMP-${year}-${String(complaint.id).padStart(3, '0')}`;
+}
 
 function StatusModal({ complaint, onClose }) {
     const [status, setStatus] = useState(complaint.status);
@@ -86,6 +113,157 @@ function StatusModal({ complaint, onClose }) {
     );
 }
 
+function ComplaintDetailModal({ complaint, onClose, onUpdateStatus }) {
+    const residentName =
+        complaint.resident?.name ?? complaint.resident_name ?? 'Anonymous';
+    const barangayName = complaint.barangay?.name ?? '—';
+
+    useEffect(() => {
+        function handleKeyDown(e) {
+            if (e.key === 'Escape') {
+                onClose();
+            }
+        }
+        document.addEventListener('keydown', handleKeyDown);
+        return () => document.removeEventListener('keydown', handleKeyDown);
+    }, [onClose]);
+
+    return (
+        <div
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/40"
+            onClick={onClose}
+        >
+            <div
+                className="w-full max-w-2xl rounded-xl bg-white shadow-xl"
+                onClick={(e) => e.stopPropagation()}
+            >
+                {/* Header */}
+                <div className="flex items-center justify-between border-b border-slate-100 px-6 py-4">
+                    <div className="flex items-center gap-3">
+                        <span className="text-base font-semibold text-slate-900">
+                            {formatComplaintId(complaint)}
+                        </span>
+                        <span
+                            className={cn(
+                                'rounded-full px-2.5 py-0.5 text-xs font-medium capitalize',
+                                STATUS_STYLES[complaint.status],
+                            )}
+                        >
+                            {complaint.status.replace('_', ' ')}
+                        </span>
+                    </div>
+                    <button
+                        onClick={onClose}
+                        className="rounded-lg p-1.5 text-slate-400 hover:bg-slate-100 hover:text-slate-600"
+                    >
+                        <X className="h-4 w-4" />
+                    </button>
+                </div>
+
+                {/* Body — two columns */}
+                <div className="grid grid-cols-2 gap-0 divide-x divide-slate-100 px-0 py-0">
+                    {/* Left: Resident Information */}
+                    <div className="px-6 py-5">
+                        <p className="mb-4 text-xs font-semibold tracking-widest text-slate-400 uppercase">
+                            Resident Information
+                        </p>
+                        <div className="flex items-center gap-3">
+                            <div
+                                className={cn(
+                                    'flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-sm font-bold text-white',
+                                    getAvatarColor(residentName),
+                                )}
+                            >
+                                {getInitials(residentName)}
+                            </div>
+                            <div>
+                                <p className="font-medium text-slate-900">
+                                    {residentName}
+                                </p>
+                                <p className="text-xs text-slate-400">
+                                    Verified Resident
+                                </p>
+                            </div>
+                        </div>
+                        <div className="mt-4 text-sm text-slate-600">
+                            <span className="font-medium text-slate-700">
+                                Barangay:{' '}
+                            </span>
+                            {barangayName}
+                        </div>
+                    </div>
+
+                    {/* Right: Complaint Details */}
+                    <div className="px-6 py-5">
+                        <p className="mb-4 text-xs font-semibold tracking-widest text-slate-400 uppercase">
+                            Complaint Details
+                        </p>
+                        <div className="mb-3">
+                            <span
+                                className={cn(
+                                    'rounded-full px-2.5 py-0.5 text-xs font-medium',
+                                    'bg-slate-100 text-slate-700',
+                                )}
+                            >
+                                {complaint.complaint_type}
+                            </span>
+                        </div>
+                        <p className="mb-4 text-sm text-slate-600">
+                            <span className="font-medium text-slate-700">
+                                Against:{' '}
+                            </span>
+                            {complaint.complaint_against}
+                        </p>
+                        <p className="mb-1 text-xs font-medium text-slate-500">
+                            Description
+                        </p>
+                        <div className="mb-4 rounded-lg bg-slate-50 p-3 text-sm text-slate-700">
+                            {complaint.description}
+                        </div>
+                        <div className="flex items-center gap-2">
+                            <span className="text-xs font-medium text-slate-500">
+                                Priority:
+                            </span>
+                            <span
+                                className={cn(
+                                    'rounded-full px-2.5 py-0.5 text-xs font-medium capitalize',
+                                    PRIORITY_STYLES[complaint.priority],
+                                )}
+                            >
+                                {complaint.priority}
+                            </span>
+                        </div>
+                        <p className="mt-3 text-xs text-slate-400">
+                            Filed:{' '}
+                            {format(
+                                new Date(complaint.created_at),
+                                'MMM d, yyyy',
+                            )}
+                        </p>
+                    </div>
+                </div>
+
+                {/* Footer */}
+                <div className="flex justify-end gap-2 border-t border-slate-100 px-6 py-4">
+                    <button
+                        onClick={onClose}
+                        className="rounded-lg border border-slate-200 px-4 py-2 text-sm text-slate-600 hover:bg-slate-50"
+                    >
+                        Close
+                    </button>
+                    <button
+                        onClick={() => onUpdateStatus(complaint)}
+                        className="flex items-center gap-2 rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700"
+                    >
+                        <CheckCircle2 className="h-4 w-4" />
+                        Update Status
+                    </button>
+                </div>
+            </div>
+        </div>
+    );
+}
+
 export default function ComplaintsIndex({ complaints, barangays, filters }) {
     const [search, setSearch] = useState('');
     const [barangayFilter, setBarangayFilter] = useState(
@@ -95,6 +273,7 @@ export default function ComplaintsIndex({ complaints, barangays, filters }) {
         filters?.priority ?? '',
     );
     const [statusTarget, setStatusTarget] = useState(null);
+    const [detailTarget, setDetailTarget] = useState(null);
 
     const filtered = complaints.data.filter((c) => {
         const matchSearch =
@@ -115,6 +294,16 @@ export default function ComplaintsIndex({ complaints, barangays, filters }) {
                 <StatusModal
                     complaint={statusTarget}
                     onClose={() => setStatusTarget(null)}
+                />
+            )}
+            {detailTarget && (
+                <ComplaintDetailModal
+                    complaint={detailTarget}
+                    onClose={() => setDetailTarget(null)}
+                    onUpdateStatus={(c) => {
+                        setDetailTarget(null);
+                        setStatusTarget(c);
+                    }}
                 />
             )}
 
@@ -196,7 +385,8 @@ export default function ComplaintsIndex({ complaints, barangays, filters }) {
                             {filtered.map((c) => (
                                 <tr
                                     key={c.id}
-                                    className="border-b border-slate-50 last:border-0 hover:bg-slate-50/50"
+                                    onClick={() => setDetailTarget(c)}
+                                    className="cursor-pointer border-b border-slate-50 last:border-0 hover:bg-slate-50/50"
                                 >
                                     <td className="px-5 py-3">
                                         <div className="flex items-center gap-2.5">
@@ -245,7 +435,10 @@ export default function ComplaintsIndex({ complaints, barangays, filters }) {
                                     </td>
                                     <td className="px-5 py-3 text-right">
                                         <button
-                                            onClick={() => setStatusTarget(c)}
+                                            onClick={(e) => {
+                                                e.stopPropagation();
+                                                setStatusTarget(c);
+                                            }}
                                             className="rounded-lg border border-slate-200 px-3 py-1.5 text-xs font-medium text-slate-600 hover:bg-slate-50"
                                         >
                                             Update Status
