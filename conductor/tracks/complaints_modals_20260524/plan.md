@@ -48,7 +48,7 @@ Tasks:
 
 - [x] Task: Add Escape key handler to `NewComplaintModal` (same `useEffect` pattern as detail modal). Add backdrop click handler. (TDD: Manual — press Escape, modal closes) [7b415e7]
 
-- [x] Verification: Open the complaints page, click "Log Complaint", fill all fields, submit. Confirm the modal closes, the table reloads, and the new complaint appears. Submit with empty fields and confirm inline errors. [checkpoint: 7b415e7]
+- [x] Verification: Open the complaints page, click "Log Complaint", fill all fields, submit. Confirm the modal closes, the table reloads, and the new complaint appears. Submit with empty fields and confirm inline errors. [checkpoint: a0b3ba2]
 
 ---
 
