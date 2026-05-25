@@ -10,7 +10,7 @@
 | `waste_schedules_modals_20260524` | Waste collection schedule modals — Create, Edit, Delete | complete |
 | `document_requests_modals_20260524` | Document Request modals — Review (approve/reject), View Reason (rejected), View Copy (resolved) | complete |
 | `complaints_modals_20260524` | Complaint management modals — detail view modal + new complaint form modal for the admin web app | complete |
-| `announcements_modals_20260525` | Announcements management — Polish CreateModal, Edit modal, Delete modal for the admin web app | pending |
+| `announcements_modals_20260525` | Announcements management — Polish CreateModal, Edit modal, Delete modal for the admin web app | complete |
 
 ## Completed
 
@@ -22,3 +22,4 @@
 | `waste_schedules_modals_20260524` | Waste collection schedule modals — Create, Edit, Delete | d1f7879 |
 | `document_requests_modals_20260524` | Document Request modals — Review (approve/reject), View Reason (rejected), View Copy (resolved) | 3d405cb |
 | `complaints_modals_20260524` | Complaint management modals — detail view modal + new complaint form modal for the admin web app | 458c322 |
+| `announcements_modals_20260525` | Announcements management — Polish CreateModal, Edit modal, Delete modal for the admin web app | 2350c5a |

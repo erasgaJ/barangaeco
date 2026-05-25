@@ -91,7 +91,7 @@ Tasks:
 
 - [x] Task: Run `npm run types:check` — no type errors (JSX files generate no TS errors; confirm Wayfinder generated types are valid). [47cf32a]
 
-- [x] Verification: Run `composer run ci:check` (full gate: lint + format + types + tests). All checks green. Commit: `phase(4): announcements modals tests and quality gates`. [checkpoint: 47cf32a]
+- [x] Verification: Run `composer run ci:check` (full gate: lint + format + types + tests). All checks green. Commit: `phase(4): announcements modals tests and quality gates`. [checkpoint: 47cf32a] [checkpoint: 2350c5a]
 
 ---
 
