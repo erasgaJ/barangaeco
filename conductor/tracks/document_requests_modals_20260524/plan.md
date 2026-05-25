@@ -99,16 +99,16 @@ All work is in `resources/js/pages/admin/document-requests/index.jsx` unless not
 
 ### Tasks
 
-- [ ] Task: Review `DocumentRequestApproveTest` and `DocumentRequestRejectTest` — confirm they cover: authenticated approve (valid remarks), authenticated approve (no remarks), authenticated reject (valid reason), authenticated reject (missing reason → 422), unauthenticated approve (→ redirect to login), unauthenticated reject (→ redirect to login). Add missing cases.
+- [x] Task: Review `DocumentRequestApproveTest` and `DocumentRequestRejectTest` — confirm they cover: authenticated approve (valid remarks), authenticated approve (no remarks), authenticated reject (valid reason), authenticated reject (missing reason → 422), unauthenticated approve (→ redirect to login), unauthenticated reject (→ redirect to login). Add missing cases. — All 6 cases already present from Phases 1 & 2; no additions needed. [a99ee9c]
 
-- [ ] Task: Run the full test suite — `php artisan test --compact`. Fix any failures.
+- [x] Task: Run the full test suite — `php artisan test --compact`. Fix any failures. — 89 tests, 89 passed, 347 assertions. [a99ee9c]
 
-- [ ] Task: Run `vendor/bin/pint --dirty --format agent` on any modified PHP files.
+- [x] Task: Run `vendor/bin/pint --dirty --format agent` on any modified PHP files. — No issues. [a99ee9c]
 
-- [ ] Task: Run `npm run lint:check` and `npm run format:check` — fix any JSX lint or formatting issues.
+- [x] Task: Run `npm run lint:check` and `npm run format:check` — fix any JSX lint or formatting issues. — ESLint clean; Prettier fixed `view-copy-modal.jsx`. [a99ee9c]
 
-- [ ] Task: Run `npm run types:check` — resolve any type errors (note: files are `.jsx` but TypeScript checks JSX files if configured).
+- [x] Task: Run `npm run types:check` — resolve any type errors (note: files are `.jsx` but TypeScript checks JSX files if configured). — No type errors. [a99ee9c]
 
-- [ ] Task: Commit Phase 4 — `git add` modified files, `git commit -m "phase(4): tests and quality gates for document request modals"`.
+- [x] Task: Commit Phase 4 — `git add` modified files, `git commit -m "phase(4): tests and quality gates for document request modals"`. [a99ee9c]
 
-- [ ] Verification: Run `composer run ci:check` — all checks pass with zero errors. [checkpoint]
+- [x] Verification: Run `composer run ci:check` — all checks pass with zero errors. [checkpoint: a99ee9c]
