@@ -6,6 +6,7 @@ import { cn } from '@/lib/utils';
 import ReviewModal from './review-modal';
 import RejectModal from './reject-modal';
 import ViewReasonModal from './view-reason-modal';
+import ViewCopyModal from './view-copy-modal';
 
 const STATUS_STYLES = {
     pending: 'bg-amber-100 text-amber-700',
@@ -25,8 +26,8 @@ export default function DocumentRequestsIndex({ requests, filters }) {
     const [statusFilter, setStatusFilter] = useState(filters?.status ?? '');
     const [reviewTarget, setReviewTarget] = useState(null);
     const [rejectTarget, setRejectTarget] = useState(null);
-    // viewReasonTarget — Phase 2; viewCopyTarget — Phase 3
     const [viewReasonTarget, setViewReasonTarget] = useState(null);
+    const [viewCopyTarget, setViewCopyTarget] = useState(null);
 
     const filtered = requests.data.filter((r) => {
         const matchSearch =
@@ -70,6 +71,13 @@ export default function DocumentRequestsIndex({ requests, filters }) {
                 <ViewReasonModal
                     request={viewReasonTarget}
                     onClose={() => setViewReasonTarget(null)}
+                />
+            )}
+
+            {viewCopyTarget && (
+                <ViewCopyModal
+                    request={viewCopyTarget}
+                    onClose={() => setViewCopyTarget(null)}
                 />
             )}
 
@@ -221,11 +229,21 @@ export default function DocumentRequestsIndex({ requests, filters }) {
                                             </div>
                                         )}
                                         {req.status === 'resolved' && (
-                                            <p className="text-right text-xs text-slate-400">
-                                                {req.resolvedBy
-                                                    ? `by ${req.resolvedBy.name}`
-                                                    : '—'}
-                                            </p>
+                                            <div className="flex flex-col items-end gap-1.5">
+                                                <button
+                                                    onClick={() =>
+                                                        setViewCopyTarget(req)
+                                                    }
+                                                    className="flex items-center gap-1 rounded-lg border border-green-200 bg-green-50 px-3 py-1.5 text-xs font-medium text-green-700 hover:bg-green-100"
+                                                >
+                                                    View Copy
+                                                </button>
+                                                <p className="text-right text-xs text-slate-400">
+                                                    {req.resolvedBy
+                                                        ? `by ${req.resolvedBy.name}`
+                                                        : '—'}
+                                                </p>
+                                            </div>
                                         )}
                                     </td>
                                 </tr>
