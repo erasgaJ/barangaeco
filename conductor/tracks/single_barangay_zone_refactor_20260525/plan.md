@@ -220,7 +220,7 @@ Five phases covering database schema changes, a new Zones admin UI, wiring zones
 - [x] **Task 3.7 — Run ESLint + Prettier**
   `npm run lint` then `npm run format` — passed
 
-- [x] **Verification [checkpoint: 2514dd1]**
+- [x] **Verification [checkpoint: 3a59997]**
   - `php artisan test --compact` — all 122 tests green.
   - Open `https://barangaeco.test/admin/complaints` — "Zone" column visible (no "Barangay" column).
   - Create a complaint via modal — zone dropdown shows active zones; complaint saved correctly.
@@ -268,7 +268,7 @@ Five phases covering database schema changes, a new Zones admin UI, wiring zones
 - [x] **Task 4.7 — Run ESLint + Prettier**
   `npm run lint` then `npm run format` — passed
 
-- [x] **Verification [checkpoint: 5b62a53]**
+- [x] **Verification [checkpoint: 208fa62]**
   - `php artisan test --compact` — all 122 tests green.
   - Open `https://barangaeco.test/admin/waste-collection-schedules` — zone column visible.
   - Create a schedule — zone dropdown shows active zones; schedule saves correctly.
@@ -301,7 +301,7 @@ Five phases covering database schema changes, a new Zones admin UI, wiring zones
 - [x] **Task 5.6 — Build frontend**
   `npm run build` — built in 13.39s, no errors. Wayfinder actions and zones bundle present.
 
-- [x] **Verification [checkpoint: 2a58656]**
+- [x] **Verification [checkpoint: e55c3cf]**
   - All quality gates passed (Pint, ESLint, Prettier, TypeScript, Pest 122/122, build).
   - Commit: `phase(5): quality gates passed` — SHA: `2a58656`.
 
