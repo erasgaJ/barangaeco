@@ -77,7 +77,7 @@ All work is in `resources/js/pages/admin/document-requests/index.jsx` unless not
 
 ### Tasks
 
-- [ ] Task: Implement `ViewCopyModal` component:
+- [x] Task: Implement `ViewCopyModal` component:
   - Header: "Certificate of [DOC_LABELS[document_type]]" + reference number (formatted ID) + green "Resolved" badge.
   - DOCUMENT PREVIEW panel (left): static barangay letterhead block (CSS-only header with barangay name, address line, document title) populated with resident name, document type, purpose, and issue date. Assign `id="certificate-preview"` for print scoping.
   - Right info panel: Resident Name, Issue Date, Expiry Date (issue date + 1 year using `date-fns`), Processed By, Purpose.
@@ -85,8 +85,9 @@ All work is in `resources/js/pages/admin/document-requests/index.jsx` unless not
   - Add `<style>` tag inside the component using `@media print` to show only `#certificate-preview` and hide all other page elements.
   - Backdrop click and X button close via `onClose()`.
   - Escape key listener.
+  [af2168f]
 
-- [ ] Task: Add `viewCopyTarget` state in `DocumentRequestsIndex`. Resolved rows show a "View Copy" button that sets `viewCopyTarget`. Render `<ViewCopyModal>` when `viewCopyTarget` is set.
+- [x] Task: Add `viewCopyTarget` state in `DocumentRequestsIndex`. Resolved rows show a "View Copy" button that sets `viewCopyTarget`. Render `<ViewCopyModal>` when `viewCopyTarget` is set. [af2168f]
 
 - [ ] Verification: Click "View Copy" on a resolved row — modal opens with certificate preview, right-side metadata, and action buttons. Click "Print Certificate" — browser print dialog opens showing only the certificate panel. Click "Download PDF" — alert appears. [checkpoint]
 
