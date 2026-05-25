@@ -58,19 +58,19 @@ Goal: Pest feature tests cover the store and updateStatus endpoints with happy p
 
 Tasks:
 
-- [ ] Task: Create `php artisan make:test --pest ComplaintsStoreTest`. Write `test_admin_can_store_complaint`: act as admin, POST valid payload to `admin.complaints.store`, assert 302 and DB has complaint. Write `test_store_complaint_requires_all_fields`: POST empty payload, assert 422 (or redirect back with errors). (TDD: Red — write tests; Green — run tests, they should pass against existing controller)
+- [x] Task: Create `php artisan make:test --pest ComplaintsStoreTest`. Write `test_admin_can_store_complaint`: act as admin, POST valid payload to `admin.complaints.store`, assert 302 and DB has complaint. Write `test_store_complaint_requires_all_fields`: POST empty payload, assert 422 (or redirect back with errors). (TDD: Red — write tests; Green — run tests, they should pass against existing controller) [ff035fc]
 
-- [ ] Task: Create `php artisan make:test --pest ComplaintsUpdateStatusTest`. Write `test_admin_can_update_complaint_status`: act as admin, create a complaint factory, PATCH to `admin.complaints.updateStatus` with `{ status: 'in_progress' }`, assert 302 and DB shows updated status. Write `test_update_status_rejects_invalid_status`: PATCH with `{ status: 'invalid' }`, assert validation error. (TDD: Red → Green cycle)
+- [x] Task: Create `php artisan make:test --pest ComplaintsUpdateStatusTest`. Write `test_admin_can_update_complaint_status`: act as admin, create a complaint factory, PATCH to `admin.complaints.updateStatus` with `{ status: 'in_progress' }`, assert 302 and DB shows updated status. Write `test_update_status_rejects_invalid_status`: PATCH with `{ status: 'invalid' }`, assert validation error. (TDD: Red → Green cycle) [ff035fc]
 
-- [ ] Task: Run `php artisan test --compact --filter=Complaints` to confirm all complaint tests pass.
+- [x] Task: Run `php artisan test --compact --filter=Complaints` to confirm all complaint tests pass. [ff035fc]
 
-- [ ] Task: Run `npm run lint:check` and `npm run format:check`; fix any issues with `npm run lint` and `npm run format`.
+- [x] Task: Run `npm run lint:check` and `npm run format:check`; fix any issues with `npm run lint` and `npm run format`. [ff035fc]
 
-- [ ] Task: Run `npm run types:check`; resolve any type errors (JSX files should have no issues, but confirm no import errors).
+- [x] Task: Run `npm run types:check`; resolve any type errors (JSX files should have no issues, but confirm no import errors). [ff035fc]
 
-- [ ] Task: Run `vendor/bin/pint --dirty --format agent` to format any PHP files touched (test files).
+- [x] Task: Run `vendor/bin/pint --dirty --format agent` to format any PHP files touched (test files). [ff035fc]
 
-- [ ] Verification: Run `composer run ci:check` (or the full gate sequence manually). All checks green. Commit: `phase(3): complaint modals tests and quality gates`. [checkpoint]
+- [x] Verification: Run `composer run ci:check` (or the full gate sequence manually). All checks green. Commit: `phase(3): complaint modals tests and quality gates`. [checkpoint: ff035fc]
 
 ---
 
