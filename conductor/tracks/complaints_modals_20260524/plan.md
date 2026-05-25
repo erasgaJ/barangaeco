@@ -38,17 +38,17 @@ Goal: "Log Complaint" button opens a form modal. Submitting POSTs to the store r
 
 Tasks:
 
-- [ ] Task: Add `showNewModal` state (`useState(false)`) to `ComplaintsIndex`; wire the "Log Complaint" button `onClick` to `setShowNewModal(true)`. (TDD: No test needed — pure state wire-up, covered by Phase 3 feature test)
+- [x] Task: Add `showNewModal` state (`useState(false)`) to `ComplaintsIndex`; wire the "Log Complaint" button `onClick` to `setShowNewModal(true)`. (TDD: No test needed — pure state wire-up, covered by Phase 3 feature test) [7b415e7]
 
-- [ ] Task: Implement `NewComplaintModal` component in `index.jsx`. Structure: `fixed inset-0 z-50` backdrop, centered white panel (`max-w-lg`), title "New Complaint", subtitle "Log a resident issue for tracking and resolution.", form fields (Resident Name text input, Barangay select, Complaint Type select with options Road/Noise/Environment/Infrastructure/Other, Complain Against text input, Complaint textarea), Cancel + Create Complaint buttons. Accept `barangays` and `onClose` props. (TDD: Manual — open modal, verify all fields render correctly)
+- [x] Task: Implement `NewComplaintModal` component in `index.jsx`. Structure: `fixed inset-0 z-50` backdrop, centered white panel (`max-w-lg`), title "New Complaint", subtitle "Log a resident issue for tracking and resolution.", form fields (Resident Name text input, Barangay select, Complaint Type select with options Road/Noise/Environment/Infrastructure/Other, Complain Against text input, Complaint textarea), Cancel + Create Complaint buttons. Accept `barangays` and `onClose` props. (TDD: Manual — open modal, verify all fields render correctly) [7b415e7]
 
-- [ ] Task: Add local form state to `NewComplaintModal` (`useState` object for all fields) and a `errors` state object. Implement client-side validation: all fields required; set `errors` and abort submit if any field is empty. Show inline error text below each invalid field using a red `text-xs` style. (TDD: Manual — submit with empty fields, verify error messages appear under each field)
+- [x] Task: Add local form state to `NewComplaintModal` (`useState` object for all fields) and a `errors` state object. Implement client-side validation: all fields required; set `errors` and abort submit if any field is empty. Show inline error text below each invalid field using a red `text-xs` style. (TDD: Manual — submit with empty fields, verify error messages appear under each field) [7b415e7]
 
-- [ ] Task: Implement `handleSubmit` in `NewComplaintModal`: clear errors, set `loading(true)`, call `router.post(complaintRoutes.store().url, formData, { onSuccess: onClose, onError: (e) => setErrors(e), onFinish: () => setLoading(false) })`. Disable the "Create Complaint" button and show "Saving…" while loading. (TDD: Write Pest feature test — `test_admin_can_store_complaint` — POST with valid data, assert 302 redirect and complaint exists in DB)
+- [x] Task: Implement `handleSubmit` in `NewComplaintModal`: clear errors, set `loading(true)`, call `router.post(complaintRoutes.store().url, formData, { onSuccess: onClose, onError: (e) => setErrors(e), onFinish: () => setLoading(false) })`. Disable the "Create Complaint" button and show "Saving…" while loading. (TDD: Write Pest feature test — `test_admin_can_store_complaint` — POST with valid data, assert 302 redirect and complaint exists in DB) [7b415e7]
 
-- [ ] Task: Add Escape key handler to `NewComplaintModal` (same `useEffect` pattern as detail modal). Add backdrop click handler. (TDD: Manual — press Escape, modal closes)
+- [x] Task: Add Escape key handler to `NewComplaintModal` (same `useEffect` pattern as detail modal). Add backdrop click handler. (TDD: Manual — press Escape, modal closes) [7b415e7]
 
-- [ ] Verification: Open the complaints page, click "Log Complaint", fill all fields, submit. Confirm the modal closes, the table reloads, and the new complaint appears. Submit with empty fields and confirm inline errors. [checkpoint]
+- [x] Verification: Open the complaints page, click "Log Complaint", fill all fields, submit. Confirm the modal closes, the table reloads, and the new complaint appears. Submit with empty fields and confirm inline errors. [checkpoint: 7b415e7]
 
 ---
 
