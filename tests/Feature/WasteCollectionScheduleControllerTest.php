@@ -5,6 +5,19 @@ use App\Models\User;
 use App\Models\WasteCollectionSchedule;
 use App\Models\Zone;
 
+test('schedules index passes zones to Inertia', function () {
+    $admin = User::factory()->admin()->create();
+    Zone::factory()->create(['is_active' => true]);
+
+    $response = $this->actingAs($admin)->get(route('admin.waste.schedules.index'));
+
+    $response->assertOk();
+    $response->assertInertia(fn ($page) => $page
+        ->component('admin/waste-management/schedules')
+        ->has('zones')
+    );
+});
+
 test('schedules index returns collectors prop with full_name, contact_number, and user email', function () {
     $admin = User::factory()->admin()->create();
 

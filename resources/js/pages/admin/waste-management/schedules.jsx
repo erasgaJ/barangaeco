@@ -661,7 +661,8 @@ export default function SchedulesPage({
                                             </div>
                                             <div className="flex-1">
                                                 <p className="font-medium text-slate-900">
-                                                    {schedule.zone?.name ?? 'Unassigned'}{' '}
+                                                    {schedule.zone?.name ??
+                                                        'Unassigned'}{' '}
                                                     Route
                                                 </p>
                                                 <p className="text-xs text-slate-500">

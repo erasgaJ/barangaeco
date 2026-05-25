@@ -11,11 +11,7 @@ const EMPTY_FORM = {
     status: 'draft',
 };
 
-export default function CreateScheduleModal({
-    zones,
-    collectors,
-    onClose,
-}) {
+export default function CreateScheduleModal({ zones, collectors, onClose }) {
     const { errors } = usePage().props;
     const [form, setForm] = useState(EMPTY_FORM);
 

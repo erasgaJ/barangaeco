@@ -10,7 +10,6 @@ return new class extends Migration
     {
         Schema::create('waste_collection_schedules', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('barangay_id')->constrained()->restrictOnDelete();
             $table->date('scheduled_date');
             $table->time('scheduled_time');
             $table->enum('status', ['draft', 'published', 'completed', 'cancelled'])->default('draft');
