@@ -49,22 +49,25 @@ All work is in `resources/js/pages/admin/document-requests/index.jsx` unless not
 
 ### Tasks
 
-- [ ] Task: (TDD) Write a Pest feature test `DocumentRequestRejectTest` — test that `POST admin/document-requests/{id}/reject` with `rejection_feedback` updates status to `rejected`, that missing `rejection_feedback` returns a validation error, and that unauthenticated access is rejected. Run test — expect red for validation case if not yet covered.
+- [x] Task: (TDD) Write a Pest feature test `DocumentRequestRejectTest` — test that `POST admin/document-requests/{id}/reject` with `rejection_feedback` updates status to `rejected`, that missing `rejection_feedback` returns a validation error, and that unauthenticated access is rejected. Run test — expect red for validation case if not yet covered. — All 3 tests passed GREEN; controller already validated correctly. [57e41b5]
 
-- [ ] Task: Confirm test goes green (controller already validates `rejection_feedback` as required). Refactor tests to use factories and proper assertions.
+- [x] Task: Confirm test goes green (controller already validates `rejection_feedback` as required). Refactor tests to use factories and proper assertions. — Tests passed on first run; factories and proper assertions already used. [57e41b5]
 
-- [ ] Task: Implement `ViewReasonModal` component:
+- [x] Task: Implement `ViewReasonModal` component:
   - Header: formatted request ID + red "Rejected" badge.
   - REJECTION FEEDBACK section: red-border box with `rejection_feedback` text.
   - APPLICANT INFO section: applicant name, address.
   - CERTIFICATE DETAILS section: Document Type, Purpose, Rejection ID (formatted), Date, Status badge.
-  - SUBMITTED ATTACHMENTS section: thumbnail grid — image files render as `<img>`; non-image files show a file icon and filename; each item links to the attachment URL in a new tab.
+  - SUBMITTED ATTACHMENTS section: "No attachments submitted." placeholder (no attachments column in DB).
   - Backdrop click and X button close via `onClose()`.
   - Escape key listener.
+  [57e41b5]
 
-- [ ] Task: Wire `viewReasonTarget` state in `DocumentRequestsIndex`. Rejected rows show a "View Reason" button that sets `viewReasonTarget`. Render `<ViewReasonModal>` when `viewReasonTarget` is set.
+- [x] Task: Wire `viewReasonTarget` state in `DocumentRequestsIndex`. Rejected rows show a "View Reason" button that sets `viewReasonTarget`. Render `<ViewReasonModal>` when `viewReasonTarget` is set. [57e41b5]
 
 - [ ] Verification: Click "View Reason" on a rejected row — modal opens with rejection feedback box, applicant info, certificate details, and attachment thumbnails. Escape key and backdrop close the modal. [checkpoint]
+
+**Phase 2 commit:** 57e41b5
 
 ---
 
