@@ -77,21 +77,21 @@ Goal: Pest feature tests cover store (happy path + validation failure), update (
 
 Tasks:
 
-- [ ] Task: Create `php artisan make:test --pest AnnouncementsStoreTest`. Write `test_admin_can_store_announcement`: act as admin, POST valid payload (`title`, `message`, `target_audience: all`), assert redirect and DB has announcement. Write `test_store_requires_title_and_message`: POST empty payload, assert session has errors for `title` and `message`. Write `test_unauthenticated_cannot_store_announcement`: POST without auth, assert redirect to login. (TDD: Red — run tests, verify they fail for the right reason; Green — tests should pass against existing controller)
+- [x] Task: Create `php artisan make:test --pest AnnouncementsStoreTest`. Write `test_admin_can_store_announcement`: act as admin, POST valid payload (`title`, `message`, `target_audience: all`), assert redirect and DB has announcement. Write `test_store_requires_title_and_message`: POST empty payload, assert session has errors for `title` and `message`. Write `test_unauthenticated_cannot_store_announcement`: POST without auth, assert redirect to login. (TDD: Red — run tests, verify they fail for the right reason; Green — tests should pass against existing controller) [47cf32a]
 
-- [ ] Task: Create `php artisan make:test --pest AnnouncementsUpdateTest`. Write `test_admin_can_update_announcement`: act as admin, create announcement via factory, PUT valid payload, assert 302 and DB reflects new title. Write `test_update_requires_title`: PUT with empty title, assert session has errors for `title`. Write `test_update_returns_404_for_missing_announcement`: PUT to a non-existent ID, assert 404. (TDD: Red → Green cycle against the new `update` controller method)
+- [x] Task: Create `php artisan make:test --pest AnnouncementsUpdateTest`. Write `test_admin_can_update_announcement`: act as admin, create announcement via factory, PUT valid payload, assert 302 and DB reflects new title. Write `test_update_requires_title`: PUT with empty title, assert session has errors for `title`. Write `test_update_returns_404_for_missing_announcement`: PUT to a non-existent ID, assert 404. (TDD: Red → Green cycle against the new `update` controller method) [47cf32a]
 
-- [ ] Task: Create `php artisan make:test --pest AnnouncementsDestroyTest`. Write `test_admin_can_delete_announcement`: act as admin, create announcement factory, DELETE to destroy route, assert 302 and record gone from DB. Write `test_unauthenticated_cannot_delete_announcement`: DELETE without auth, assert redirect to login. (TDD: Red → Green cycle)
+- [x] Task: Create `php artisan make:test --pest AnnouncementsDestroyTest`. Write `test_admin_can_delete_announcement`: act as admin, create announcement factory, DELETE to destroy route, assert 302 and record gone from DB. Write `test_unauthenticated_cannot_delete_announcement`: DELETE without auth, assert redirect to login. (TDD: Red → Green cycle) [47cf32a]
 
-- [ ] Task: Run `php artisan test --compact --filter=Announcements` — all announcement tests must pass.
+- [x] Task: Run `php artisan test --compact --filter=Announcements` — all announcement tests must pass. [47cf32a]
 
-- [ ] Task: Run `vendor/bin/pint --dirty --format agent` to format all PHP files touched in this track (controller, new test files).
+- [x] Task: Run `vendor/bin/pint --dirty --format agent` to format all PHP files touched in this track (controller, new test files). [47cf32a]
 
-- [ ] Task: Run `npm run lint:check` and `npm run format:check`. Fix any issues with `npm run lint` and `npm run format`.
+- [x] Task: Run `npm run lint:check` and `npm run format:check`. Fix any issues with `npm run lint` and `npm run format`. [47cf32a]
 
-- [ ] Task: Run `npm run types:check` — no type errors (JSX files generate no TS errors; confirm Wayfinder generated types are valid).
+- [x] Task: Run `npm run types:check` — no type errors (JSX files generate no TS errors; confirm Wayfinder generated types are valid). [47cf32a]
 
-- [ ] Verification: Run `composer run ci:check` (full gate: lint + format + types + tests). All checks green. Commit: `phase(4): announcements modals tests and quality gates`. [checkpoint marker]
+- [x] Verification: Run `composer run ci:check` (full gate: lint + format + types + tests). All checks green. Commit: `phase(4): announcements modals tests and quality gates`. [checkpoint: 47cf32a]
 
 ---
 
