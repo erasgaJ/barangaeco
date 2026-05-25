@@ -70,7 +70,7 @@ Tasks:
 
 - [x] Task: Run `vendor/bin/pint --dirty --format agent` to format any PHP files touched (test files). [ff035fc]
 
-- [x] Verification: Run `composer run ci:check` (or the full gate sequence manually). All checks green. Commit: `phase(3): complaint modals tests and quality gates`. [checkpoint: ff035fc]
+- [x] Verification: Run `composer run ci:check` (or the full gate sequence manually). All checks green. Commit: `phase(3): complaint modals tests and quality gates`. [checkpoint: 458c322]
 
 ---
 
