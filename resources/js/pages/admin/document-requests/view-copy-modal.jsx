@@ -18,8 +18,7 @@ const DOC_LABELS = {
  */
 export default function ViewCopyModal({ request, onClose }) {
     const requestId = `#REQ-${String(request.id).padStart(5, '0')}`;
-    const docLabel =
-        DOC_LABELS[request.document_type] ?? request.document_type;
+    const docLabel = DOC_LABELS[request.document_type] ?? request.document_type;
     const residentName = request.resident?.full_name ?? '—';
     const residentAddress = request.resident?.address ?? '—';
     const barangayName = request.resident?.barangay?.name ?? 'Barangay';
@@ -100,7 +99,7 @@ export default function ViewCopyModal({ request, onClose }) {
                     <div className="flex gap-0 divide-x divide-slate-100">
                         {/* Left panel: Document Preview */}
                         <div className="flex-1 p-6">
-                            <p className="mb-3 text-xs font-medium uppercase tracking-wide text-slate-400">
+                            <p className="mb-3 text-xs font-medium tracking-wide text-slate-400 uppercase">
                                 Document Preview
                             </p>
 
@@ -112,10 +111,10 @@ export default function ViewCopyModal({ request, onClose }) {
                             >
                                 {/* Header block */}
                                 <div className="mb-4 text-center">
-                                    <p className="text-xs font-bold uppercase tracking-widest text-slate-500">
+                                    <p className="text-xs font-bold tracking-widest text-slate-500 uppercase">
                                         Republic of the Philippines
                                     </p>
-                                    <p className="mt-1 text-lg font-bold uppercase tracking-wide text-slate-900">
+                                    <p className="mt-1 text-lg font-bold tracking-wide text-slate-900 uppercase">
                                         {barangayName}
                                     </p>
                                     <p className="mt-0.5 text-xs text-slate-500">
@@ -130,7 +129,7 @@ export default function ViewCopyModal({ request, onClose }) {
 
                                 {/* Title */}
                                 <div className="mb-6 text-center">
-                                    <p className="text-base font-bold uppercase tracking-widest text-slate-900">
+                                    <p className="text-base font-bold tracking-widest text-slate-900 uppercase">
                                         {docLabel}
                                     </p>
                                 </div>
@@ -170,7 +169,7 @@ export default function ViewCopyModal({ request, onClose }) {
 
                                 {/* Signature line */}
                                 <div className="mt-4 text-center text-xs text-slate-500">
-                                    <div className="mb-1 inline-block border-t border-slate-400 pt-1 px-8">
+                                    <div className="mb-1 inline-block border-t border-slate-400 px-8 pt-1">
                                         Authorized by: Barangay Admin
                                     </div>
                                 </div>
@@ -188,7 +187,7 @@ export default function ViewCopyModal({ request, onClose }) {
                         <div className="w-72 shrink-0 p-6">
                             {/* Metadata */}
                             <div className="mb-6">
-                                <p className="mb-3 text-xs font-medium uppercase tracking-wide text-slate-400">
+                                <p className="mb-3 text-xs font-medium tracking-wide text-slate-400 uppercase">
                                     Certificate Details
                                 </p>
                                 <dl className="space-y-3 text-sm">
@@ -237,7 +236,7 @@ export default function ViewCopyModal({ request, onClose }) {
 
                             {/* Document Actions */}
                             <div>
-                                <p className="mb-3 text-xs font-medium uppercase tracking-wide text-slate-400">
+                                <p className="mb-3 text-xs font-medium tracking-wide text-slate-400 uppercase">
                                     Document Actions
                                 </p>
                                 <div className="space-y-2">
