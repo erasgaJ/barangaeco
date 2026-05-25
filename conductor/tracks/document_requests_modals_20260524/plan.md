@@ -111,4 +111,4 @@ All work is in `resources/js/pages/admin/document-requests/index.jsx` unless not
 
 - [x] Task: Commit Phase 4 — `git add` modified files, `git commit -m "phase(4): tests and quality gates for document request modals"`. [a99ee9c]
 
-- [x] Verification: Run `composer run ci:check` — all checks pass with zero errors. [checkpoint: a99ee9c]
+- [x] Verification: Run `composer run ci:check` — all checks pass with zero errors. [checkpoint: 3d405cb]
