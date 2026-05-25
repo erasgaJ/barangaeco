@@ -4,22 +4,15 @@ import CollectorMultiSelect from '@/components/collector-multi-select';
 import schedulesRoutes from '@/routes/admin/waste/schedules';
 
 const EMPTY_FORM = {
-    barangay_id: '',
+    zone_id: '',
     scheduled_date: '',
     scheduled_time: '',
     collector_ids: [],
     status: 'draft',
 };
 
-/**
- * Modal for creating a new waste collection schedule.
- *
- * @param {object[]} barangays - Available barangays from the Inertia page props.
- * @param {object[]} collectors - All available collectors from the Inertia page props.
- * @param {function} onClose - Callback invoked when the modal should close.
- */
 export default function CreateScheduleModal({
-    barangays,
+    zones,
     collectors,
     onClose,
 }) {
@@ -51,7 +44,7 @@ export default function CreateScheduleModal({
         router.post(
             schedulesRoutes.store().url,
             {
-                barangay_id: form.barangay_id,
+                zone_id: form.zone_id,
                 scheduled_date: form.scheduled_date,
                 scheduled_time: form.scheduled_time,
                 collector_ids: form.collector_ids,
@@ -75,31 +68,31 @@ export default function CreateScheduleModal({
                 </h2>
 
                 <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-                    {/* Barangay */}
+                    {/* Zone */}
                     <div>
                         <label className="mb-1 block text-xs font-medium text-slate-700">
-                            Barangay
+                            Zone
                         </label>
                         <select
-                            value={form.barangay_id}
+                            value={form.zone_id}
                             onChange={(e) =>
                                 setForm((f) => ({
                                     ...f,
-                                    barangay_id: e.target.value,
+                                    zone_id: e.target.value,
                                 }))
                             }
-                            className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm text-slate-900 outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-100"
+                            className="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-900 outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-100"
                         >
-                            <option value="">Select barangay…</option>
-                            {barangays.map((b) => (
-                                <option key={b.id} value={b.id}>
-                                    {b.name}
+                            <option value="">Select zone…</option>
+                            {zones.map((z) => (
+                                <option key={z.id} value={z.id}>
+                                    {z.name}
                                 </option>
                             ))}
                         </select>
-                        {errors.barangay_id && (
+                        {errors.zone_id && (
                             <p className="mt-1 text-xs text-red-500">
-                                {errors.barangay_id}
+                                {errors.zone_id}
                             </p>
                         )}
                     </div>

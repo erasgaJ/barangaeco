@@ -147,3 +147,54 @@
         -webkit-text-fill-color: currentColor;
     }
 }
+
+/* react-big-calendar overrides */
+.rbc-wrapper .rbc-month-view,
+.rbc-wrapper .rbc-time-view {
+    border-color: #e2e8f0;
+    border-radius: 8px;
+    overflow: hidden;
+}
+.rbc-wrapper .rbc-header {
+    padding: 8px 4px;
+    font-size: 12px;
+    font-weight: 500;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-color: #e2e8f0;
+    background-color: #f8fafc;
+}
+.rbc-wrapper .rbc-today {
+    background-color: rgb(239 246 255 / 0.5);
+}
+.rbc-wrapper .rbc-off-range-bg {
+    background-color: #f8fafc;
+}
+.rbc-wrapper .rbc-date-cell {
+    font-size: 12px;
+    color: #475569;
+    padding: 4px 8px;
+}
+.rbc-wrapper .rbc-date-cell.rbc-now {
+    color: #2563eb;
+    font-weight: 700;
+}
+.rbc-wrapper .rbc-time-header-content,
+.rbc-wrapper .rbc-time-content {
+    border-color: #e2e8f0;
+}
+.rbc-wrapper .rbc-timeslot-group {
+    border-color: #f1f5f9;
+}
+.rbc-wrapper .rbc-time-slot {
+    font-size: 11px;
+    color: #94a3b8;
+}
+.rbc-wrapper .rbc-day-slot .rbc-time-slot {
+    border-color: #f1f5f9;
+}
+.rbc-wrapper .rbc-label {
+    font-size: 11px;
+    color: #94a3b8;
+}

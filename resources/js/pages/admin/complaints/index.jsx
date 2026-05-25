@@ -113,9 +113,9 @@ function StatusModal({ complaint, onClose }) {
     );
 }
 
-function NewComplaintModal({ barangays, onClose }) {
+function NewComplaintModal({ zones, onClose }) {
     const [form, setForm] = useState({
-        barangay_id: '',
+        zone_id: '',
         complaint_type: '',
         complaint_against: '',
         priority: '',
@@ -140,7 +140,7 @@ function NewComplaintModal({ barangays, onClose }) {
 
     function handleSubmit() {
         const newErrors = {};
-        if (!form.barangay_id) newErrors.barangay_id = 'Barangay is required.';
+        if (!form.zone_id) newErrors.zone_id = 'Zone is required.';
         if (!form.complaint_type)
             newErrors.complaint_type = 'Complaint type is required.';
         if (!form.complaint_against.trim())
@@ -190,28 +190,28 @@ function NewComplaintModal({ barangays, onClose }) {
 
                 {/* Body */}
                 <div className="flex flex-col gap-4 px-6 py-5">
-                    {/* Barangay */}
+                    {/* Zone */}
                     <div>
                         <label className="mb-1 block text-sm font-medium text-slate-700">
-                            Barangay <span className="text-red-500">*</span>
+                            Zone <span className="text-red-500">*</span>
                         </label>
                         <select
-                            value={form.barangay_id}
+                            value={form.zone_id}
                             onChange={(e) =>
-                                handleChange('barangay_id', e.target.value)
+                                handleChange('zone_id', e.target.value)
                             }
                             className="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-900 outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-100"
                         >
-                            <option value="">Select barangay…</option>
-                            {barangays.map((b) => (
-                                <option key={b.id} value={b.id}>
-                                    {b.name}
+                            <option value="">Select zone…</option>
+                            {zones.map((z) => (
+                                <option key={z.id} value={z.id}>
+                                    {z.name}
                                 </option>
                             ))}
                         </select>
-                        {errors.barangay_id && (
+                        {errors.zone_id && (
                             <p className="mt-1 text-xs text-red-600">
-                                {errors.barangay_id}
+                                {errors.zone_id}
                             </p>
                         )}
                     </div>
@@ -340,7 +340,7 @@ function NewComplaintModal({ barangays, onClose }) {
 function ComplaintDetailModal({ complaint, onClose, onUpdateStatus }) {
     const residentName =
         complaint.resident?.name ?? complaint.resident_name ?? 'Anonymous';
-    const barangayName = complaint.barangay?.name ?? '—';
+    const zoneName = complaint.zone?.name ?? '—';
 
     useEffect(() => {
         function handleKeyDown(e) {
@@ -411,9 +411,9 @@ function ComplaintDetailModal({ complaint, onClose, onUpdateStatus }) {
                         </div>
                         <div className="mt-4 text-sm text-slate-600">
                             <span className="font-medium text-slate-700">
-                                Barangay:{' '}
+                                Zone:{' '}
                             </span>
-                            {barangayName}
+                            {zoneName}
                         </div>
                     </div>
 
@@ -488,10 +488,10 @@ function ComplaintDetailModal({ complaint, onClose, onUpdateStatus }) {
     );
 }
 
-export default function ComplaintsIndex({ complaints, barangays, filters }) {
+export default function ComplaintsIndex({ complaints, zones, filters }) {
     const [search, setSearch] = useState('');
-    const [barangayFilter, setBarangayFilter] = useState(
-        filters?.barangay_id ?? '',
+    const [zoneFilter, setZoneFilter] = useState(
+        filters?.zone_id ?? '',
     );
     const [priorityFilter, setPriorityFilter] = useState(
         filters?.priority ?? '',
@@ -506,10 +506,10 @@ export default function ComplaintsIndex({ complaints, barangays, filters }) {
             c.complaint_type.toLowerCase().includes(search.toLowerCase()) ||
             c.complaint_against.toLowerCase().includes(search.toLowerCase()) ||
             c.description.toLowerCase().includes(search.toLowerCase());
-        const matchBarangay =
-            !barangayFilter || String(c.barangay?.id) === barangayFilter;
+        const matchZone =
+            !zoneFilter || String(c.zone?.id) === zoneFilter;
         const matchPriority = !priorityFilter || c.priority === priorityFilter;
-        return matchSearch && matchBarangay && matchPriority;
+        return matchSearch && matchZone && matchPriority;
     });
 
     return (
@@ -517,7 +517,7 @@ export default function ComplaintsIndex({ complaints, barangays, filters }) {
             <Head title="Complaints" />
             {showNewModal && (
                 <NewComplaintModal
-                    barangays={barangays}
+                    zones={zones}
                     onClose={() => setShowNewModal(false)}
                 />
             )}
@@ -571,14 +571,14 @@ export default function ComplaintsIndex({ complaints, barangays, filters }) {
                         />
                     </div>
                     <select
-                        value={barangayFilter}
-                        onChange={(e) => setBarangayFilter(e.target.value)}
+                        value={zoneFilter}
+                        onChange={(e) => setZoneFilter(e.target.value)}
                         className="rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus:border-blue-400"
                     >
-                        <option value="">All Barangays</option>
-                        {barangays.map((b) => (
-                            <option key={b.id} value={b.id}>
-                                {b.name}
+                        <option value="">All Zones</option>
+                        {zones.map((z) => (
+                            <option key={z.id} value={z.id}>
+                                {z.name}
                             </option>
                         ))}
                     </select>
@@ -603,7 +603,7 @@ export default function ComplaintsIndex({ complaints, barangays, filters }) {
                                     Type / Against
                                 </th>
                                 <th className="px-5 py-3 text-left">
-                                    Barangay
+                                    Zone
                                 </th>
                                 <th className="px-5 py-3 text-left">
                                     Priority
@@ -639,7 +639,7 @@ export default function ComplaintsIndex({ complaints, barangays, filters }) {
                                         </div>
                                     </td>
                                     <td className="px-5 py-3 text-slate-600">
-                                        {c.barangay?.name ?? '—'}
+                                        {c.zone?.name ?? '—'}
                                     </td>
                                     <td className="px-5 py-3">
                                         <span

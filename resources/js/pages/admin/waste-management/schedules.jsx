@@ -389,7 +389,7 @@ function DeleteCollectorModal({ collector, onClose }) {
 export default function SchedulesPage({
     schedules,
     today_schedules,
-    barangays,
+    zones,
     collectors,
 }) {
     const [activeTab, setActiveTab] = useState('schedule');
@@ -412,7 +412,7 @@ export default function SchedulesPage({
         const end = new Date(start.getTime() + 60 * 60 * 1000);
         return {
             id: s.id,
-            title: s.barangay.name,
+            title: s.zone?.name ?? 'Unassigned',
             start,
             end,
             resource: s,
@@ -440,7 +440,7 @@ export default function SchedulesPage({
             <Head title="Waste Management" />
             {showCreateScheduleModal && (
                 <CreateScheduleModal
-                    barangays={barangays}
+                    zones={zones}
                     collectors={collectors}
                     onClose={() => setShowCreateScheduleModal(false)}
                 />
@@ -463,7 +463,7 @@ export default function SchedulesPage({
             {editingSchedule && !deleteTarget && (
                 <EditScheduleModal
                     schedule={editingSchedule}
-                    barangays={barangays}
+                    zones={zones}
                     collectors={collectors}
                     onClose={() => setEditingSchedule(null)}
                     onDeleteRequest={(s) => setDeleteTarget(s)}
@@ -604,7 +604,7 @@ export default function SchedulesPage({
                                     eventPropGetter={(event) => ({
                                         style: {
                                             ...eventStyleFor(
-                                                event.resource.barangay.id,
+                                                event.resource.zone?.id ?? 0,
                                             ),
                                             borderRadius: '4px',
                                             border: 'none',
@@ -661,7 +661,7 @@ export default function SchedulesPage({
                                             </div>
                                             <div className="flex-1">
                                                 <p className="font-medium text-slate-900">
-                                                    {schedule.barangay.name}{' '}
+                                                    {schedule.zone?.name ?? 'Unassigned'}{' '}
                                                     Route
                                                 </p>
                                                 <p className="text-xs text-slate-500">

@@ -160,7 +160,7 @@ export default function AddResidentModal({ barangays, onClose }) {
                                     }
                                     required
                                     className={cn(
-                                        'w-full rounded-lg border px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-blue-100',
+                                        'w-full rounded-lg border bg-white px-3 py-2 text-sm text-slate-900 outline-none focus:ring-2 focus:ring-blue-100',
                                         errors.full_name
                                             ? 'border-red-400 focus:border-red-400'
                                             : 'border-slate-200 focus:border-blue-400',
@@ -175,7 +175,7 @@ export default function AddResidentModal({ barangays, onClose }) {
                                     onChange={(e) => setAddress(e.target.value)}
                                     required
                                     className={cn(
-                                        'w-full rounded-lg border px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-blue-100',
+                                        'w-full rounded-lg border bg-white px-3 py-2 text-sm text-slate-900 outline-none focus:ring-2 focus:ring-blue-100',
                                         errors.address
                                             ? 'border-red-400 focus:border-red-400'
                                             : 'border-slate-200 focus:border-blue-400',
@@ -194,7 +194,7 @@ export default function AddResidentModal({ barangays, onClose }) {
                                     }
                                     required
                                     className={cn(
-                                        'w-full rounded-lg border px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-blue-100',
+                                        'w-full rounded-lg border bg-white px-3 py-2 text-sm text-slate-900 outline-none focus:ring-2 focus:ring-blue-100',
                                         errors.barangay_id
                                             ? 'border-red-400 focus:border-red-400'
                                             : 'border-slate-200 focus:border-blue-400',
@@ -222,7 +222,7 @@ export default function AddResidentModal({ barangays, onClose }) {
                                     placeholder="+63 9XX XXX XXXX"
                                     required
                                     className={cn(
-                                        'w-full rounded-lg border px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-blue-100',
+                                        'w-full rounded-lg border bg-white px-3 py-2 text-sm text-slate-900 outline-none focus:ring-2 focus:ring-blue-100',
                                         errors.contact_number
                                             ? 'border-red-400 focus:border-red-400'
                                             : 'border-slate-200 focus:border-blue-400',
@@ -237,7 +237,7 @@ export default function AddResidentModal({ barangays, onClose }) {
                                     onChange={(e) => setEmail(e.target.value)}
                                     required
                                     className={cn(
-                                        'w-full rounded-lg border px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-blue-100',
+                                        'w-full rounded-lg border bg-white px-3 py-2 text-sm text-slate-900 outline-none focus:ring-2 focus:ring-blue-100',
                                         errors.email
                                             ? 'border-red-400 focus:border-red-400'
                                             : 'border-slate-200 focus:border-blue-400',
