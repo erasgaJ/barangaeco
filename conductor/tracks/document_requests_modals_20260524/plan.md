@@ -65,7 +65,7 @@ All work is in `resources/js/pages/admin/document-requests/index.jsx` unless not
 
 - [x] Task: Wire `viewReasonTarget` state in `DocumentRequestsIndex`. Rejected rows show a "View Reason" button that sets `viewReasonTarget`. Render `<ViewReasonModal>` when `viewReasonTarget` is set. [57e41b5]
 
-- [ ] Verification: Click "View Reason" on a rejected row — modal opens with rejection feedback box, applicant info, certificate details, and attachment thumbnails. Escape key and backdrop close the modal. [checkpoint]
+- [x] Verification: Click "View Reason" on a rejected row — modal opens with rejection feedback box, applicant info, certificate details, and attachment thumbnails. Escape key and backdrop close the modal. [checkpoint: e939fe5]
 
 **Phase 2 commit:** 57e41b5
 
