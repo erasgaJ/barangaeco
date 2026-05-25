@@ -25,19 +25,19 @@ Five phases covering database schema changes, a new Zones admin UI, wiring zones
 
 ### Tasks
 
-- [ ] **Task 1.1 — Test: Zone model and factory exist (Red)**
+- [x] **Task 1.1 — Test: Zone model and factory exist (Red)**
   Write a Pest feature test `ZoneModelTest` that:
   - Asserts a `Zone` can be created via `Zone::factory()->create()` with `name`, `description`, `is_active`.
   - Asserts `Zone::factory()->inactive()->make()` sets `is_active = false`.
   - Asserts `zone->complaints()` and `zone->wasteCollectionSchedules()` relations return collections.
   Run: `php artisan test --compact --filter=ZoneModelTest` — expect failure (no model yet).
 
-- [ ] **Task 1.2 — Migrate: Create zones table (Green)**
+- [x] **Task 1.2 — Migrate: Create zones table (Green)**
   Run `php artisan make:migration create_zones_table --no-interaction`.
   Columns: `id`, `name` (string, unique), `description` (text, nullable), `is_active` (boolean, default true), `timestamps`.
   Run `php artisan migrate --no-interaction`. Re-run test — expect green.
 
-- [ ] **Task 1.3 — Model + Factory: Zone (Green)**
+- [x] **Task 1.3 — Model + Factory: Zone (Green)**
   Run `php artisan make:model Zone --factory --no-interaction`.
   - `$fillable`: `['name', 'description', 'is_active']`.
   - `$casts`: `['is_active' => 'boolean']`.
@@ -45,13 +45,13 @@ Five phases covering database schema changes, a new Zones admin UI, wiring zones
   - Factory: `name` → `fake()->unique()->words(3, true)`, `description` → nullable sentence, `is_active` → true. Add `inactive` state (`is_active => false`).
   Re-run test — expect green.
 
-- [ ] **Task 1.4 — Test: complaints migration drops barangay_id and adds zone_id (Red)**
+- [x] **Task 1.4 — Test: complaints migration drops barangay_id and adds zone_id (Red)**
   Write a Pest test `ComplaintZoneMigrationTest` that:
   - Asserts `Schema::hasColumn('complaints', 'zone_id')` is true.
   - Asserts `Schema::hasColumn('complaints', 'barangay_id')` is false.
   Run — expect failure.
 
-- [ ] **Task 1.5 — Migrate: Alter complaints table (Green)**
+- [x] **Task 1.5 — Migrate: Alter complaints table (Green)**
   Run `php artisan make:migration alter_complaints_add_zone_id_drop_barangay_id --no-interaction`.
   In `up()`:
   - Drop FK `complaints_barangay_id_foreign` and column `barangay_id`.
@@ -59,41 +59,41 @@ Five phases covering database schema changes, a new Zones admin UI, wiring zones
   In `down()`: reverse.
   Run `php artisan migrate --no-interaction`. Re-run test — expect green.
 
-- [ ] **Task 1.6 — Model update: Complaint**
+- [x] **Task 1.6 — Model update: Complaint**
   In `app/Models/Complaint.php`:
   - Remove `barangay_id` from `$fillable`, add `zone_id`.
   - Remove `belongsTo(Barangay::class)` if present, add `belongsTo(Zone::class)`.
 
-- [ ] **Task 1.7 — Test: waste_collection_schedules migration (Red)**
+- [x] **Task 1.7 — Test: waste_collection_schedules migration (Red)**
   Write `WasteScheduleZoneMigrationTest`:
   - Asserts `Schema::hasColumn('waste_collection_schedules', 'zone_id')` is true.
   - Asserts `Schema::hasColumn('waste_collection_schedules', 'barangay_id')` is false.
   Run — expect failure.
 
-- [ ] **Task 1.8 — Migrate: Alter waste_collection_schedules table (Green)**
+- [x] **Task 1.8 — Migrate: Alter waste_collection_schedules table (Green)**
   Run `php artisan make:migration alter_waste_schedules_add_zone_id_drop_barangay_id --no-interaction`.
   Same pattern as Task 1.5 but for `waste_collection_schedules`.
   Run `php artisan migrate --no-interaction`. Re-run test — expect green.
 
-- [ ] **Task 1.9 — Model update: WasteCollectionSchedule**
+- [x] **Task 1.9 — Model update: WasteCollectionSchedule**
   In `app/Models/WasteCollectionSchedule.php`:
   - Remove `barangay_id` from `$fillable`, add `zone_id`.
   - Remove barangay relation, add `belongsTo(Zone::class)`.
 
-- [ ] **Task 1.10 — Seeder: ZoneSeeder (TDD)**
+- [x] **Task 1.10 — Seeder: ZoneSeeder (TDD)**
   Write `ZoneSeederTest` asserting that after running `ZoneSeeder`, the `zones` table contains exactly 5 rows with names Zone 1–Zone 5.
   Run — expect failure.
   Create `ZoneSeeder` using `firstOrCreate` for idempotency. Add to `DatabaseSeeder`.
   Run seeder: `php artisan db:seed --class=ZoneSeeder --no-interaction`. Re-run test — expect green.
 
-- [ ] **Task 1.11 — Run Pint on all changed PHP files**
+- [x] **Task 1.11 — Run Pint on all changed PHP files**
   `vendor/bin/pint --dirty --format agent`
 
-- [ ] **Verification [checkpoint marker]**
-  - `php artisan test --compact` — all tests green.
+- [x] **Verification [checkpoint marker]**
+  - `php artisan test --compact` — all tests green (113/113).
   - `php artisan migrate:status` — all migrations show "Ran".
   - `php artisan db:seed --class=ZoneSeeder --no-interaction` — idempotent (no duplicate error).
-  - Commit: `git commit -m "phase(1): zones table, migrate complaints + schedules, seed defaults"` — note SHA: `[commit_sha]`.
+  - Commit: `git commit -m "phase(1): zones table, migrate complaints + schedules, seed defaults"` — SHA: `9e40ee0`.
 
 ---
 
