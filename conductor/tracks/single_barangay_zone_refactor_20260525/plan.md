@@ -89,7 +89,7 @@ Five phases covering database schema changes, a new Zones admin UI, wiring zones
 - [x] **Task 1.11 — Run Pint on all changed PHP files**
   `vendor/bin/pint --dirty --format agent`
 
-- [x] **Verification [checkpoint marker]**
+- [x] **Verification [checkpoint: 382a3fd]**
   - `php artisan test --compact` — all tests green (113/113).
   - `php artisan migrate:status` — all migrations show "Ran".
   - `php artisan db:seed --class=ZoneSeeder --no-interaction` — idempotent (no duplicate error).
