@@ -167,7 +167,7 @@ Five phases covering database schema changes, a new Zones admin UI, wiring zones
 - [x] **Task 2.11 — Run ESLint + Prettier on changed JS files**
   `npm run lint` then `npm run format`
 
-- [x] **Verification [checkpoint: c280493]**
+- [x] **Verification [checkpoint: a388ffb]**
   - `php artisan test --compact` — all 119 tests green.
   - Navigate to `https://barangaeco.test/admin/zones` — page loads with table.
   - Create a zone: "Sityo Bagong Pag-asa" — appears in table, flash shown.
