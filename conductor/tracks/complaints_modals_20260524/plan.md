@@ -28,7 +28,7 @@ Tasks:
 
 - [x] Task: Wire the "Update Status" button in `ComplaintDetailModal` to call `onUpdateStatus(complaint)`. In `ComplaintsIndex`, implement `handleUpdateStatusFromDetail(complaint)` that sets `detailTarget(null)` then `setStatusTarget(complaint)`. Render `<ComplaintDetailModal>` adjacent to the existing `<StatusModal>` render. (TDD: Manual — open detail modal, click Update Status, verify StatusModal opens for the correct complaint) [180fe52]
 
-- [x] Verification: Open the complaints page in the browser, click a row, confirm the detail modal shows correct data, click Update Status, confirm the status picker opens, change status, confirm it saves and the table row updates. [checkpoint] [180fe52]
+- [x] Verification: Open the complaints page in the browser, click a row, confirm the detail modal shows correct data, click Update Status, confirm the status picker opens, change status, confirm it saves and the table row updates. [checkpoint: 7edc7d4]
 
 ---
 
