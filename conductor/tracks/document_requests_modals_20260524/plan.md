@@ -89,7 +89,7 @@ All work is in `resources/js/pages/admin/document-requests/index.jsx` unless not
 
 - [x] Task: Add `viewCopyTarget` state in `DocumentRequestsIndex`. Resolved rows show a "View Copy" button that sets `viewCopyTarget`. Render `<ViewCopyModal>` when `viewCopyTarget` is set. [af2168f]
 
-- [ ] Verification: Click "View Copy" on a resolved row — modal opens with certificate preview, right-side metadata, and action buttons. Click "Print Certificate" — browser print dialog opens showing only the certificate panel. Click "Download PDF" — alert appears. [checkpoint]
+- [x] Verification: Click "View Copy" on a resolved row — modal opens with certificate preview, right-side metadata, and action buttons. Click "Print Certificate" — browser print dialog opens showing only the certificate panel. Click "Download PDF" — alert appears. [checkpoint: 8c1bc90]
 
 ---
 
