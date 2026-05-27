@@ -1,0 +1,7 @@
+{
+  "id": "mobile_api_zone_alignment_20260527",
+  "description": "Fix mobile API endpoints to align with zone refactor — replace barangay_id with zone_id in complaints, schedules, and dashboard endpoints",
+  "type": "bug",
+  "created_at": "2026-05-27T00:00:00Z",
+  "status": "pending"
+}
