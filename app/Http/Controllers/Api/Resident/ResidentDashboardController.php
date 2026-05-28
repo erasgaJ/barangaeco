@@ -14,10 +14,9 @@ class ResidentDashboardController extends Controller
     {
         $resident = $request->user()->resident()->with('barangay')->firstOrFail();
 
-        $todaySchedule = WasteCollectionSchedule::where('barangay_id', $resident->barangay_id)
-            ->where('scheduled_date', today())
+        $todaySchedule = WasteCollectionSchedule::where('scheduled_date', today())
             ->where('status', 'published')
-            ->with('collectors')
+            ->with('zone', 'collectors')
             ->first();
 
         $pendingDocumentRequests = $resident->documentRequests()
