@@ -9,13 +9,13 @@ Six phases build the resident portal end-to-end using TDD. Each phase is indepen
 **Goal:** Register all resident web routes and scaffold empty controllers; verify role guard blocks non-residents; update post-login redirect to send residents to `/resident/dashboard`.
 
 Tasks:
-- [ ] Task: Write Pest feature tests asserting that `GET /resident/dashboard`, `GET /resident/document-requests`, `GET /resident/complaints`, and `GET /resident/announcements` return 403 for an admin user and redirect to `/login` for a guest (TDD: Red — tests fail because routes don't exist yet)
-- [ ] Task: Write test asserting that a `resident` role user gets a redirect from `GET /dashboard` to `/resident/dashboard` (TDD: Red)
-- [ ] Task: Create `app/Http/Controllers/Resident/` directory with stub controllers: `DashboardController`, `DocumentRequestController`, `ComplaintController`, `AnnouncementController` — each returning a placeholder `Inertia::render()` for their respective pages (use `php artisan make:class`)
-- [ ] Task: Register the `Route::middleware(['auth', 'verified', 'role:resident'])->prefix('resident')->name('resident.')` group in `routes/web.php` with all eight routes (GET dashboard, GET/POST document-requests, DELETE document-requests/{documentRequest}, GET/POST complaints, DELETE complaints/{complaint}, GET announcements)
-- [ ] Task: Update the generic `GET /dashboard` controller (or add role-based redirect logic) so that resident users are redirected to `/resident/dashboard`; admin users continue to render the admin overview page
-- [ ] Task: Run `php artisan route:list --name=resident` to confirm all routes are registered; run tests — all role/guest guard tests should now be green
-- [ ] Verification: `php artisan test --compact --filter=ResidentRoute` passes; `php artisan route:list --name=resident` shows all 8 routes; logging in as a resident user redirects to `/resident/dashboard` [checkpoint marker]
+- [x] Task: Write Pest feature tests asserting that `GET /resident/dashboard`, `GET /resident/document-requests`, `GET /resident/complaints`, and `GET /resident/announcements` return 403 for an admin user and redirect to `/login` for a guest (TDD: Red — tests fail because routes don't exist yet)
+- [x] Task: Write test asserting that a `resident` role user gets a redirect from `GET /dashboard` to `/resident/dashboard` (TDD: Red)
+- [x] Task: Create `app/Http/Controllers/Resident/` directory with stub controllers: `DashboardController`, `DocumentRequestController`, `ComplaintController`, `AnnouncementController` — each returning a placeholder `Inertia::render()` for their respective pages (use `php artisan make:class`)
+- [x] Task: Register the `Route::middleware(['auth', 'verified', 'role:resident'])->prefix('resident')->name('resident.')` group in `routes/web.php` with all eight routes (GET dashboard, GET/POST document-requests, DELETE document-requests/{documentRequest}, GET/POST complaints, DELETE complaints/{complaint}, GET announcements)
+- [x] Task: Update the generic `GET /dashboard` controller (or add role-based redirect logic) so that resident users are redirected to `/resident/dashboard`; admin users continue to render the admin overview page
+- [x] Task: Run `php artisan route:list --name=resident` to confirm all routes are registered; run tests — all role/guest guard tests should now be green
+- [x] Verification: `php artisan test --compact --filter=ResidentRoute` passes; `php artisan route:list --name=resident` shows all 8 routes; logging in as a resident user redirects to `/resident/dashboard` [checkpoint marker]
 
 ## Phase 2: Resident Dashboard Controller (Backend)
 
