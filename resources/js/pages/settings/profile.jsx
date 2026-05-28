@@ -1,5 +1,6 @@
 import { Form, Head, Link, usePage } from '@inertiajs/react';
 import ProfileController from '@/actions/App/Http/Controllers/Settings/ProfileController';
+import AccountInfoPanel from '@/components/account-info-panel';
 import DeleteUser from '@/components/delete-user';
 import Heading from '@/components/heading';
 import InputError from '@/components/input-error';
@@ -108,6 +109,11 @@ export default function Profile({ mustVerifyEmail, status }) {
                     )}
                 </Form>
             </div>
+
+            <AccountInfoPanel
+                role={auth.user.role}
+                createdAt={auth.user.created_at}
+            />
 
             <DeleteUser />
         </>
