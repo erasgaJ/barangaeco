@@ -8,7 +8,7 @@ The controller skeleton (index, store, show) is already in place. The route is r
 
 ---
 
-## Phase 1: Test Coverage for Existing Endpoints (index, store, show)
+## Phase 1: Test Coverage for Existing Endpoints (index, store, show) [checkpoint: 18c8034]
 
 **Goal:** Every existing endpoint has a full Pest test suite — happy paths, validation, authorization, and auth guard.
 
@@ -34,7 +34,7 @@ The controller skeleton (index, store, show) is already in place. The route is r
 
 - [x] Task: Write and green test — `show` unauthenticated returns 401. (TDD: Red → Green)
 
-- [x] Verification: Run `php artisan test --compact --filter=DocumentRequestApiTest`. All Phase 1 tests must be green before proceeding. [checkpoint marker] [a490a36]
+- [x] Verification: Run `php artisan test --compact --filter=DocumentRequestApiTest`. All Phase 1 tests must be green before proceeding. [checkpoint: 18c8034]
 
 ---
 
