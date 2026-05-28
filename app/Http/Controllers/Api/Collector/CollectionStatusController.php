@@ -24,6 +24,18 @@ class CollectionStatusController extends Controller
             403
         );
 
+        if ($schedule->status !== 'published') {
+            return response()->json(['message' => 'Schedule is not published.'], 422);
+        }
+
+        $existingStatusUpdate = CollectionStatusUpdate::where('waste_collection_schedule_id', $schedule->id)
+            ->where('collector_id', $collector->id)
+            ->first();
+
+        if ($existingStatusUpdate !== null && $existingStatusUpdate->status === 'completed' && $request->status !== 'completed') {
+            return response()->json(['message' => 'Cannot revert a completed status.'], 422);
+        }
+
         $statusUpdate = CollectionStatusUpdate::updateOrCreate(
             [
                 'waste_collection_schedule_id' => $schedule->id,
