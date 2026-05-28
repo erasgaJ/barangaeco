@@ -37,6 +37,8 @@ Route::middleware(['auth:sanctum', 'role:resident,admin'])->prefix('resident')->
     Route::apiResource('document-requests', ResidentDocumentRequestController::class)
         ->only(['index', 'store', 'show']);
 
+    Route::patch('document-requests/{documentRequest}/cancel', [ResidentDocumentRequestController::class, 'cancel']);
+
     Route::apiResource('complaints', ResidentComplaintController::class)
         ->only(['index', 'store', 'show']);
 });

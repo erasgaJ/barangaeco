@@ -66,4 +66,16 @@ class DocumentRequestFactory extends Factory
             'resolved_at' => now(),
         ]);
     }
+
+    /** Set status to cancelled. */
+    public function cancelled(): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'status' => 'cancelled',
+            'admin_remarks' => null,
+            'rejection_feedback' => null,
+            'resolved_at' => null,
+            'resolved_by' => null,
+        ]);
+    }
 }

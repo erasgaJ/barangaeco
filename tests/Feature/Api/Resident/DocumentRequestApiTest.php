@@ -139,3 +139,72 @@ it('returns 401 on show when unauthenticated', function () {
     $this->getJson("/api/resident/document-requests/{$documentRequest->id}")
         ->assertStatus(401);
 });
+
+// ─── cancel ───────────────────────────────────────────────────────────────────
+
+it('cancels a pending document request and returns 200 with status cancelled', function () {
+    [$user, $resident, $token] = documentResidentWithToken();
+
+    $documentRequest = DocumentRequest::factory()->create(['resident_id' => $resident->id, 'status' => 'pending']);
+
+    $response = $this->withToken($token)->patchJson("/api/resident/document-requests/{$documentRequest->id}/cancel");
+
+    $response->assertStatus(200)
+        ->assertJsonPath('data.status', 'cancelled');
+
+    $this->assertDatabaseHas('document_requests', [
+        'id' => $documentRequest->id,
+        'status' => 'cancelled',
+    ]);
+});
+
+it('returns 422 when trying to cancel a resolved document request', function () {
+    [$user, $resident, $token] = documentResidentWithToken();
+
+    $documentRequest = DocumentRequest::factory()->resolved()->create(['resident_id' => $resident->id]);
+
+    $this->withToken($token)->patchJson("/api/resident/document-requests/{$documentRequest->id}/cancel")
+        ->assertStatus(422);
+});
+
+it('returns 422 when trying to cancel a rejected document request', function () {
+    [$user, $resident, $token] = documentResidentWithToken();
+
+    $documentRequest = DocumentRequest::factory()->rejected()->create(['resident_id' => $resident->id]);
+
+    $this->withToken($token)->patchJson("/api/resident/document-requests/{$documentRequest->id}/cancel")
+        ->assertStatus(422);
+});
+
+it('returns 422 when trying to cancel an already cancelled document request', function () {
+    [$user, $resident, $token] = documentResidentWithToken();
+
+    $documentRequest = DocumentRequest::factory()->cancelled()->create(['resident_id' => $resident->id]);
+
+    $this->withToken($token)->patchJson("/api/resident/document-requests/{$documentRequest->id}/cancel")
+        ->assertStatus(422);
+});
+
+it('returns 403 when resident tries to cancel another residents document request', function () {
+    [$user, $resident, $token] = documentResidentWithToken();
+
+    $otherResident = Resident::factory()->create();
+    $otherRequest = DocumentRequest::factory()->create(['resident_id' => $otherResident->id, 'status' => 'pending']);
+
+    $this->withToken($token)->patchJson("/api/resident/document-requests/{$otherRequest->id}/cancel")
+        ->assertStatus(403);
+});
+
+it('returns 404 when trying to cancel a non-existent document request', function () {
+    [$user, $resident, $token] = documentResidentWithToken();
+
+    $this->withToken($token)->patchJson('/api/resident/document-requests/99999/cancel')
+        ->assertStatus(404);
+});
+
+it('returns 401 on cancel when unauthenticated', function () {
+    $documentRequest = DocumentRequest::factory()->create();
+
+    $this->patchJson("/api/resident/document-requests/{$documentRequest->id}/cancel")
+        ->assertStatus(401);
+});

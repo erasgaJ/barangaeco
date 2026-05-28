@@ -48,4 +48,19 @@ class DocumentRequestController extends Controller
 
         return response()->json($documentRequest->load('resolvedBy'));
     }
+
+    public function cancel(Request $request, DocumentRequest $documentRequest): JsonResponse
+    {
+        $resident = $request->user()->resident()->firstOrFail();
+
+        abort_unless($documentRequest->resident_id === $resident->id, 403);
+
+        if ($documentRequest->status !== 'pending') {
+            return response()->json(['message' => 'Only pending requests can be cancelled.'], 422);
+        }
+
+        $documentRequest->update(['status' => 'cancelled']);
+
+        return response()->json(['data' => $documentRequest], 200);
+    }
 }
