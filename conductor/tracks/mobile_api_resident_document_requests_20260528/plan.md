@@ -14,27 +14,27 @@ The controller skeleton (index, store, show) is already in place. The route is r
 
 ### Tasks
 
-- [ ] Task: Create test file `tests/Feature/Api/Resident/DocumentRequestApiTest.php` using `php artisan make:test --pest DocumentRequestApiTest`. Add a `residentWithToken()` helper (same shape as `ComplaintApiTest` — create Barangay, User with `resident()` factory state, Resident record, and Sanctum token). (TDD: Write the helper and first failing test, then confirm scaffolding is correct)
+- [x] Task: Create test file `tests/Feature/Api/Resident/DocumentRequestApiTest.php` using `php artisan make:test --pest DocumentRequestApiTest`. Add a `residentWithToken()` helper (same shape as `ComplaintApiTest` — create Barangay, User with `resident()` factory state, Resident record, and Sanctum token). (TDD: Write the helper and first failing test, then confirm scaffolding is correct)
 
-- [ ] Task: Write and green test — `index` happy path. Assert HTTP 200, paginated `data` array, only returns requests belonging to the authenticated resident. Use `DocumentRequest::factory()->count(2)->create(['resident_id' => $resident->id])` and a second resident's request to verify isolation. (TDD: Red → add assertions → run → Green)
+- [x] Task: Write and green test — `index` happy path. Assert HTTP 200, paginated `data` array, only returns requests belonging to the authenticated resident. Use `DocumentRequest::factory()->count(2)->create(['resident_id' => $resident->id])` and a second resident's request to verify isolation. (TDD: Red → add assertions → run → Green)
 
-- [ ] Task: Write and green test — `index` unauthenticated returns 401. (TDD: Red → Green — no implementation changes needed, middleware already in place)
+- [x] Task: Write and green test — `index` unauthenticated returns 401. (TDD: Red → Green — no implementation changes needed, middleware already in place)
 
-- [ ] Task: Write and green test — `store` happy path. POST valid `document_type`, `purpose`, `reason`. Assert 201, response contains correct field values, DB has the record with `status = 'pending'` and correct `resident_id`. (TDD: Red → Green)
+- [x] Task: Write and green test — `store` happy path. POST valid `document_type`, `purpose`, `reason`. Assert 201, response contains correct field values, DB has the record with `status = 'pending'` and correct `resident_id`. (TDD: Red → Green)
 
-- [ ] Task: Write and green tests — `store` validation failures. Missing `document_type` → 422 with `errors.document_type`. Missing `purpose` → 422. Missing `reason` → 422. (TDD: Red → Green)
+- [x] Task: Write and green tests — `store` validation failures. Missing `document_type` → 422 with `errors.document_type`. Missing `purpose` → 422. Missing `reason` → 422. (TDD: Red → Green)
 
-- [ ] Task: Write and green test — `store` unauthenticated returns 401. (TDD: Red → Green)
+- [x] Task: Write and green test — `store` unauthenticated returns 401. (TDD: Red → Green)
 
-- [ ] Task: Write and green test — `show` happy path. Assert 200, response includes `resolved_by` key (null for pending). (TDD: Red → Green)
+- [x] Task: Write and green test — `show` happy path. Assert 200, response includes `resolved_by` key (null for pending). (TDD: Red → Green)
 
-- [ ] Task: Write and green test — `show` ownership enforcement. Create a request owned by a different resident; assert 403. (TDD: Red → Green)
+- [x] Task: Write and green test — `show` ownership enforcement. Create a request owned by a different resident; assert 403. (TDD: Red → Green)
 
-- [ ] Task: Write and green test — `show` non-existent ID returns 404. (TDD: Red → Green)
+- [x] Task: Write and green test — `show` non-existent ID returns 404. (TDD: Red → Green)
 
-- [ ] Task: Write and green test — `show` unauthenticated returns 401. (TDD: Red → Green)
+- [x] Task: Write and green test — `show` unauthenticated returns 401. (TDD: Red → Green)
 
-- [ ] Verification: Run `php artisan test --compact --filter=DocumentRequestApiTest`. All Phase 1 tests must be green before proceeding. [checkpoint marker]
+- [x] Verification: Run `php artisan test --compact --filter=DocumentRequestApiTest`. All Phase 1 tests must be green before proceeding. [checkpoint marker] [a490a36]
 
 ---
 
