@@ -34,11 +34,11 @@ Tasks:
 **Goal:** Create `ResidentLayout` and the `resident/dashboard` Inertia page component so the dashboard renders correctly in a browser.
 
 Tasks:
-- [ ] Task: Create `resources/js/layouts/resident-layout.jsx` modeled after `admin-layout.jsx` — sidebar with: BarangaECO brand + "Resident Portal" subtitle (green accent instead of blue), nav items (Dashboard `/resident/dashboard`, Document Requests `/resident/document-requests`, Complaints `/resident/complaints`, Announcements `/resident/announcements`), Settings link `/settings/profile`, and a POST logout link; active state detection uses `usePage().url`
-- [ ] Task: Create `resources/js/pages/resident/dashboard.jsx` — imports `ResidentLayout`, wraps content in layout; shows a greeting header with resident name; four stat/info sections: "Pending Requests" card (count + link), "Open Complaints" card (count + link), today's waste schedule panel (zone name + status, or empty state), recent announcements list (title + published date, up to 3 items)
-- [ ] Task: Wire `ResidentLayout` as the default layout for the dashboard page using the Inertia persistent layout pattern (`Dashboard.layout = (page) => <ResidentLayout>{page}</ResidentLayout>`)
-- [ ] Task: Run `npm run build` to verify no build errors
-- [ ] Task: Run `npm run lint:check` and `npm run format:check` — fix any issues
+- [x] Task: Create `resources/js/layouts/resident-layout.jsx` modeled after `admin-layout.jsx` — sidebar with: BarangaECO brand + "Resident Portal" subtitle (green accent instead of blue), nav items (Dashboard `/resident/dashboard`, Document Requests `/resident/document-requests`, Complaints `/resident/complaints`, Announcements `/resident/announcements`), Settings link `/settings/profile`, and a POST logout link; active state detection uses `usePage().url` [7961fd4]
+- [x] Task: Create `resources/js/pages/resident/dashboard.jsx` — imports `ResidentLayout`, wraps content in layout; shows a greeting header with resident name; four stat/info sections: "Pending Requests" card (count + link), "Open Complaints" card (count + link), today's waste schedule panel (zone name + status, or empty state), recent announcements list (title + published date, up to 3 items) [7961fd4]
+- [x] Task: Wire `ResidentLayout` as the default layout for the dashboard page using the Inertia persistent layout pattern (`Dashboard.layout = (page) => <ResidentLayout>{page}</ResidentLayout>`) [7961fd4]
+- [x] Task: Run `npm run build` to verify no build errors [7961fd4]
+- [x] Task: Run `npm run lint:check` and `npm run format:check` — fix any issues [7961fd4]
 - [ ] Verification: Browse to `https://barangaeco.test/resident/dashboard` as a resident — sidebar visible with green accent, stat cards populated, no console errors [checkpoint marker]
 
 ## Phase 4: Document Requests Controller and Page
