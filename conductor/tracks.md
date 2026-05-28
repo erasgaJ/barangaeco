@@ -14,7 +14,7 @@
 | `single_barangay_zone_refactor_20260525` | Refactor system for single-barangay use — replace barangay_id with admin-managed zones in complaints and waste collection management | complete |
 | `mobile_api_zone_alignment_20260527` | Fix mobile API endpoints to align with zone refactor — replace barangay_id references with zone_id in complaints, schedules, and dashboard endpoints | complete |
 | `mobile_api_resident_document_requests_20260528` | Mobile API — resident document requests (submit, list, show, cancel) | complete |
-| `mobile_api_collector_status_updates_20260528` | Mobile API — collector status updates (post and guard status changes for assigned schedules) | in_progress |
+| `mobile_api_collector_status_updates_20260528` | Mobile API — collector status updates (post and guard status changes for assigned schedules) | complete |
 
 ## Completed
 
@@ -30,3 +30,4 @@
 | `single_barangay_zone_refactor_20260525` | Refactor system for single-barangay use — replace barangay_id with admin-managed zones in complaints and waste collection management | e55c3cf |
 | `mobile_api_zone_alignment_20260527` | Fix mobile API endpoints to align with zone refactor — replace barangay_id references with zone_id in complaints, schedules, and dashboard endpoints | 6578d26 |
 | `mobile_api_resident_document_requests_20260528` | Mobile API — resident document requests (submit, list, show, cancel) | 9b15ce8 |
+| `mobile_api_collector_status_updates_20260528` | Mobile API — collector status updates (post and guard status changes for assigned schedules) | 267a77b |
