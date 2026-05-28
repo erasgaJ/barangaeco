@@ -132,7 +132,7 @@ TDD note: this is a chore track (data/infrastructure). Tests are verification-or
     ```
   Note: `BarangaySeeder` is also called (before `ResidentSeeder`) because `barangay_id` is NOT NULL in residents migration. [1ddd347]
 
-- [x] Verification: Run `php artisan test --compact` — 207 tests pass, 731 assertions. [checkpoint: see below]
+- [x] Verification: Run `php artisan test --compact` — 207 tests pass, 731 assertions. [checkpoint: 371fead]
 
 ---
 
