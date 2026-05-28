@@ -36,7 +36,7 @@ class WasteCollectionScheduleSeeder extends Seeder
             $schedule = WasteCollectionSchedule::create([
                 'zone_id' => $zoneId,
                 'scheduled_date' => $date->format('Y-m-d'),
-                'scheduled_time' => fake()->randomElement(['06:00', '07:00', '08:00', '14:00', '15:00']),
+                'scheduled_time' => ['06:00', '07:00', '08:00', '14:00', '15:00'][array_rand(['06:00', '07:00', '08:00', '14:00', '15:00'])],
                 'status' => $status,
                 'created_by' => $adminId,
             ]);
@@ -54,7 +54,7 @@ class WasteCollectionScheduleSeeder extends Seeder
                     'waste_collection_schedule_id' => $schedule->id,
                     'collector_id' => $collectorId,
                     'status' => $updateStatus,
-                    'notes' => rand(0, 1) ? fake()->randomElement(PhilippineData::collectionNotes()) : null,
+                    'notes' => rand(0, 1) ? PhilippineData::collectionNotes()[array_rand(PhilippineData::collectionNotes())] : null,
                 ]);
             }
         }

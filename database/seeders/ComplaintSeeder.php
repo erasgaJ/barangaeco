@@ -35,8 +35,8 @@ class ComplaintSeeder extends Seeder
         foreach ($distributions as $status => $count) {
             Complaint::factory()->count($count)->create([
                 'status' => $status,
-                'zone_id' => fn () => fake()->randomElement($zoneIds),
-                'resident_id' => fn () => (rand(1, 100) > 20) ? fake()->randomElement($residentIds) : null,
+                'zone_id' => fn () => $zoneIds[array_rand($zoneIds)],
+                'resident_id' => fn () => (rand(1, 100) > 20) ? $residentIds[array_rand($residentIds)] : null,
                 'created_by' => $adminId,
             ]);
         }

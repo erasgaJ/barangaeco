@@ -33,7 +33,7 @@ class DocumentRequestSeeder extends Seeder
         foreach ($distributions as $status => $count) {
             DocumentRequest::factory()->count($count)->create([
                 'status' => $status,
-                'resident_id' => fn () => fake()->randomElement($residentIds),
+                'resident_id' => fn () => $residentIds[array_rand($residentIds)],
                 'resolved_by' => in_array($status, ['resolved', 'rejected']) ? $adminId : null,
                 'resolved_at' => in_array($status, ['resolved', 'rejected']) ? now()->subDays(rand(1, 30)) : null,
                 'rejection_feedback' => ($status === 'rejected') ? 'Hindi kumpleto ang mga dokumento na isinumite. Pakiusap na magbigay ng valid ID.' : null,
