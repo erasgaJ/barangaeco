@@ -12,7 +12,7 @@
 | `complaints_modals_20260524` | Complaint management modals — detail view modal + new complaint form modal for the admin web app | complete |
 | `announcements_modals_20260525` | Announcements management — Polish CreateModal, Edit modal, Delete modal for the admin web app | complete |
 | `single_barangay_zone_refactor_20260525` | Refactor system for single-barangay use — replace barangay_id with admin-managed zones in complaints and waste collection management | complete |
-| `mobile_api_zone_alignment_20260527` | Fix mobile API endpoints to align with zone refactor — replace barangay_id references with zone_id in complaints, schedules, and dashboard endpoints | pending |
+| `mobile_api_zone_alignment_20260527` | Fix mobile API endpoints to align with zone refactor — replace barangay_id references with zone_id in complaints, schedules, and dashboard endpoints | complete |
 
 ## Completed
 
@@ -26,3 +26,4 @@
 | `complaints_modals_20260524` | Complaint management modals — detail view modal + new complaint form modal for the admin web app | 458c322 |
 | `announcements_modals_20260525` | Announcements management — Polish CreateModal, Edit modal, Delete modal for the admin web app | 2350c5a |
 | `single_barangay_zone_refactor_20260525` | Refactor system for single-barangay use — replace barangay_id with admin-managed zones in complaints and waste collection management | e55c3cf |
+| `mobile_api_zone_alignment_20260527` | Fix mobile API endpoints to align with zone refactor — replace barangay_id references with zone_id in complaints, schedules, and dashboard endpoints | b381e20 |

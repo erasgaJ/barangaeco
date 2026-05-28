@@ -95,10 +95,10 @@ Existing test files to extend or create alongside:
 
 ### Tasks
 
-- [ ] Task: Run full test suite — `php artisan test --compact` — confirm zero failures and no regressions against existing complaint, schedule, and dashboard tests
+- [x] Task: Run full test suite — `php artisan test --compact` — confirm zero failures and no regressions against existing complaint, schedule, and dashboard tests (135/135 passed)
 
-- [ ] Task: Run `composer run ci:check` — confirm Pint, ESLint, Prettier, and TypeScript checks all pass (TypeScript and ESLint are no-ops for this PHP-only track but must not regress)
+- [x] Task: Run `composer run ci:check` — confirm Pint, ESLint, Prettier, and TypeScript checks all pass (TypeScript and ESLint are no-ops for this PHP-only track but must not regress)
 
-- [ ] Task: Update `conductor/tracks.md` — move `mobile_api_zone_alignment_20260527` from Active to Completed with checkpoint SHA
+- [x] Task: Update `conductor/tracks.md` — move `mobile_api_zone_alignment_20260527` from Active to Completed with checkpoint SHA
 
-- [ ] Verification: Commit with `git commit -m "phase(4): quality gates — mobile API zone alignment complete"`. Record SHA in tracks.md. [checkpoint: phase 4 — track complete]
+- [x] Verification: Commit with `git commit -m "phase(4): quality gates — mobile API zone alignment complete"`. Record SHA in tracks.md. [checkpoint: phase 4 — track complete]
