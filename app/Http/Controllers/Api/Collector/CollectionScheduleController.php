@@ -18,7 +18,7 @@ class CollectionScheduleController extends Controller
         })
             ->where('status', 'published')
             ->orderBy('scheduled_date')
-            ->with('barangay', 'statusUpdates')
+            ->with('zone', 'statusUpdates')
             ->paginate(20);
 
         return response()->json($schedules);
@@ -34,7 +34,7 @@ class CollectionScheduleController extends Controller
         );
 
         return response()->json(
-            $schedule->load('barangay', 'collectors', 'statusUpdates')
+            $schedule->load('zone', 'collectors', 'statusUpdates')
         );
     }
 }

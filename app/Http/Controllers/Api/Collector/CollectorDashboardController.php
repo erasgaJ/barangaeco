@@ -18,7 +18,7 @@ class CollectorDashboardController extends Controller
         })
             ->where('scheduled_date', today())
             ->where('status', 'published')
-            ->with('barangay', 'statusUpdates')
+            ->with('zone', 'statusUpdates')
             ->get();
 
         $upcomingSchedules = WasteCollectionSchedule::whereHas('collectors', function ($query) use ($collector) {
@@ -28,7 +28,7 @@ class CollectorDashboardController extends Controller
             ->where('status', 'published')
             ->orderBy('scheduled_date')
             ->limit(5)
-            ->with('barangay')
+            ->with('zone')
             ->get();
 
         return response()->json([
