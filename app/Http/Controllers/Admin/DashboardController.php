@@ -7,13 +7,18 @@ use App\Models\Complaint;
 use App\Models\DocumentRequest;
 use App\Models\Resident;
 use App\Models\WasteCollectionSchedule;
+use Illuminate\Http\RedirectResponse;
 use Inertia\Inertia;
 use Inertia\Response;
 
 class DashboardController extends Controller
 {
-    public function __invoke(): Response
+    public function __invoke(): Response|RedirectResponse
     {
+        if (auth()->user()->isResident()) {
+            return redirect()->route('resident.dashboard');
+        }
+
         $todaySchedules = WasteCollectionSchedule::where('scheduled_date', today())
             ->where('status', 'published')
             ->with('zone', 'collectors', 'statusUpdates')

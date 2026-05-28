@@ -8,6 +8,10 @@ use App\Http\Controllers\Admin\DocumentRequestController;
 use App\Http\Controllers\Admin\ResidentController;
 use App\Http\Controllers\Admin\WasteCollectionScheduleController;
 use App\Http\Controllers\Admin\ZoneController;
+use App\Http\Controllers\Resident\AnnouncementController as ResidentAnnouncementController;
+use App\Http\Controllers\Resident\ComplaintController as ResidentComplaintController;
+use App\Http\Controllers\Resident\DashboardController as ResidentDashboardController;
+use App\Http\Controllers\Resident\DocumentRequestController as ResidentDocumentRequestController;
 use Illuminate\Support\Facades\Route;
 
 Route::redirect('/', '/login')->name('home');
@@ -66,6 +70,18 @@ Route::middleware(['auth', 'verified', 'role:admin'])->prefix('admin')->name('ad
     Route::post('zones', [ZoneController::class, 'store'])->name('zones.store');
     Route::put('zones/{zone}', [ZoneController::class, 'update'])->name('zones.update');
     Route::delete('zones/{zone}', [ZoneController::class, 'destroy'])->name('zones.destroy');
+});
+
+// Resident routes
+Route::middleware(['auth', 'verified', 'role:resident'])->prefix('resident')->name('resident.')->group(function () {
+    Route::get('dashboard', ResidentDashboardController::class)->name('dashboard');
+    Route::get('document-requests', [ResidentDocumentRequestController::class, 'index'])->name('document-requests.index');
+    Route::post('document-requests', [ResidentDocumentRequestController::class, 'store'])->name('document-requests.store');
+    Route::delete('document-requests/{documentRequest}', [ResidentDocumentRequestController::class, 'cancel'])->name('document-requests.cancel');
+    Route::get('complaints', [ResidentComplaintController::class, 'index'])->name('complaints.index');
+    Route::post('complaints', [ResidentComplaintController::class, 'store'])->name('complaints.store');
+    Route::delete('complaints/{complaint}', [ResidentComplaintController::class, 'cancel'])->name('complaints.cancel');
+    Route::get('announcements', [ResidentAnnouncementController::class, 'index'])->name('announcements.index');
 });
 
 require __DIR__.'/settings.php';
