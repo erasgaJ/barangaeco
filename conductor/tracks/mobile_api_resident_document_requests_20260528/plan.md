@@ -70,12 +70,12 @@ The controller skeleton (index, store, show) is already in place. The route is r
 
 ### Tasks
 
-- [ ] Task: Run `vendor/bin/pint --dirty --format agent` on all modified PHP files. Fix any formatting issues.
+- [x] Task: Run `vendor/bin/pint --dirty --format agent` on all modified PHP files. Fix any formatting issues.
 
-- [ ] Task: Run `php artisan test --compact` (full suite). Confirm zero failures and no regressions in other test files.
+- [x] Task: Run `php artisan test --compact` (full suite). Confirm zero failures and no regressions in other test files.
 
-- [ ] Task: Run `npm run lint:check && npm run format:check && npm run types:check`. No frontend files were changed, but gate must pass clean.
+- [x] Task: Run `npm run lint:check && npm run format:check && npm run types:check`. No frontend files were changed, but gate must pass clean.
 
-- [ ] Task: Update `conductor/tracks.md` — add `mobile_api_resident_document_requests_20260528` to the Active table with status `complete`.
+- [x] Task: Update `conductor/tracks.md` — change `mobile_api_resident_document_requests_20260528` status to `complete` and add to Completed table with checkpoint `9b15ce8`.
 
-- [ ] Verification: All quality gate commands exit with code 0. Commit with `git commit -m "phase(5): mobile api resident document requests complete"` (adjust phase number to match the actual next phase in the repo's commit sequence). [checkpoint marker]
+- [x] Verification: All quality gate commands exit with code 0. Committed. [checkpoint marker — see below]
