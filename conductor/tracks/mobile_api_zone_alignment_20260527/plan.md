@@ -51,15 +51,15 @@ Existing test files to extend or create alongside:
 
 ### Tasks
 
-- [ ] Task: Write failing Pest feature test for `GET /api/resident/dashboard` — assert 200 response, schedules include `zone` key, no 500 error (TDD: Red)
+- [x] Task: Write failing Pest feature test for `GET /api/resident/dashboard` — assert 200 response, schedules include `zone` key, no 500 error (TDD: Red)
   - Create `tests/Feature/Api/Resident/ResidentDashboardApiTest.php`
   - Test: authenticated resident hits dashboard → 200
   - Test: response JSON has `today_schedules` key where each schedule has `zone` and `collectors`
   - Test: schedules are filtered to today's date and `is_published = true`
 
-- [ ] Task: Fix `ResidentDashboardController::__invoke()` — remove `where('barangay_id', $resident->barangay_id)` from the schedules query; change `with('collectors')` to `with('zone', 'collectors')`; scope to today's date and published status (TDD: Green)
+- [x] Task: Fix `ResidentDashboardController::__invoke()` — remove `where('barangay_id', $resident->barangay_id)` from the schedules query; change `with('collectors')` to `with('zone', 'collectors')`; scope to today's date and published status (TDD: Green)
 
-- [ ] Verification: Run `php artisan test --compact --filter=ResidentDashboardApiTest`, confirm all green. Run `vendor/bin/pint --dirty --format agent`. [checkpoint: phase 2]
+- [x] Verification: Run `php artisan test --compact --filter=ResidentDashboardApiTest`, confirm all green. Run `vendor/bin/pint --dirty --format agent`. [checkpoint: phase 2] [4713400]
 
 ---
 
