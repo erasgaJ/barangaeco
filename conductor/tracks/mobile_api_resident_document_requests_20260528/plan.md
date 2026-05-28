@@ -38,7 +38,7 @@ The controller skeleton (index, store, show) is already in place. The route is r
 
 ---
 
-## Phase 2: Cancel Endpoint (migration + factory state + route + controller)
+## Phase 2: Cancel Endpoint (migration + factory state + route + controller) [checkpoint: 9b15ce8]
 
 **Goal:** `PATCH /api/resident/document-requests/{id}/cancel` is implemented TDD-first and all cancel edge cases pass.
 
