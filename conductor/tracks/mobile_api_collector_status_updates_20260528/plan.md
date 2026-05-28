@@ -18,22 +18,22 @@ All PHP changes are covered by Pest feature tests following Red → Green → Re
 
 ### Tasks
 
-- [ ] Task: Create `CollectionStatusUpdateFactory` (TDD: write a test that uses it to seed data, then create the factory until the test passes)
+- [x] Task: Create `CollectionStatusUpdateFactory` (TDD: write a test that uses it to seed data, then create the factory until the test passes)
   - Factory definition: `waste_collection_schedule_id` via `WasteCollectionSchedule::factory()`, `collector_id` via `Collector::factory()`, `status` random from `['pending', 'in_progress', 'completed']`, `notes` nullable faker sentence.
   - Run: `php artisan make:factory CollectionStatusUpdateFactory --model=CollectionStatusUpdate`
 
-- [ ] Task: Verify composite index on `(waste_collection_schedule_id, collector_id)` in `collection_status_updates`. If missing, generate a migration to add it.
+- [x] Task: Verify composite index on `(waste_collection_schedule_id, collector_id)` in `collection_status_updates`. If missing, generate a migration to add it.
   - Check migration `2026_05_09_034407_create_collection_status_updates_table.php` — index not present in current schema; create `php artisan make:migration add_index_to_collection_status_updates_table`.
   - Migration adds: `$table->index(['waste_collection_schedule_id', 'collector_id']);`
 
-- [ ] Task: Create `tests/Feature/Api/Collector/CollectionStatusApiTest.php` — write and pass happy-path tests (TDD: Red → Green)
+- [x] Task: Create `tests/Feature/Api/Collector/CollectionStatusApiTest.php` — write and pass happy-path tests (TDD: Red → Green)
   - Test: authenticated collector assigned to a published schedule can post `pending` status → `201`.
   - Test: response body contains `id`, `waste_collection_schedule_id`, `collector_id`, `status`, `notes`.
   - Test: posting again updates the existing record (upsert — only one row in DB).
   - Test: `completed` with `notes` stores notes correctly.
   - Helper: extract `collectorWithSchedule()` local helper (mirrors pattern from existing test files).
 
-- [ ] Verification: Run `php artisan test --compact --filter=CollectionStatusApiTest` — all tests green. [checkpoint marker]
+- [x] Verification: Run `php artisan test --compact --filter=CollectionStatusApiTest` — all tests green. [checkpoint marker] [c3d0d69]
 
 ---
 
