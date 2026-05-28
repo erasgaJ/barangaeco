@@ -3,12 +3,15 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Attributes\Fillable;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 #[Fillable(['waste_collection_schedule_id', 'collector_id', 'status', 'notes'])]
 class CollectionStatusUpdate extends Model
 {
+    use HasFactory;
+
     public function schedule(): BelongsTo
     {
         return $this->belongsTo(WasteCollectionSchedule::class, 'waste_collection_schedule_id');
