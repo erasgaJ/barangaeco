@@ -183,7 +183,9 @@
       "Bash(C:/herd/barangaeco/vendor/bin/pest --compact)",
       "PowerShell(git add *)",
       "PowerShell(git *)",
-      "Bash(C:/laragon/bin/php/php8.4.6/php.exe artisan *)"
+      "Bash(C:/laragon/bin/php/php8.4.6/php.exe artisan *)",
+      "Bash(\"C:\\\\Users\\\\erasg\\\\.config\\\\herd\\\\bin\\\\php.bat\" artisan *)",
+      "Bash(\"C:\\\\Users\\\\erasg\\\\.config\\\\herd\\\\bin\\\\php.bat\" vendor/bin/pint --dirty --format agent)"
     ]
   }
 }

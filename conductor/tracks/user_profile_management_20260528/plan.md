@@ -90,14 +90,14 @@ No new routes, controllers, or form request classes are needed. All backend logi
 
 ### Tasks
 
-- [ ] Task: Run `vendor/bin/pint --dirty --format agent` to auto-fix any PHP style issues introduced by new test code.
+- [~] Task: Run `vendor/bin/pint --dirty --format agent` to auto-fix any PHP style issues introduced by new test code.
 
-- [ ] Task: Run `npm run lint:check` — fix any ESLint issues in new/modified JSX files.
+- [~] Task: Run `npm run lint:check` — fix any ESLint issues in new/modified JSX files.
 
-- [ ] Task: Run `npm run format:check` — fix any Prettier issues.
+- [~] Task: Run `npm run format:check` — fix any Prettier issues.
 
-- [ ] Task: Run `npm run build` — confirm frontend builds without errors (required before manual verification).
+- [~] Task: Run `npm run build` — confirm frontend builds without errors (required before manual verification).
 
-- [ ] Task: Run `php artisan test --compact` — confirm full test suite is green.
+- [~] Task: Run `php artisan test --compact` — confirm full test suite is green.
 
-- [ ] Verification: All quality gate commands exit with code 0. [checkpoint Phase 4]
+- [~] Verification: All quality gate commands exit with code 0. [checkpoint Phase 4]
