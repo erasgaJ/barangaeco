@@ -6,6 +6,7 @@ import AdminLayout from '@/layouts/admin-layout';
 import AppLayout from '@/layouts/app-layout';
 import AuthLayout from '@/layouts/auth-layout';
 import ResidentLayout from '@/layouts/resident-layout';
+import RoleAwareLayout from '@/layouts/role-aware-layout';
 import SettingsLayout from '@/layouts/settings/layout';
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 createInertiaApp({
@@ -23,7 +24,7 @@ createInertiaApp({
             case name.startsWith('resident/'):
                 return ResidentLayout;
             case name.startsWith('settings/'):
-                return [AdminLayout, SettingsLayout];
+                return [RoleAwareLayout, SettingsLayout];
             default:
                 return AppLayout;
         }
