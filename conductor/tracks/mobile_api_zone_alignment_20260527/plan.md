@@ -41,7 +41,7 @@ Existing test files to extend or create alongside:
 
 - [x] Task: Fix `ComplaintController::show()` — change `load('barangay', 'createdBy')` to `load('zone', 'createdBy')` (TDD: Green)
 
-- [x] Verification: Run `php artisan test --compact --filter=ComplaintApiTest`, confirm all green. Run `vendor/bin/pint --dirty --format agent` on modified files. [checkpoint: phase 1] [5c90aa2]
+- [x] Verification [checkpoint: 11cf7d1]: Run `php artisan test --compact --filter=ComplaintApiTest`, confirm all green. Run `vendor/bin/pint --dirty --format agent` on modified files. [5c90aa2]
 
 ---
 
@@ -59,7 +59,7 @@ Existing test files to extend or create alongside:
 
 - [x] Task: Fix `ResidentDashboardController::__invoke()` — remove `where('barangay_id', $resident->barangay_id)` from the schedules query; change `with('collectors')` to `with('zone', 'collectors')`; scope to today's date and published status (TDD: Green)
 
-- [x] Verification: Run `php artisan test --compact --filter=ResidentDashboardApiTest`, confirm all green. Run `vendor/bin/pint --dirty --format agent`. [checkpoint: phase 2] [4713400]
+- [x] Verification: Run `php artisan test --compact --filter=ResidentDashboardApiTest`, confirm all green. Run `vendor/bin/pint --dirty --format agent`. [checkpoint: fb356d3] [4713400]
 
 ---
 
@@ -85,7 +85,7 @@ Existing test files to extend or create alongside:
 
 - [x] Task: Fix `CollectorDashboardController` — change both `with('barangay', 'statusUpdates')` and `with('barangay')` to `with('zone', 'statusUpdates')` and `with('zone')` respectively (TDD: Green)
 
-- [x] Verification: Run `php artisan test --compact --filter=CollectionScheduleApiTest`, then `--filter=CollectorDashboardApiTest`. Run `vendor/bin/pint --dirty --format agent`. [checkpoint: phase 3] [b381e20]
+- [x] Verification: Run `php artisan test --compact --filter=CollectionScheduleApiTest`, then `--filter=CollectorDashboardApiTest`. Run `vendor/bin/pint --dirty --format agent`. [checkpoint: f61d7c7] [b381e20]
 
 ---
 
@@ -101,4 +101,4 @@ Existing test files to extend or create alongside:
 
 - [x] Task: Update `conductor/tracks.md` — move `mobile_api_zone_alignment_20260527` from Active to Completed with checkpoint SHA
 
-- [x] Verification: Commit with `git commit -m "phase(4): quality gates — mobile API zone alignment complete"`. Record SHA in tracks.md. [checkpoint: phase 4 — track complete]
+- [x] Verification: Commit with `git commit -m "phase(4): quality gates — mobile API zone alignment complete"`. Record SHA in tracks.md. [checkpoint: 6578d26]
