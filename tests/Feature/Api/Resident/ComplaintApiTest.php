@@ -98,3 +98,143 @@ it('lists complaints with zone eager loaded', function () {
     expect($items[0])->toHaveKey('zone');
     expect($items[0]['zone']['id'])->toBe($zone->id);
 });
+
+// -----------------------------------------------------------------------
+// Phase 1 — Auth guard tests
+// -----------------------------------------------------------------------
+
+it('returns 401 on GET /api/resident/complaints when unauthenticated', function () {
+    $this->getJson('/api/resident/complaints')
+        ->assertStatus(401);
+});
+
+it('returns 401 on POST /api/resident/complaints when unauthenticated', function () {
+    $this->postJson('/api/resident/complaints', [
+        'complaint_type' => 'Noise',
+        'complaint_against' => 'Neighbor',
+        'description' => 'Too loud.',
+    ])->assertStatus(401);
+});
+
+it('returns 401 on GET /api/resident/complaints/{id} when unauthenticated', function () {
+    $this->getJson('/api/resident/complaints/1')
+        ->assertStatus(401);
+});
+
+// -----------------------------------------------------------------------
+// Phase 1 — Ownership isolation on index
+// -----------------------------------------------------------------------
+
+it('index returns only the authenticated resident\'s own complaints', function () {
+    [$userA, $tokenA] = residentWithToken();
+    [$userB, $tokenB] = residentWithToken();
+
+    $residentA = $userA->resident()->first();
+    $residentB = $userB->resident()->first();
+
+    $complaintA = Complaint::factory()->create([
+        'resident_id' => $residentA->id,
+        'created_by' => $userA->id,
+    ]);
+
+    $complaintB = Complaint::factory()->create([
+        'resident_id' => $residentB->id,
+        'created_by' => $userB->id,
+    ]);
+
+    $response = $this->withToken($tokenA)->getJson('/api/resident/complaints');
+
+    $response->assertStatus(200);
+    $ids = collect($response->json('data'))->pluck('id')->all();
+
+    expect($ids)->toContain($complaintA->id);
+    expect($ids)->not->toContain($complaintB->id);
+});
+
+// -----------------------------------------------------------------------
+// Phase 1 — Ownership 403 on show
+// -----------------------------------------------------------------------
+
+it('returns 403 when resident A requests a complaint belonging to resident B', function () {
+    [$userA, $tokenA] = residentWithToken();
+    [$userB, $tokenB] = residentWithToken();
+
+    $residentB = $userB->resident()->first();
+
+    $complaintB = Complaint::factory()->create([
+        'resident_id' => $residentB->id,
+        'created_by' => $userB->id,
+    ]);
+
+    $this->withToken($tokenA)
+        ->getJson("/api/resident/complaints/{$complaintB->id}")
+        ->assertStatus(403);
+});
+
+// -----------------------------------------------------------------------
+// Phase 1 — Not-found 404 on show
+// -----------------------------------------------------------------------
+
+it('returns 404 for a non-existent complaint ID', function () {
+    [$user, $token] = residentWithToken();
+
+    $this->withToken($token)
+        ->getJson('/api/resident/complaints/99999')
+        ->assertStatus(404);
+});
+
+// -----------------------------------------------------------------------
+// Phase 1 — Validation error tests for store
+// -----------------------------------------------------------------------
+
+it('returns 422 with complaint_type error when complaint_type is missing', function () {
+    [$user, $token] = residentWithToken();
+
+    $this->withToken($token)->postJson('/api/resident/complaints', [
+        'complaint_against' => 'Neighbor',
+        'description' => 'Too loud at night.',
+    ])->assertStatus(422)
+        ->assertJsonValidationErrors(['complaint_type']);
+});
+
+it('returns 422 with complaint_against error when complaint_against is missing', function () {
+    [$user, $token] = residentWithToken();
+
+    $this->withToken($token)->postJson('/api/resident/complaints', [
+        'complaint_type' => 'Noise',
+        'description' => 'Too loud at night.',
+    ])->assertStatus(422)
+        ->assertJsonValidationErrors(['complaint_against']);
+});
+
+it('returns 422 with description error when description is missing', function () {
+    [$user, $token] = residentWithToken();
+
+    $this->withToken($token)->postJson('/api/resident/complaints', [
+        'complaint_type' => 'Noise',
+        'complaint_against' => 'Neighbor',
+    ])->assertStatus(422)
+        ->assertJsonValidationErrors(['description']);
+});
+
+// -----------------------------------------------------------------------
+// Phase 1 — Database persistence on store
+// -----------------------------------------------------------------------
+
+it('persists the complaint in the database with correct resident_id and status open', function () {
+    [$user, $token] = residentWithToken();
+    $resident = $user->resident()->first();
+
+    $this->withToken($token)->postJson('/api/resident/complaints', [
+        'complaint_type' => 'Environment',
+        'complaint_against' => 'Factory nearby',
+        'description' => 'Smoke is affecting air quality.',
+    ])->assertStatus(201);
+
+    $this->assertDatabaseHas('complaints', [
+        'resident_id' => $resident->id,
+        'complaint_type' => 'Environment',
+        'complaint_against' => 'Factory nearby',
+        'status' => 'open',
+    ]);
+});
