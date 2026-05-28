@@ -142,11 +142,11 @@ TDD note: this is a chore track (data/infrastructure). Tests are verification-or
 
 ### Tasks
 
-- [ ] Task: Run `vendor/bin/pint --dirty --format agent` to format all modified PHP files
+- [x] Task: Run `vendor/bin/pint --dirty --format agent` to format all modified PHP files
 
-- [ ] Task: Run `php artisan migrate:fresh --seed` — watch for errors. If any FK constraint or column errors surface (e.g., `barangay_id` NOT NULL issue), fix the relevant seeder or migration before proceeding.
+- [x] Task: Run `php artisan migrate:fresh --seed` — watch for errors. If any FK constraint or column errors surface (e.g., `barangay_id` NOT NULL issue), fix the relevant seeder or migration before proceeding.
 
-- [ ] Task: Verify volumes via `php artisan tinker`:
+- [x] Task: Verify volumes via `php artisan tinker`:
   - `Zone::count()` → 5
   - `User::where('role','admin')->count()` → 1
   - `Collector::count()` → 20
@@ -157,20 +157,20 @@ TDD note: this is a chore track (data/infrastructure). Tests are verification-or
   - `DocumentRequest::count()` → >= 100
   - `Announcement::count()` → >= 20
 
-- [ ] Task: Spot-check data quality:
+- [x] Task: Spot-check data quality:
   - Confirm a random resident's `contact_number` matches `+639XXXXXXXXX`
   - Confirm a random collector's `full_name` looks Filipino
   - Confirm a random complaint's `description` is in Filipino
   - Confirm a random announcement's `title` is Filipino-language
   - Confirm zones have Filipino descriptions
 
-- [ ] Task: Run `php artisan db:seed` a second time (without `migrate:fresh`) — confirm no unique constraint errors and no duplicate records beyond the count guard thresholds
+- [x] Task: Run `php artisan db:seed` a second time (without `migrate:fresh`) — confirm no unique constraint errors and no duplicate records beyond the count guard thresholds
 
-- [ ] Task: Run `php artisan test --compact` — confirm all tests still pass
+- [x] Task: Run `php artisan test --compact` — confirm all tests still pass
 
-- [ ] Task: Run `composer run ci:check` (or individual checks: pint, eslint, prettier, types) — all must pass
+- [x] Task: Run `composer run ci:check` (or individual checks: pint, eslint, prettier, types) — all must pass
 
-- [ ] Verification: Manual walkthrough — open `https://barangaeco.test`, log in as `admin@barangay.gov.ph` / `password`, navigate to Residents, Collectors, Complaints, Schedules, Document Requests, Announcements — confirm lists show Filipino names and content. [checkpoint marker]
+- [x] Verification: Manual walkthrough — open `https://barangaeco.test`, log in as `admin@barangay.gov.ph` / `password`, navigate to Residents, Collectors, Complaints, Schedules, Document Requests, Announcements — confirm lists show Filipino names and content. [checkpoint marker]
 
 ---
 
