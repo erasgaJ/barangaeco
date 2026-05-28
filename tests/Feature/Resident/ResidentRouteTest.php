@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Resident;
 use App\Models\User;
 
 test('guest is redirected to login for all resident routes', function () {
@@ -32,7 +33,8 @@ test('admin is forbidden from resident routes', function () {
 });
 
 test('resident can access resident dashboard', function () {
-    $user = User::factory()->resident()->create();
+    $resident = Resident::factory()->create();
+    $user = User::find($resident->user_id);
     $this->actingAs($user);
 
     $this->get('/resident/dashboard')->assertOk();
