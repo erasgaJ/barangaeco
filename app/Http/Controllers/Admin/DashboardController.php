@@ -16,8 +16,20 @@ class DashboardController extends Controller
     {
         $todaySchedules = WasteCollectionSchedule::where('scheduled_date', today())
             ->where('status', 'published')
-            ->with('barangay', 'collectors', 'statusUpdates')
+            ->with('zone', 'collectors', 'statusUpdates')
             ->get();
+
+        $todaySchedules = $todaySchedules->map(function ($schedule) {
+            $latestUpdate = $schedule->statusUpdates->sortByDesc('updated_at')->first();
+
+            return array_merge($schedule->toArray(), [
+                'zone_name' => $schedule->zone?->name ?? 'Unknown Zone',
+                'status_update' => $latestUpdate ? [
+                    'status' => $latestUpdate->status,
+                    'time' => $latestUpdate->updated_at->format('g:i A'),
+                ] : null,
+            ]);
+        });
 
         return Inertia::render('admin/dashboard', [
             'stats' => [
@@ -25,11 +37,17 @@ class DashboardController extends Controller
                 'pending_document_requests' => DocumentRequest::where('status', 'pending')->count(),
                 'active_routes' => $todaySchedules->count(),
                 'open_complaints' => Complaint::where('status', 'open')->count(),
+                'residents_this_month' => Resident::whereMonth('created_at', now()->month)
+                    ->whereYear('created_at', now()->year)
+                    ->count(),
             ],
-            'recent_document_requests' => DocumentRequest::with('resident.barangay')
+            'recent_document_requests' => DocumentRequest::with('resident')
                 ->latest()
                 ->limit(5)
-                ->get(),
+                ->get()
+                ->map(fn ($req) => array_merge($req->toArray(), [
+                    'resident_name' => $req->resident?->full_name ?? 'Unknown Resident',
+                ])),
             'today_schedules' => $todaySchedules,
         ]);
     }
