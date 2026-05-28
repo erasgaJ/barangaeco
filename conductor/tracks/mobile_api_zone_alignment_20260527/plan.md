@@ -69,23 +69,23 @@ Existing test files to extend or create alongside:
 
 ### Tasks
 
-- [ ] Task: Write failing Pest feature test for `GET /api/collector/schedules` (index) — assert response schedules have `zone` key, not `barangay` (TDD: Red)
+- [x] Task: Write failing Pest feature test for `GET /api/collector/schedules` (index) — assert response schedules have `zone` key, not `barangay` (TDD: Red)
   - Create `tests/Feature/Api/Collector/CollectionScheduleApiTest.php`
   - Test `index()`: authenticated collector → 200, each schedule has `zone` and `status_updates`
   - Test `show()`: authenticated collector → 200, schedule has `zone`, `collectors`, `status_updates`
 
-- [ ] Task: Write failing Pest feature test for `GET /api/collector/dashboard` — assert today's schedules and upcoming schedules include `zone` (TDD: Red)
+- [x] Task: Write failing Pest feature test for `GET /api/collector/dashboard` — assert today's schedules and upcoming schedules include `zone` (TDD: Red)
   - Create `tests/Feature/Api/Collector/CollectorDashboardApiTest.php`
   - Test: authenticated collector → 200, `today_schedules` items have `zone` and `status_updates`
   - Test: `upcoming_schedules` items have `zone`
 
-- [ ] Task: Fix `CollectionScheduleController::index()` — change `with('barangay', 'statusUpdates')` to `with('zone', 'statusUpdates')` (TDD: Green)
+- [x] Task: Fix `CollectionScheduleController::index()` — change `with('barangay', 'statusUpdates')` to `with('zone', 'statusUpdates')` (TDD: Green)
 
-- [ ] Task: Fix `CollectionScheduleController::show()` — change `load('barangay', 'collectors', 'statusUpdates')` to `load('zone', 'collectors', 'statusUpdates')` (TDD: Green)
+- [x] Task: Fix `CollectionScheduleController::show()` — change `load('barangay', 'collectors', 'statusUpdates')` to `load('zone', 'collectors', 'statusUpdates')` (TDD: Green)
 
-- [ ] Task: Fix `CollectorDashboardController` — change both `with('barangay', 'statusUpdates')` and `with('barangay')` to `with('zone', 'statusUpdates')` and `with('zone')` respectively (TDD: Green)
+- [x] Task: Fix `CollectorDashboardController` — change both `with('barangay', 'statusUpdates')` and `with('barangay')` to `with('zone', 'statusUpdates')` and `with('zone')` respectively (TDD: Green)
 
-- [ ] Verification: Run `php artisan test --compact --filter=CollectionScheduleApiTest`, then `--filter=CollectorDashboardApiTest`. Run `vendor/bin/pint --dirty --format agent`. [checkpoint: phase 3]
+- [x] Verification: Run `php artisan test --compact --filter=CollectionScheduleApiTest`, then `--filter=CollectorDashboardApiTest`. Run `vendor/bin/pint --dirty --format agent`. [checkpoint: phase 3] [b381e20]
 
 ---
 
