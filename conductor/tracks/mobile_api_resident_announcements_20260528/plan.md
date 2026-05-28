@@ -99,7 +99,7 @@ Two phases. Phase 1 builds and tests the core read-only API endpoints (index + s
 
 ### Tasks
 
-- [ ] Task: Run PHP formatter
+- [x] Task: Run PHP formatter
 
   ```bash
   vendor/bin/pint --dirty --format agent
@@ -107,7 +107,7 @@ Two phases. Phase 1 builds and tests the core read-only API endpoints (index + s
 
   Fix any style issues reported before proceeding.
 
-- [ ] Task: Run full test suite
+- [x] Task: Run full test suite
 
   ```bash
   php artisan test --compact
@@ -115,7 +115,7 @@ Two phases. Phase 1 builds and tests the core read-only API endpoints (index + s
 
   All tests (not just `AnnouncementApiTest`) must pass. Fix any regressions.
 
-- [ ] Task: Run frontend quality checks
+- [x] Task: Run frontend quality checks
 
   ```bash
   npm run lint:check
@@ -125,7 +125,7 @@ Two phases. Phase 1 builds and tests the core read-only API endpoints (index + s
 
   No frontend files are modified in this track, so these should pass trivially. If any fail, investigate unrelated drift.
 
-- [ ] Task: Commit
+- [x] Task: Commit
 
   ```bash
   git add app/Http/Controllers/Api/Resident/AnnouncementController.php
@@ -135,7 +135,7 @@ Two phases. Phase 1 builds and tests the core read-only API endpoints (index + s
   git commit -m "phase(1): mobile API resident announcements feed — index and show endpoints"
   ```
 
-- [ ] Verification: Final checkpoint [checkpoint marker]
+- [x] Verification: Final checkpoint [checkpoint: f664616]
 
   Confirm:
   - `php artisan test --compact` is green.
