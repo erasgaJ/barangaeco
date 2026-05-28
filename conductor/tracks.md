@@ -18,6 +18,7 @@
 | `mobile_api_resident_announcements_20260528` | Mobile API — resident announcements feed (list and view published announcements) | complete |
 | `mobile_api_resident_complaints_20260528` | Mobile API — resident complaints (cancel endpoint + test coverage gaps for index/store/show) | complete |
 | `admin_dashboard_stats_20260528` | Admin dashboard — real stats and metrics (wire up real counts, fix zone/resident name data shaping bugs) | complete |
+| `philippines_data_seeders_20260528` | Comprehensive seeders and factories with realistic Philippine data for all modules | pending |
 
 ## Completed
 
