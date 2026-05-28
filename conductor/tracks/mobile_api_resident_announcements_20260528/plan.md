@@ -16,13 +16,13 @@ Two phases. Phase 1 builds and tests the core read-only API endpoints (index + s
 
 ### Tasks
 
-- [ ] Task: Add `collectorsOnly()` factory state to `AnnouncementFactory`
+- [x] Task: Add `collectorsOnly()` factory state to `AnnouncementFactory`
 
   `AnnouncementFactory` already has a `scheduled()` state. Add a `collectorsOnly()` state that sets `target_audience` to `'collectors'` and `published_at` to `now()`. This state is needed before writing tests so factories can construct the fixture data cleanly.
 
   TDD: No dedicated test for the factory state itself — it is exercised implicitly by the controller tests that follow.
 
-- [ ] Task: Write failing tests for `GET /api/resident/announcements` (index)
+- [x] Task: Write failing tests for `GET /api/resident/announcements` (index)
 
   Create `tests/Feature/Api/Resident/AnnouncementApiTest.php` using the helper function pattern from `ComplaintApiTest.php`. Define a `residentWithAnnouncementToken()` (or reuse the same name scoped to this file) helper that creates a Barangay, resident User, Resident record, and Sanctum token.
 
@@ -36,7 +36,7 @@ Two phases. Phase 1 builds and tests the core read-only API endpoints (index + s
 
   Run `php artisan test --compact --filter=AnnouncementApiTest` — all should fail with 404 (route not registered yet).
 
-- [ ] Task: Write failing tests for `GET /api/resident/announcements/{id}` (show)
+- [x] Task: Write failing tests for `GET /api/resident/announcements/{id}` (show)
 
   In the same test file, add:
   - Returns 200 with full announcement when authenticated and the announcement is published + resident-visible.
@@ -47,7 +47,7 @@ Two phases. Phase 1 builds and tests the core read-only API endpoints (index + s
 
   Run tests — all show failures.
 
-- [ ] Task: Create `Api\Resident\AnnouncementController` with `index` and `show` methods
+- [x] Task: Create `Api\Resident\AnnouncementController` with `index` and `show` methods
 
   Create `app/Http/Controllers/Api/Resident/AnnouncementController.php`.
 
@@ -64,7 +64,7 @@ Two phases. Phase 1 builds and tests the core read-only API endpoints (index + s
 
   No auth guard logic in the controller — that is handled at the route group level.
 
-- [ ] Task: Register the announcements routes in `routes/api.php`
+- [x] Task: Register the announcements routes in `routes/api.php`
 
   Inside the existing `role:resident,admin` resident middleware group, add:
 
@@ -75,13 +75,13 @@ Two phases. Phase 1 builds and tests the core read-only API endpoints (index + s
 
   Add the corresponding `use` import for `AnnouncementController as ResidentAnnouncementController` (alias to avoid collision with any future admin import in the same file).
 
-- [ ] Task: Run tests to green
+- [x] Task: Run tests to green
 
   Run `php artisan test --compact --filter=AnnouncementApiTest`.
 
   All tests should pass. If any fail, fix the controller/factory/routes until green. Do not move on while red.
 
-- [ ] Verification: Manual spot-check [checkpoint marker]
+- [x] Verification: Manual spot-check [checkpoint marker] [06d85bf]
 
   Using a REST client (or `curl`) against `https://barangaeco.test`:
 
