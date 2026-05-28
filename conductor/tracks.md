@@ -21,7 +21,7 @@
 | `philippines_data_seeders_20260528` | Comprehensive seeders and factories with realistic Philippine data for all modules | complete |
 | `user_profile_management_20260528` | Logged-in user profile — edit profile info, update password, account info panel, admin shell integration | complete |
 | `resident_web_portal_20260528` | Resident web portal — browser-based dashboard, document requests, complaints, and announcements pages for the resident role | complete |
-| `resident_settings_layout_fix_20260529` | Bug fix — resident settings pages showing AdminLayout instead of ResidentLayout | in-progress |
+| `resident_settings_layout_fix_20260529` | Bug fix — resident settings pages showing AdminLayout instead of ResidentLayout | complete |
 
 ## Completed
 
