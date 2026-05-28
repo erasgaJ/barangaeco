@@ -7,6 +7,7 @@ import {
     Map,
     MessageCircleWarning,
     Recycle,
+    Settings,
     Users,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
@@ -31,6 +32,12 @@ const navItems = [
         icon: MessageCircleWarning,
     },
     { title: 'Announcements', href: '/admin/announcements', icon: Bell },
+    {
+        title: 'Settings',
+        href: '/settings/profile',
+        icon: Settings,
+        activePrefix: '/settings',
+    },
 ];
 
 export default function AdminLayout({ children }) {
@@ -58,9 +65,12 @@ export default function AdminLayout({ children }) {
                 {/* Nav */}
                 <nav className="flex flex-1 flex-col gap-0.5 px-2 py-2">
                     {navItems.map((item) => {
-                        const isActive = item.href === '/dashboard'
-                            ? url === '/dashboard'
-                            : url.startsWith(item.href);
+                        const isActive =
+                            item.href === '/dashboard'
+                                ? url === '/dashboard'
+                                : url.startsWith(
+                                      item.activePrefix ?? item.href,
+                                  );
                         return (
                             <Link
                                 key={item.href}
