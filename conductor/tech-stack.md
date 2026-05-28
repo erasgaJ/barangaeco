@@ -11,6 +11,7 @@
 | Laravel Wayfinder | 0.x | Type-safe route generation for frontend |
 | Laravel Pint | 1.x | PHP code formatter |
 | Pest | 4.x | Testing framework |
+| FakerPHP | 1.x | Localized data generation (seeders & factories) |
 | MySQL | — | Primary database |
 
 ## Frontend

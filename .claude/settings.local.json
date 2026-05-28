@@ -175,7 +175,15 @@
       "Bash(rm /c/herd/barangaeco/tests/Feature/Resident/AnnouncementApiTest.php)",
       "Bash(rmdir /c/herd/barangaeco/tests/Feature/Resident/)",
       "Bash(C:/Windows/System32/cmd.exe *)",
-      "Bash(C:\\\\herd\\\\bin\\\\php84.bat artisan *)"
+      "Bash(C:\\\\herd\\\\bin\\\\php84.bat artisan *)",
+      "Bash(C:/laragon/bin/php/php-8.4.1-Win32-vs17-x64/php.exe artisan *)",
+      "Read(//mnt/c/**)",
+      "Read(//c/Users/erasg/**)",
+      "Bash(find /mnt -name \"php.exe\")",
+      "Bash(C:/herd/barangaeco/vendor/bin/pest --compact)",
+      "PowerShell(git add *)",
+      "PowerShell(git *)",
+      "Bash(C:/laragon/bin/php/php8.4.6/php.exe artisan *)"
     ]
   }
 }
