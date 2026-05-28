@@ -22,12 +22,12 @@ Tasks:
 **Goal:** Implement `Resident\DashboardController` with real data — resident profile, stat counts, today's schedule for the resident's zone, and recent announcements — using `Inertia::render()`.
 
 Tasks:
-- [ ] Task: Write feature test for `GET /resident/dashboard` as an authenticated resident: asserts Inertia component is `resident/dashboard`, response contains `resident`, `pending_document_requests`, `open_complaints`, `today_schedule`, and `announcements` props (TDD: Red)
-- [ ] Task: Write feature test covering the edge case where the authenticated resident user has no linked `Resident` record: asserts redirect to `/dashboard` with a flash error message (TDD: Red)
-- [ ] Task: Implement `Resident\DashboardController::__invoke()` — load `auth()->user()->resident()`, abort/redirect if null; query pending document requests count, open/in_progress complaints count, today's published schedule for the resident's zone, and 5 most recent published announcements for `all`/`residents` audience; return `Inertia::render('resident/dashboard', [...])` (TDD: Green)
-- [ ] Task: Run Pint on all modified PHP files (`vendor/bin/pint --dirty --format agent`)
-- [ ] Task: Run `php artisan test --compact --filter=ResidentDashboard` — all tests green
-- [ ] Verification: `php artisan test --compact --filter=ResidentDashboard` passes; visiting `https://barangaeco.test/resident/dashboard` as a resident renders the page with no 500 error [checkpoint marker]
+- [x] Task: Write feature test for `GET /resident/dashboard` as an authenticated resident: asserts Inertia component is `resident/dashboard`, response contains `resident`, `pending_document_requests`, `open_complaints`, `today_schedule`, and `announcements` props (TDD: Red) [eef5ba1]
+- [x] Task: Write feature test covering the edge case where the authenticated resident user has no linked `Resident` record: asserts redirect to `/dashboard` with a flash error message (TDD: Red) [eef5ba1]
+- [x] Task: Implement `Resident\DashboardController::__invoke()` — load `auth()->user()->resident()`, abort/redirect if null; query pending document requests count, open/in_progress complaints count, today's published schedule for the resident's zone, and 5 most recent published announcements for `all`/`residents` audience; return `Inertia::render('resident/dashboard', [...])` (TDD: Green) [eef5ba1]
+- [x] Task: Run Pint on all modified PHP files (`vendor/bin/pint --dirty --format agent`) [eef5ba1]
+- [x] Task: Run `php artisan test --compact --filter=ResidentDashboard` — all tests green [eef5ba1]
+- [x] Verification: `php artisan test --compact --filter=ResidentDashboard` passes; visiting `https://barangaeco.test/resident/dashboard` as a resident renders the page with no 500 error [checkpoint marker] [eef5ba1]
 
 ## Phase 3: Resident Layout + Dashboard Frontend Page
 
