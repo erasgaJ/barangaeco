@@ -15,7 +15,7 @@
 | `mobile_api_zone_alignment_20260527` | Fix mobile API endpoints to align with zone refactor — replace barangay_id references with zone_id in complaints, schedules, and dashboard endpoints | complete |
 | `mobile_api_resident_document_requests_20260528` | Mobile API — resident document requests (submit, list, show, cancel) | complete |
 | `mobile_api_collector_status_updates_20260528` | Mobile API — collector status updates (post and guard status changes for assigned schedules) | complete |
-| `mobile_api_resident_announcements_20260528` | Mobile API — resident announcements feed (list and view published announcements) | pending |
+| `mobile_api_resident_announcements_20260528` | Mobile API — resident announcements feed (list and view published announcements) | in_progress |
 
 ## Completed
 
