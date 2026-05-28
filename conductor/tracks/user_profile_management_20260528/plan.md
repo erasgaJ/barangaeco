@@ -46,11 +46,11 @@ No new routes, controllers, or form request classes are needed. All backend logi
 
 ### Tasks
 
-- [ ] Task: Create `resources/js/components/account-info-panel.jsx` — a read-only display component that accepts `role` and `createdAt` props and renders them as labeled fields (using Shadcn/ui `Card` or plain `div` with Tailwind styling consistent with the admin app style). Format role as title case (e.g., `"admin"` → `"Admin"`). Format `createdAt` as a localized date string (e.g., `new Date(createdAt).toLocaleDateString('en-PH', { year: 'numeric', month: 'long', day: 'numeric' })`).
+- [x] Task: Create `resources/js/components/account-info-panel.jsx` — a read-only display component that accepts `role` and `createdAt` props and renders them as labeled fields (using Shadcn/ui `Card` or plain `div` with Tailwind styling consistent with the admin app style). Format role as title case (e.g., `"admin"` → `"Admin"`). Format `createdAt` as a localized date string (e.g., `new Date(createdAt).toLocaleDateString('en-PH', { year: 'numeric', month: 'long', day: 'numeric' })`). [8a1e9df]
 
   TDD: No backend test needed. This is a pure presentational component; verify via the Phase 2 verification step.
 
-- [ ] Task: Import and render `AccountInfoPanel` in `resources/js/pages/settings/profile.jsx`, passing `auth.user.role` and `auth.user.created_at` from `usePage().props`. Place it below the profile form and above `DeleteUser`.
+- [x] Task: Import and render `AccountInfoPanel` in `resources/js/pages/settings/profile.jsx`, passing `auth.user.role` and `auth.user.created_at` from `usePage().props`. Place it below the profile form and above `DeleteUser`. [8a1e9df]
 
 - [ ] Verification: On the profile settings page, a panel showing "Role: Admin" and "Member since: [date]" is visible. [checkpoint Phase 2]
 
