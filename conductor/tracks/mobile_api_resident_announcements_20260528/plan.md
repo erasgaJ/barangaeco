@@ -81,7 +81,7 @@ Two phases. Phase 1 builds and tests the core read-only API endpoints (index + s
 
   All tests should pass. If any fail, fix the controller/factory/routes until green. Do not move on while red.
 
-- [x] Verification: Manual spot-check [checkpoint marker] [06d85bf]
+- [x] Verification: Manual spot-check [checkpoint: 0f9c657]
 
   Using a REST client (or `curl`) against `https://barangaeco.test`:
 
