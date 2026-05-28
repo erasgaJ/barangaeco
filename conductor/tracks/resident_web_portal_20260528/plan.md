@@ -90,16 +90,16 @@ Tasks:
 **Goal:** Implement the announcements read-only feed with backend tests and frontend page.
 
 Tasks:
-- [ ] Task: Write feature tests for `Resident\AnnouncementController`:
+- [x] Task: Write feature tests for `Resident\AnnouncementController`:
   - `GET /resident/announcements` returns Inertia page `resident/announcements/index` with paginated `announcements` prop
   - Response only includes announcements where `published_at` is not null, not in the future, and `target_audience` is `all` or `residents`
   - Announcements with `target_audience = 'collectors'` are excluded
   - Unpublished announcements (null `published_at`) are excluded
-  (TDD: Red)
-- [ ] Task: Implement `Resident\AnnouncementController::index()` — query published announcements for `all`/`residents` audience, `paginate(15)`, return `Inertia::render('resident/announcements/index', ['announcements' => $paginated])`
-- [ ] Task: Create `resources/js/pages/resident/announcements/index.jsx` — paginated card/list layout; each card shows title, body truncated to 200 chars, published date formatted, and a category/audience badge; pagination links
-- [ ] Task: Run `vendor/bin/pint --dirty --format agent`; run `npm run build`
-- [ ] Task: Run `php artisan test --compact --filter=ResidentAnnouncement` — all tests green
+  (TDD: Red) [cbb0d9e]
+- [x] Task: Implement `Resident\AnnouncementController::index()` — query published announcements for `all`/`residents` audience, `paginate(15)`, return `Inertia::render('resident/announcements/index', ['announcements' => $paginated])` [cbb0d9e]
+- [x] Task: Create `resources/js/pages/resident/announcements/index.jsx` — paginated card/list layout; each card shows title, body truncated to 200 chars, published date formatted, and a category/audience badge; pagination links [cbb0d9e]
+- [x] Task: Run `vendor/bin/pint --dirty --format agent`; run `npm run build` [cbb0d9e]
+- [x] Task: Run `php artisan test --compact --filter=ResidentAnnouncement` — all tests green [cbb0d9e]
 - [ ] Verification: Browse to `https://barangaeco.test/resident/announcements`; confirm only published resident-targeted announcements appear; pagination works [checkpoint marker]
 
 ## Phase 7: Quality Gates and Final Commit
