@@ -62,25 +62,25 @@ No new routes, controllers, or form request classes are needed. All backend logi
 
 ### Tasks
 
-- [ ] Task: Review existing tests in `tests/Feature/Settings/ProfileUpdateTest.php` and `tests/Feature/Settings/SecurityTest.php`. Confirm all existing tests pass with `php artisan test --compact --filter=Settings`.
+- [x] Task: Review existing tests in `tests/Feature/Settings/ProfileUpdateTest.php` and `tests/Feature/Settings/SecurityTest.php`. Confirm all existing tests pass with `php artisan test --compact --filter=Settings`. [69751c7]
 
-- [ ] Task: Add test — `profile page requires authentication` — unauthenticated `GET /settings/profile` redirects to login. Add to `ProfileUpdateTest.php`.
+- [x] Task: Add test — `profile page requires authentication` — unauthenticated `GET /settings/profile` redirects to login. Add to `ProfileUpdateTest.php`. [69751c7]
 
-- [ ] Task: Add test — `profile page returns correct Inertia component` — authenticated request returns component `settings/profile` with `mustVerifyEmail` prop. Add to `ProfileUpdateTest.php`.
+- [x] Task: Add test — `profile page returns correct Inertia component` — authenticated request returns component `settings/profile` with `mustVerifyEmail` prop. Add to `ProfileUpdateTest.php`. [69751c7]
 
   TDD cycle: Write failing assertion for Inertia component and props → run to confirm red → implement (no backend change needed, just asserting existing behavior) → green.
 
-- [ ] Task: Add test — `password update requires authentication` — unauthenticated `PUT /settings/password` redirects to login. Add to `SecurityTest.php`.
+- [x] Task: Add test — `password update requires authentication` — unauthenticated `PUT /settings/password` redirects to login. Add to `SecurityTest.php`. [69751c7]
 
-- [ ] Task: Add test — `security page requires authentication` — unauthenticated `GET /settings/security` redirects to login. Add to `SecurityTest.php`.
+- [x] Task: Add test — `security page requires authentication` — unauthenticated `GET /settings/security` redirects to login. Add to `SecurityTest.php`. [69751c7]
 
-- [ ] Task: Add test — `profile update requires name` — `PATCH /settings/profile` with empty name returns validation error on `name` field. Add to `ProfileUpdateTest.php`.
+- [x] Task: Add test — `profile update requires name` — `PATCH /settings/profile` with empty name returns validation error on `name` field. Add to `ProfileUpdateTest.php`. [69751c7]
 
-- [ ] Task: Add test — `profile update rejects duplicate email` — `PATCH /settings/profile` with an email already belonging to another user returns validation error on `email`. Add to `ProfileUpdateTest.php`.
+- [x] Task: Add test — `profile update rejects duplicate email` — `PATCH /settings/profile` with an email already belonging to another user returns validation error on `email`. Add to `ProfileUpdateTest.php`. [69751c7]
 
-- [ ] Task: Add test — `password update requires matching confirmation` — `PUT /settings/password` with mismatched `password` and `password_confirmation` returns validation error. Add to `SecurityTest.php`.
+- [x] Task: Add test — `password update requires matching confirmation` — `PUT /settings/password` with mismatched `password` and `password_confirmation` returns validation error. Add to `SecurityTest.php`. [69751c7]
 
-- [ ] Verification: Run `php artisan test --compact --filter=Settings`. All tests green, no regressions. [checkpoint Phase 3]
+- [x] Verification: Run `php artisan test --compact --filter=Settings`. All tests green, no regressions. [checkpoint Phase 3] [69751c7]
 
 ---
 
