@@ -37,7 +37,7 @@ All PHP changes are covered by Pest feature tests following Red → Green → Re
 
 ---
 
-## Phase 2: Business Rules and Error Branches
+## Phase 2: Business Rules and Error Branches [checkpoint: 267a77b]
 
 **Goal:** Add and test the three guard conditions — unassigned collector, draft schedule, and status regression — directly in `CollectionStatusController@store`.
 
