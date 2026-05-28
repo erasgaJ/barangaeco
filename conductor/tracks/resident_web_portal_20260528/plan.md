@@ -46,7 +46,7 @@ Tasks:
 **Goal:** Implement the document requests list, submit, and cancel flows with full backend tests and a working frontend page.
 
 Tasks:
-- [ ] Task: Write feature tests for `Resident\DocumentRequestController`:
+- [x] Task: Write feature tests for `Resident\DocumentRequestController`:
   - `GET /resident/document-requests` returns Inertia page `resident/document-requests/index` with paginated `requests` prop scoped to the authenticated resident
   - A resident cannot see another resident's requests (items from another resident are absent from the response)
   - `POST /resident/document-requests` with valid payload creates a `pending` request and redirects back
@@ -54,13 +54,13 @@ Tasks:
   - `DELETE /resident/document-requests/{id}` on a `pending` request sets status to `cancelled` and redirects
   - `DELETE /resident/document-requests/{id}` on a `resolved` request returns 422
   - `DELETE /resident/document-requests/{id}` owned by another resident returns 403
-  (TDD: Red)
-- [ ] Task: Implement `Resident\DocumentRequestController::index()` — scope to `$resident->documentRequests()->latest()->paginate(20)`, return `Inertia::render('resident/document-requests/index', ['requests' => $paginated])`
-- [ ] Task: Implement `Resident\DocumentRequestController::store()` — validate `document_type`, `purpose`, `reason` (all required, string, max:255/string); create with `status = 'pending'`; redirect to `resident.document-requests.index`
-- [ ] Task: Implement `Resident\DocumentRequestController::cancel()` — load resident, enforce ownership (403), check `status === 'pending'` (422 otherwise), update to `cancelled`, redirect back
-- [ ] Task: Create `resources/js/pages/resident/document-requests/index.jsx` — table listing with status badges (amber/green/red/slate); "New Request" button that toggles an inline dialog/modal with the three-field form; cancel button on pending rows that sends an Inertia DELETE; pagination links
-- [ ] Task: Run `vendor/bin/pint --dirty --format agent`; run `npm run build`
-- [ ] Task: Run `php artisan test --compact --filter=ResidentDocumentRequest` — all tests green
+  (TDD: Red) [162312e]
+- [x] Task: Implement `Resident\DocumentRequestController::index()` — scope to `$resident->documentRequests()->latest()->paginate(20)`, return `Inertia::render('resident/document-requests/index', ['requests' => $paginated])` [162312e]
+- [x] Task: Implement `Resident\DocumentRequestController::store()` — validate `document_type`, `purpose`, `reason` (all required, string, max:255/string); create with `status = 'pending'`; redirect to `resident.document-requests.index` [162312e]
+- [x] Task: Implement `Resident\DocumentRequestController::cancel()` — load resident, enforce ownership (403), check `status === 'pending'` (422 otherwise), update to `cancelled`, redirect back [162312e]
+- [x] Task: Create `resources/js/pages/resident/document-requests/index.jsx` — table listing with status badges (amber/green/red/slate); "New Request" button that toggles an inline dialog/modal with the three-field form; cancel button on pending rows that sends an Inertia DELETE; pagination links [162312e]
+- [x] Task: Run `vendor/bin/pint --dirty --format agent`; run `npm run build` [162312e]
+- [x] Task: Run `php artisan test --compact --filter=ResidentDocumentRequest` — all tests green [162312e]
 - [ ] Verification: Browse to `https://barangaeco.test/resident/document-requests`; submit a new request; confirm it appears with `pending` status; cancel it; confirm status changes to `cancelled` [checkpoint marker]
 
 ## Phase 5: Complaints Controller and Page
