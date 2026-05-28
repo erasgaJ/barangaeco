@@ -158,7 +158,7 @@ All work is in two files: `DashboardController.php` and `dashboard.jsx`. No migr
 
 ### Tasks
 
-- [ ] Task: Add edge-case tests to `DashboardTest.php`
+- [x] Task: Add edge-case tests to `DashboardTest.php`
 
   Add tests for:
   - Dashboard with zero residents this month — `stats.residents_this_month` equals 0
@@ -171,7 +171,7 @@ All work is in two files: `DashboardController.php` and `dashboard.jsx`. No migr
 
   Run: `php artisan test --compact --filter=DashboardTest`
 
-- [ ] Task: Run full CI suite
+- [x] Task: Run full CI suite
 
   ```
   composer run ci:check
@@ -179,7 +179,7 @@ All work is in two files: `DashboardController.php` and `dashboard.jsx`. No migr
 
   All checks must pass: Pint, tests, ESLint, Prettier, TypeScript.
 
-- [ ] Verification: Full CI green [checkpoint marker]
+- [x] Verification: Full CI green [checkpoint marker]
 
   Confirm `composer run ci:check` exits with code 0. All dashboard tests pass. No regressions in other test files.
 
