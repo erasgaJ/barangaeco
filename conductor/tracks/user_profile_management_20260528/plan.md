@@ -84,20 +84,20 @@ No new routes, controllers, or form request classes are needed. All backend logi
 
 ---
 
-## Phase 4: Quality Gates
+## Phase 4: Quality Gates [checkpoint Phase 4] [3730602]
 
 **Goal:** All linting, formatting, type checking, and tests pass.
 
 ### Tasks
 
-- [~] Task: Run `vendor/bin/pint --dirty --format agent` to auto-fix any PHP style issues introduced by new test code.
+- [x] Task: Run `vendor/bin/pint --dirty --format agent` to auto-fix any PHP style issues introduced by new test code. [3730602]
 
-- [~] Task: Run `npm run lint:check` — fix any ESLint issues in new/modified JSX files.
+- [x] Task: Run `npm run lint:check` — fix any ESLint issues in new/modified JSX files. [3730602]
 
-- [~] Task: Run `npm run format:check` — fix any Prettier issues.
+- [x] Task: Run `npm run format:check` — fix any Prettier issues. [3730602]
 
-- [~] Task: Run `npm run build` — confirm frontend builds without errors (required before manual verification).
+- [x] Task: Run `npm run build` — confirm frontend builds without errors (required before manual verification). [3730602]
 
-- [~] Task: Run `php artisan test --compact` — confirm full test suite is green.
+- [x] Task: Run `php artisan test --compact` — confirm full test suite is green. [3730602]
 
-- [~] Verification: All quality gate commands exit with code 0. [checkpoint Phase 4]
+- [x] Verification: All quality gate commands exit with code 0. [checkpoint Phase 4] [3730602]
