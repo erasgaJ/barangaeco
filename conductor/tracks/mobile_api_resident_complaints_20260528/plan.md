@@ -28,6 +28,8 @@ All tasks follow Red-Green-Refactor. The existing `residentWithToken()` helper i
 
 - [x] Verification: Run `php artisan test --compact --filter=ComplaintApi` — all Phase 1 tests must be green. 15/15 passed. [143d0cc]
 
+**Phase 1 checkpoint: 1220567**
+
 ---
 
 ## Phase 2: Cancel Endpoint
