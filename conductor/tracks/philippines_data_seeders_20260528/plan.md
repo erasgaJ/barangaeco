@@ -69,34 +69,34 @@ TDD note: this is a chore track (data/infrastructure). Tests are verification-or
 
 ### Tasks
 
-- [ ] Task: Create `AdminSeeder` — seeds 1 admin user via `User::firstOrCreate(['email' => 'admin@barangay.gov.ph'], [...])` with role `admin`, hashed password, `email_verified_at` set
+- [x] Task: Create `AdminSeeder` — seeds 1 admin user via `User::firstOrCreate(['email' => 'admin@barangay.gov.ph'], [...])` with role `admin`, hashed password, `email_verified_at` set [1ddd347]
 
-- [ ] Task: Update `ZoneSeeder` — replace plain "Zone N" names with the 5 named zones from `PhilippineData::zoneNames()` plus Filipino descriptions. Use `firstOrCreate` keyed on `name`. Each zone gets a one-sentence Filipino description (e.g., `"Sumasaklaw sa mga tahanan sa hilaga ng barangay."`).
+- [x] Task: Update `ZoneSeeder` — replace plain "Zone N" names with the 5 named zones from `PhilippineData::zoneNames()` plus Filipino descriptions. Use `firstOrCreate` keyed on `name`. Each zone gets a one-sentence Filipino description (e.g., `"Sumasaklaw sa mga tahanan sa hilaga ng barangay."`). [1ddd347]
 
-- [ ] Task: Create `CollectorSeeder` — creates 20 collectors with idempotency:
+- [x] Task: Create `CollectorSeeder` — creates 20 collectors with idempotency:
   - Build a static array of 20 Filipino collector full names
   - For each, derive a stable email (`firstname.lastname@collector.ph`, lowercased, spaces replaced with dots)
   - Use `User::firstOrCreate(['email' => $email], ['name' => $name, 'role' => 'collector', 'password' => Hash::make('password'), 'email_verified_at' => now()])`
-  - Then `Collector::firstOrCreate(['user_id' => $user->id], ['full_name' => $name, 'contact_number' => PhilippineData::mobileNumber()])`
+  - Then `Collector::firstOrCreate(['user_id' => $user->id], ['full_name' => $name, 'contact_number' => PhilippineData::mobileNumber()])` [1ddd347]
 
-- [ ] Task: Create `ResidentSeeder` — creates 100 residents with idempotency:
+- [x] Task: Create `ResidentSeeder` — creates 100 residents with idempotency:
   - Generate 100 names from `PhilippineData` (use a loop with `randomFullName()`)
   - Derive stable email per resident
   - Use `firstOrCreate` on email for the User record
   - Use `firstOrCreate` on `user_id` for the Resident record
   - Distribute `verification_status`: first 70 records `verified` (with `verified_at = now()->subDays(rand(1,90))`), next 20 `pending`, last 10 `rejected`
-  - `verified` residents also get `verified_by` set to the admin user's ID
+  - `verified` residents also get `verified_by` set to the admin user's ID [1ddd347]
 
-- [ ] Task: Rewrite `ComplaintSeeder` — completely replace the existing hardcoded array seeder:
+- [x] Task: Rewrite `ComplaintSeeder` — completely replace the existing hardcoded array seeder:
   - Add count guard: `if (Complaint::count() >= 150) return;`
   - Load zone IDs: `$zoneIds = Zone::pluck('id')->toArray()`
   - Load resident IDs: `$residentIds = Resident::pluck('id')->toArray()`
   - Load admin ID: `$adminId = User::where('role', 'admin')->first()->id`
   - Use `Complaint::factory()->count(150)->create()` with a custom state that injects `zone_id` from `$zoneIds`, `created_by` from `$adminId`, and `resident_id` from `$residentIds` (null for ~20%)
   - Distribute statuses: 60 `open`, 45 `in_progress`, 30 `resolved`, 15 `cancelled`
-  - Distribute priorities: 45 `high`, 60 `medium`, 45 `low`
+  - Distribute priorities: 45 `high`, 60 `medium`, 45 `low` [1ddd347]
 
-- [ ] Task: Create `WasteCollectionScheduleSeeder`:
+- [x] Task: Create `WasteCollectionScheduleSeeder`:
   - Add count guard: `if (WasteCollectionSchedule::count() >= 100) return;`
   - Load zone IDs, collector IDs, admin ID
   - Create 100 schedules via a loop (not `factory()->count()`) to control date distribution:
@@ -105,33 +105,34 @@ TDD note: this is a chore track (data/infrastructure). Tests are verification-or
     - After creating, attach 1–3 random collectors via `$schedule->collectors()->attach(array_rand(...))`
     - If `status = published` and `scheduled_date <= today`: create a `CollectionStatusUpdate` with `status = completed` or `in_progress`
     - If `status = published` and `scheduled_date > today`: create a `CollectionStatusUpdate` with `status = pending`
-    - Use Filipino notes from `PhilippineData::collectionNotes()`
+    - Use Filipino notes from `PhilippineData::collectionNotes()` [1ddd347]
 
-- [ ] Task: Create `DocumentRequestSeeder`:
+- [x] Task: Create `DocumentRequestSeeder`:
   - Add count guard: `if (DocumentRequest::count() >= 100) return;`
   - Load resident IDs and admin ID
   - Create 100 requests distributed across residents
   - Status distribution: 30 `pending`, 40 `resolved` (with `resolved_at` and `resolved_by`), 20 `rejected` (with `rejection_feedback`), 10 `cancelled`
   - `rejection_feedback` strings in Filipino (e.g., `"Hindi kumpleto ang mga dokumento na isinumite. Pakiusap na magbigay ng valid ID."`)
-  - `admin_remarks` for resolved requests (short Filipino note)
+  - `admin_remarks` for resolved requests (short Filipino note) [1ddd347]
 
-- [ ] Task: Create `AnnouncementSeeder`:
+- [x] Task: Create `AnnouncementSeeder`:
   - Add count guard: `if (Announcement::count() >= 20) return;`
   - Load admin ID
   - Create 25 announcements using index-matched titles/messages from `PhilippineData`
   - First 20: `published_at = now()->subDays(rand(1,60))`
   - Last 5: `published_at = null`, `scheduled_at = now()->addDays(rand(1,14))`
-  - `target_audience` distribution: 12 `all`, 8 `residents`, 5 `collectors`
+  - `target_audience` distribution: 12 `all`, 8 `residents`, 5 `collectors` [1ddd347]
 
-- [ ] Task: Update `DatabaseSeeder::run()`:
+- [x] Task: Update `DatabaseSeeder::run()`:
   - Remove the inline `User::factory()->create([...])` test user creation
   - Call all seeders in order:
     ```
     AdminSeeder, ZoneSeeder, CollectorSeeder, ResidentSeeder,
     WasteCollectionScheduleSeeder, DocumentRequestSeeder, ComplaintSeeder, AnnouncementSeeder
     ```
+  Note: `BarangaySeeder` is also called (before `ResidentSeeder`) because `barangay_id` is NOT NULL in residents migration. [1ddd347]
 
-- [ ] Verification: Run `php artisan test --compact` — all tests must still pass after seeder changes. [checkpoint marker]
+- [x] Verification: Run `php artisan test --compact` — 207 tests pass, 731 assertions. [checkpoint: see below]
 
 ---
 
