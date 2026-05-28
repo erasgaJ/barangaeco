@@ -64,7 +64,7 @@ The controller skeleton (index, store, show) is already in place. The route is r
 
 ---
 
-## Phase 3: Quality Gates and Commit
+## Phase 3: Quality Gates and Commit [checkpoint: d98a36f]
 
 **Goal:** Code is formatted, types check, all tests pass, track committed.
 
