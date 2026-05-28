@@ -64,7 +64,7 @@ export default function Dashboard({
             icon: Users,
             iconBg: 'bg-blue-100',
             iconColor: 'text-blue-600',
-            badge: '+24 this mo',
+            badge: `+${stats.residents_this_month} this mo`,
             badgeStyle: 'bg-green-100 text-green-700',
         },
         {
@@ -271,7 +271,8 @@ export default function Dashboard({
                                             <RouteIcon schedule={schedule} />
                                             <div className="min-w-0 flex-1">
                                                 <p className="truncate text-sm font-medium text-slate-900">
-                                                    {schedule.route_name}
+                                                    {schedule.zone_name ??
+                                                        'Unknown Zone'}
                                                 </p>
                                                 <p className="text-xs text-slate-500">
                                                     {isCompleted
