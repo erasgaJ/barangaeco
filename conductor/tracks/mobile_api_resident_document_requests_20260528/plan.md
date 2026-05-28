@@ -78,4 +78,4 @@ The controller skeleton (index, store, show) is already in place. The route is r
 
 - [x] Task: Update `conductor/tracks.md` — change `mobile_api_resident_document_requests_20260528` status to `complete` and add to Completed table with checkpoint `9b15ce8`.
 
-- [x] Verification: All quality gate commands exit with code 0. Committed. [checkpoint marker — see below]
+- [x] Verification: All quality gate commands exit with code 0. [fe645d2]
