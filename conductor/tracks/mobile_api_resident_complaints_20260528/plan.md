@@ -14,19 +14,19 @@ All tasks follow Red-Green-Refactor. The existing `residentWithToken()` helper i
 
 ### Tasks
 
-- [ ] Task: Auth guard tests — add three failing tests asserting 401 on unauthenticated requests to `GET /api/resident/complaints`, `POST /api/resident/complaints`, and `GET /api/resident/complaints/{id}`. (TDD: tests fail immediately since no code change needed — they should already pass; confirm they pass, or identify any route/middleware gap)
+- [x] Task: Auth guard tests — add three failing tests asserting 401 on unauthenticated requests to `GET /api/resident/complaints`, `POST /api/resident/complaints`, and `GET /api/resident/complaints/{id}`. (TDD: tests fail immediately since no code change needed — they should already pass; confirm they pass, or identify any route/middleware gap) [143d0cc]
 
-- [ ] Task: Ownership isolation on index — write a test that creates two residents, creates complaints for each, authenticates as resident A, and asserts only resident A's complaints appear in `data`. Confirm the existing `index` implementation correctly scopes by `resident_id` via the `resident->complaints()` relation.
+- [x] Task: Ownership isolation on index — write a test that creates two residents, creates complaints for each, authenticates as resident A, and asserts only resident A's complaints appear in `data`. Confirm the existing `index` implementation correctly scopes by `resident_id` via the `resident->complaints()` relation. [143d0cc]
 
-- [ ] Task: Ownership 403 on show — write a test that authenticates as resident A and requests a complaint belonging to resident B, asserting 403. Confirm `abort_unless($complaint->resident_id === $resident->id, 403)` in the existing controller handles this.
+- [x] Task: Ownership 403 on show — write a test that authenticates as resident A and requests a complaint belonging to resident B, asserting 403. Confirm `abort_unless($complaint->resident_id === $resident->id, 403)` in the existing controller handles this. [143d0cc]
 
-- [ ] Task: Not-found 404 on show — write a test asserting `GET /api/resident/complaints/99999` returns 404 when authenticated.
+- [x] Task: Not-found 404 on show — write a test asserting `GET /api/resident/complaints/99999` returns 404 when authenticated. [143d0cc]
 
-- [ ] Task: Validation error tests for store — write three separate tests each omitting one required field (`complaint_type`, `complaint_against`, `description`) and asserting 422 with the correct field validation error.
+- [x] Task: Validation error tests for store — write three separate tests each omitting one required field (`complaint_type`, `complaint_against`, `description`) and asserting 422 with the correct field validation error. [143d0cc]
 
-- [ ] Task: Database persistence assertion on store — add `assertDatabaseHas` to the existing happy-path store tests (or add a dedicated persistence test) confirming the complaint record is written to the database with correct `resident_id` and `status: open`.
+- [x] Task: Database persistence assertion on store — add `assertDatabaseHas` to the existing happy-path store tests (or add a dedicated persistence test) confirming the complaint record is written to the database with correct `resident_id` and `status: open`. [143d0cc]
 
-- [ ] Verification: Run `php artisan test --compact --filter=ComplaintApi` — all Phase 1 tests must be green. [checkpoint marker]
+- [x] Verification: Run `php artisan test --compact --filter=ComplaintApi` — all Phase 1 tests must be green. 15/15 passed. [143d0cc]
 
 ---
 
