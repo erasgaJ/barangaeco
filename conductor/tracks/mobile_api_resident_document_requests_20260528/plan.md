@@ -44,23 +44,23 @@ The controller skeleton (index, store, show) is already in place. The route is r
 
 ### Tasks
 
-- [ ] Task: Write failing test — `cancel` happy path. Call `PATCH /api/resident/document-requests/{id}/cancel` on a `pending` request owned by the resident. Assert 200 and `status = 'cancelled'` in the response body and in the database. (TDD: Red — test fails because route does not exist yet)
+- [x] Task: Write failing test — `cancel` happy path. Call `PATCH /api/resident/document-requests/{id}/cancel` on a `pending` request owned by the resident. Assert 200 and `status = 'cancelled'` in the response body and in the database. (TDD: Red — test fails because route does not exist yet)
 
-- [ ] Task: Write failing tests — `cancel` state guard. Create a `resolved` request and assert 422. Create a `rejected` request and assert 422. Create an already `cancelled` request and assert 422. (TDD: Red)
+- [x] Task: Write failing tests — `cancel` state guard. Create a `resolved` request and assert 422. Create a `rejected` request and assert 422. Create an already `cancelled` request and assert 422. (TDD: Red)
 
-- [ ] Task: Write failing test — `cancel` ownership enforcement. Another resident's `pending` request → 403. (TDD: Red)
+- [x] Task: Write failing test — `cancel` ownership enforcement. Another resident's `pending` request → 403. (TDD: Red)
 
-- [ ] Task: Write failing tests — `cancel` 404 on non-existent ID, 401 when unauthenticated. (TDD: Red)
+- [x] Task: Write failing tests — `cancel` 404 on non-existent ID, 401 when unauthenticated. (TDD: Red)
 
-- [ ] Task: Create migration `php artisan make:migration alter_document_requests_status_add_cancelled`. In `up()`, run a raw SQL `ALTER TABLE document_requests MODIFY COLUMN status ENUM('pending','resolved','rejected','cancelled') NOT NULL DEFAULT 'pending'`. In `down()`, reverse to the original three values. Run `php artisan migrate`. (TDD: Green prerequisite — schema must support the new value)
+- [x] Task: Create migration `php artisan make:migration alter_document_requests_status_add_cancelled`. In `up()`, run a raw SQL `ALTER TABLE document_requests MODIFY COLUMN status ENUM('pending','resolved','rejected','cancelled') NOT NULL DEFAULT 'pending'`. In `down()`, reverse to the original three values. Run `php artisan migrate`. (TDD: Green prerequisite — schema must support the new value)
 
-- [ ] Task: Add `cancelled()` factory state to `DocumentRequestFactory`. State sets `status = 'cancelled'`, clears `admin_remarks`, `rejection_feedback`, `resolved_at`, `resolved_by`. (TDD: Green prerequisite — tests can now use `->cancelled()` state)
+- [x] Task: Add `cancelled()` factory state to `DocumentRequestFactory`. State sets `status = 'cancelled'`, clears `admin_remarks`, `rejection_feedback`, `resolved_at`, `resolved_by`. (TDD: Green prerequisite — tests can now use `->cancelled()` state)
 
-- [ ] Task: Add cancel route. In `routes/api.php`, inside the resident middleware group, add `Route::patch('document-requests/{documentRequest}/cancel', [ResidentDocumentRequestController::class, 'cancel'])` below the existing `apiResource` line. (TDD: Green prerequisite — 404 becomes 500/method-not-found, tests move forward)
+- [x] Task: Add cancel route. In `routes/api.php`, inside the resident middleware group, add `Route::patch('document-requests/{documentRequest}/cancel', [ResidentDocumentRequestController::class, 'cancel'])` below the existing `apiResource` line. (TDD: Green prerequisite — 404 becomes 500/method-not-found, tests move forward)
 
-- [ ] Task: Implement `cancel()` method on `DocumentRequestController`. Pattern: resolve resident via `firstOrFail()`, ownership check via `abort_unless`, status guard (if `$documentRequest->status !== 'pending'` return 422 JSON error), then `$documentRequest->update(['status' => 'cancelled'])` and return 200 JSON with the updated model. (TDD: Green — all cancel tests pass)
+- [x] Task: Implement `cancel()` method on `DocumentRequestController`. Pattern: resolve resident via `firstOrFail()`, ownership check via `abort_unless`, status guard (if `$documentRequest->status !== 'pending'` return 422 JSON error), then `$documentRequest->update(['status' => 'cancelled'])` and return 200 JSON with the updated model. (TDD: Green — all cancel tests pass)
 
-- [ ] Verification: Run `php artisan test --compact --filter=DocumentRequestApiTest`. All Phase 1 and Phase 2 tests green. [checkpoint marker]
+- [x] Verification: Run `php artisan test --compact --filter=DocumentRequestApiTest`. All Phase 1 and Phase 2 tests green. [cd747be]
 
 ---
 
