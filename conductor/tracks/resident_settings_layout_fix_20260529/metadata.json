@@ -1,0 +1,7 @@
+{
+  "id": "resident_settings_layout_fix_20260529",
+  "description": "Fix resident settings pages showing AdminLayout instead of ResidentLayout",
+  "type": "bug",
+  "created_at": "2026-05-29T00:00:00Z",
+  "status": "pending"
+}
