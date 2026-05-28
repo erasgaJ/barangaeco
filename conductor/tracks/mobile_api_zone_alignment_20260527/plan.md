@@ -25,23 +25,23 @@ Existing test files to extend or create alongside:
 
 ### Tasks
 
-- [ ] Task: Write failing Pest feature test for `POST /api/resident/complaints` — assert `zone_id` is accepted, `barangay_id` is rejected, and response JSON contains `zone` key (TDD: Red)
+- [x] Task: Write failing Pest feature test for `POST /api/resident/complaints` — assert `zone_id` is accepted, `barangay_id` is rejected, and response JSON contains `zone` key (TDD: Red)
   - Create `tests/Feature/Api/Resident/ComplaintApiTest.php`
   - Test `store()` with valid `zone_id` → 201, response has `data.zone`
   - Test `store()` with `barangay_id` instead → 422 validation error
   - Test `store()` with no zone fields → 201 (zone_id is nullable)
 
-- [ ] Task: Write failing tests for `GET /api/resident/complaints` (index) and `GET /api/resident/complaints/{id}` (show) — assert response JSON contains `zone` key (TDD: Red)
+- [x] Task: Write failing tests for `GET /api/resident/complaints` (index) and `GET /api/resident/complaints/{id}` (show) — assert response JSON contains `zone` key (TDD: Red)
   - `index()` returns list where each complaint has `zone`
   - `show()` returns complaint with `zone` and `createdBy`
 
-- [ ] Task: Fix `ComplaintController::store()` — change validation from `barangay_id` to `zone_id: nullable|exists:zones,id`, update `create()` payload, change `load('barangay')` to `load('zone')` (TDD: Green)
+- [x] Task: Fix `ComplaintController::store()` — change validation from `barangay_id` to `zone_id: nullable|exists:zones,id`, update `create()` payload, change `load('barangay')` to `load('zone')` (TDD: Green)
 
-- [ ] Task: Fix `ComplaintController::index()` — add `with('zone')` eager-load (TDD: Green)
+- [x] Task: Fix `ComplaintController::index()` — add `with('zone')` eager-load (TDD: Green)
 
-- [ ] Task: Fix `ComplaintController::show()` — change `load('barangay', 'createdBy')` to `load('zone', 'createdBy')` (TDD: Green)
+- [x] Task: Fix `ComplaintController::show()` — change `load('barangay', 'createdBy')` to `load('zone', 'createdBy')` (TDD: Green)
 
-- [ ] Verification: Run `php artisan test --compact --filter=ComplaintApiTest`, confirm all green. Run `vendor/bin/pint --dirty --format agent` on modified files. [checkpoint: phase 1]
+- [x] Verification: Run `php artisan test --compact --filter=ComplaintApiTest`, confirm all green. Run `vendor/bin/pint --dirty --format agent` on modified files. [checkpoint: phase 1] [5c90aa2]
 
 ---
 
