@@ -19,7 +19,7 @@ class BarangayFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => $this->faker->randomElement(PhilippineData::barangayNames()),
+            'name' => PhilippineData::barangayNames()[array_rand(PhilippineData::barangayNames())],
         ];
     }
 }

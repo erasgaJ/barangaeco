@@ -23,8 +23,8 @@ class CollectionStatusUpdateFactory extends Factory
         return [
             'waste_collection_schedule_id' => WasteCollectionSchedule::factory(),
             'collector_id' => Collector::factory(),
-            'status' => $this->faker->randomElement(['pending', 'in_progress', 'completed']),
-            'notes' => $this->faker->boolean(70) ? $this->faker->randomElement(PhilippineData::collectionNotes()) : null,
+            'status' => ['pending', 'in_progress', 'completed'][array_rand(['pending', 'in_progress', 'completed'])],
+            'notes' => (rand(1, 100) <= 70) ? PhilippineData::collectionNotes()[array_rand(PhilippineData::collectionNotes())] : null,
         ];
     }
 }

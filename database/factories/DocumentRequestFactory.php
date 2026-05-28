@@ -21,16 +21,16 @@ class DocumentRequestFactory extends Factory
     {
         return [
             'resident_id' => Resident::factory(),
-            'document_type' => $this->faker->randomElement([
+            'document_type' => array_rand(array_flip([
                 'barangay_clearance',
                 'certificate_of_residency',
                 'indigency_certificate',
                 'business_permit',
                 'good_moral_certificate',
                 'death_certificate_endorsement',
-            ]),
-            'purpose' => $this->faker->randomElement(PhilippineData::documentPurposes()),
-            'reason' => $this->faker->randomElement(PhilippineData::documentReasons()),
+            ])),
+            'purpose' => PhilippineData::documentPurposes()[array_rand(PhilippineData::documentPurposes())],
+            'reason' => PhilippineData::documentReasons()[array_rand(PhilippineData::documentReasons())],
             'status' => 'pending',
             'admin_remarks' => null,
             'rejection_feedback' => null,
@@ -65,7 +65,7 @@ class DocumentRequestFactory extends Factory
     {
         return $this->state(fn (array $attributes) => [
             'status' => 'rejected',
-            'rejection_feedback' => $this->faker->paragraph(),
+            'rejection_feedback' => 'Hindi kumpleto ang mga dokumento na isinumite. Pakiusap na magbigay ng valid ID at iba pang kinakailangang papeles.',
             'resolved_at' => now(),
         ]);
     }

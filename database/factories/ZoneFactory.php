@@ -28,7 +28,7 @@ class ZoneFactory extends Factory
 
         return [
             'name' => $name,
-            'description' => $this->faker->optional()->sentence(),
+            'description' => rand(0, 1) ? 'Pangkat ng mga residente sa lugar na ito.' : null,
             'is_active' => true,
         ];
     }
