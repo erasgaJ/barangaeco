@@ -1,6 +1,46 @@
 <?php
 
 use App\Models\User;
+use Inertia\Testing\AssertableInertia as Assert;
+
+test('profile page requires authentication', function () {
+    $this->get(route('profile.edit'))
+        ->assertRedirect(route('login'));
+});
+
+test('profile page returns correct Inertia component', function () {
+    $user = User::factory()->create();
+
+    $this->actingAs($user)
+        ->get(route('profile.edit'))
+        ->assertInertia(fn (Assert $page) => $page
+            ->component('settings/profile')
+            ->has('mustVerifyEmail'),
+        );
+});
+
+test('profile update requires name', function () {
+    $user = User::factory()->create();
+
+    $this->actingAs($user)
+        ->patch(route('profile.update'), [
+            'name' => '',
+            'email' => $user->email,
+        ])
+        ->assertSessionHasErrors('name');
+});
+
+test('profile update rejects duplicate email', function () {
+    $existingUser = User::factory()->create();
+    $user = User::factory()->create();
+
+    $this->actingAs($user)
+        ->patch(route('profile.update'), [
+            'name' => $user->name,
+            'email' => $existingUser->email,
+        ])
+        ->assertSessionHasErrors('email');
+});
 
 test('profile page is displayed', function () {
     $user = User::factory()->create();

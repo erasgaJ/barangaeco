@@ -5,6 +5,32 @@ use Illuminate\Support\Facades\Hash;
 use Inertia\Testing\AssertableInertia as Assert;
 use Laravel\Fortify\Features;
 
+test('security page requires authentication', function () {
+    $this->get(route('security.edit'))
+        ->assertRedirect(route('login'));
+});
+
+test('password update requires authentication', function () {
+    $this->put(route('user-password.update'), [
+        'current_password' => 'password',
+        'password' => 'new-password',
+        'password_confirmation' => 'new-password',
+    ])->assertRedirect(route('login'));
+});
+
+test('password update requires matching confirmation', function () {
+    $user = User::factory()->create();
+
+    $this->actingAs($user)
+        ->from(route('security.edit'))
+        ->put(route('user-password.update'), [
+            'current_password' => 'password',
+            'password' => 'new-password',
+            'password_confirmation' => 'does-not-match',
+        ])
+        ->assertSessionHasErrors('password');
+});
+
 test('security page is displayed', function () {
     $this->skipUnlessFortifyHas(Features::twoFactorAuthentication());
 
