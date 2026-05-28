@@ -137,7 +137,7 @@ All work is in two files: `DashboardController.php` and `dashboard.jsx`. No migr
 
   Fix any issues with `npm run lint` and `npm run format`.
 
-- [ ] Verification: Build and visual smoke check [checkpoint marker] [e999512]
+- [x] Verification: Build and visual smoke check [checkpoint: 63723b7] [e999512]
 
   ```
   npm run build
