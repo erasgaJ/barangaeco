@@ -1,0 +1,7 @@
+{
+  "id": "mobile_api_resident_complaints_20260528",
+  "description": "Mobile API — resident complaints (list, show, submit) — test coverage gaps + cancel endpoint",
+  "type": "feature",
+  "created_at": "2026-05-28T00:00:00Z",
+  "status": "pending"
+}
