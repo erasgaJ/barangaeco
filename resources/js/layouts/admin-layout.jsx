@@ -12,7 +12,7 @@ import {
 import { cn } from '@/lib/utils';
 
 const navItems = [
-    { title: 'Overview', href: '/admin/dashboard', icon: LayoutDashboard },
+    { title: 'Overview', href: '/dashboard', icon: LayoutDashboard },
     { title: 'Residents', href: '/admin/residents', icon: Users },
     {
         title: 'Waste Management',
@@ -58,7 +58,9 @@ export default function AdminLayout({ children }) {
                 {/* Nav */}
                 <nav className="flex flex-1 flex-col gap-0.5 px-2 py-2">
                     {navItems.map((item) => {
-                        const isActive = url.startsWith(item.href);
+                        const isActive = item.href === '/dashboard'
+                            ? url === '/dashboard'
+                            : url.startsWith(item.href);
                         return (
                             <Link
                                 key={item.href}
