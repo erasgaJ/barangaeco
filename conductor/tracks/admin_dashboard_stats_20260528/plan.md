@@ -87,7 +87,7 @@ All work is in two files: `DashboardController.php` and `dashboard.jsx`. No migr
   vendor/bin/pint --dirty --format agent
   ```
 
-- [x] Verification: All Phase 1 tests pass [checkpoint marker] [7f23a62]
+- [x] Verification: All Phase 1 tests pass [checkpoint: cafda39] [7f23a62]
 
   ```
   php artisan test --compact --filter=DashboardTest
