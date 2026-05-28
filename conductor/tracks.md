@@ -16,7 +16,7 @@
 | `mobile_api_resident_document_requests_20260528` | Mobile API — resident document requests (submit, list, show, cancel) | complete |
 | `mobile_api_collector_status_updates_20260528` | Mobile API — collector status updates (post and guard status changes for assigned schedules) | complete |
 | `mobile_api_resident_announcements_20260528` | Mobile API — resident announcements feed (list and view published announcements) | complete |
-| `mobile_api_resident_complaints_20260528` | Mobile API — resident complaints (cancel endpoint + test coverage gaps for index/store/show) | in_progress |
+| `mobile_api_resident_complaints_20260528` | Mobile API — resident complaints (cancel endpoint + test coverage gaps for index/store/show) | complete |
 
 ## Completed
 
@@ -34,3 +34,4 @@
 | `mobile_api_resident_document_requests_20260528` | Mobile API — resident document requests (submit, list, show, cancel) | 9b15ce8 |
 | `mobile_api_collector_status_updates_20260528` | Mobile API — collector status updates (post and guard status changes for assigned schedules) | 267a77b |
 | `mobile_api_resident_announcements_20260528` | Mobile API — resident announcements feed (list and view published announcements) | 0f9c657 |
+| `mobile_api_resident_complaints_20260528` | Mobile API — resident complaints (cancel endpoint + test coverage gaps for index/store/show) | 4d6a417 |
