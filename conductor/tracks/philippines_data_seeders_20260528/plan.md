@@ -59,7 +59,7 @@ TDD note: this is a chore track (data/infrastructure). Tests are verification-or
 
 - [x] Task: Update `CollectionStatusUpdateFactory::definition()` — updated to use `PhilippineData::collectionNotes()` instead of `fake()->sentence()` `[e33b8a1]`
 
-- [x] Verification: Run `php artisan test --compact` — 207 tests pass, 731 assertions. [checkpoint marker] `[e33b8a1]`
+- [x] Verification: Run `php artisan test --compact` — 207 tests pass, 731 assertions. [checkpoint: 95db3b5]
 
 ---
 
