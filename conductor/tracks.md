@@ -20,7 +20,7 @@
 | `admin_dashboard_stats_20260528` | Admin dashboard — real stats and metrics (wire up real counts, fix zone/resident name data shaping bugs) | complete |
 | `philippines_data_seeders_20260528` | Comprehensive seeders and factories with realistic Philippine data for all modules | complete |
 | `user_profile_management_20260528` | Logged-in user profile — edit profile info, update password, account info panel, admin shell integration | complete |
-| `resident_web_portal_20260528` | Resident web portal — browser-based dashboard, document requests, complaints, and announcements pages for the resident role | in-progress |
+| `resident_web_portal_20260528` | Resident web portal — browser-based dashboard, document requests, complaints, and announcements pages for the resident role | complete |
 
 ## Completed
 
@@ -41,3 +41,5 @@
 | `mobile_api_resident_complaints_20260528` | Mobile API — resident complaints (cancel endpoint + test coverage gaps for index/store/show) | 4d6a417 |
 | `admin_dashboard_stats_20260528` | Admin dashboard — real stats and metrics (wire up real counts, fix zone/resident name data shaping bugs) | 63723b7 |
 | `philippines_data_seeders_20260528` | Comprehensive seeders and factories with realistic Philippine data for all modules | 371fead |
+| `user_profile_management_20260528` | Logged-in user profile — edit profile info, update password, account info panel, admin shell integration | (see active) |
+| `resident_web_portal_20260528` | Resident web portal — browser-based dashboard, document requests, complaints, and announcements pages for the resident role | 5c77043 |

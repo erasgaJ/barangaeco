@@ -102,12 +102,12 @@ Tasks:
 - [x] Task: Run `php artisan test --compact --filter=ResidentAnnouncement` — all tests green [cbb0d9e]
 - [ ] Verification: Browse to `https://barangaeco.test/resident/announcements`; confirm only published resident-targeted announcements appear; pagination works [checkpoint marker]
 
-## Phase 7: Quality Gates and Final Commit
+## Phase 7: Quality Gates and Final Commit [checkpoint Phase 7] [5c77043]
 
 **Goal:** Full CI suite passes; tracks.md updated; phase commit made.
 
 Tasks:
-- [ ] Task: Run full test suite `php artisan test --compact` — all tests green
-- [ ] Task: Run `composer run ci:check` — lint, format, types, tests all pass; fix any failures
-- [ ] Task: Update `conductor/tracks.md` — move `resident_web_portal_20260528` from Active to Completed with checkpoint commit hash
-- [ ] Verification: `composer run ci:check` exits 0; all resident routes resolvable in browser; no 500 errors on any resident page [checkpoint marker]
+- [x] Task: Run full test suite `php artisan test --compact` — all tests green [5c77043]
+- [x] Task: Run `composer run ci:check` — lint, format, types, tests all pass; fix any failures [5c77043]
+- [x] Task: Update `conductor/tracks.md` — move `resident_web_portal_20260528` from Active to Completed with checkpoint commit hash [5c77043]
+- [x] Verification: `composer run ci:check` exits 0; all resident routes resolvable in browser; no 500 errors on any resident page [checkpoint marker] [5c77043]
