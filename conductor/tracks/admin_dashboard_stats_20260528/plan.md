@@ -179,7 +179,7 @@ All work is in two files: `DashboardController.php` and `dashboard.jsx`. No migr
 
   All checks must pass: Pint, tests, ESLint, Prettier, TypeScript.
 
-- [x] Verification: Full CI green [a467604]
+- [x] Verification: Full CI green [a467604] [checkpoint: 17f8469]
 
   Confirm `composer run ci:check` exits with code 0. All dashboard tests pass. No regressions in other test files.
 
