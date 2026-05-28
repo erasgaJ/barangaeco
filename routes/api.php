@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\Auth\AuthController;
 use App\Http\Controllers\Api\Collector\CollectionScheduleController;
 use App\Http\Controllers\Api\Collector\CollectionStatusController;
 use App\Http\Controllers\Api\Collector\CollectorDashboardController;
+use App\Http\Controllers\Api\Resident\AnnouncementController as ResidentAnnouncementController;
 use App\Http\Controllers\Api\Resident\ComplaintController as ResidentComplaintController;
 use App\Http\Controllers\Api\Resident\DocumentRequestController as ResidentDocumentRequestController;
 use App\Http\Controllers\Api\Resident\ResidentDashboardController;
@@ -41,6 +42,9 @@ Route::middleware(['auth:sanctum', 'role:resident,admin'])->prefix('resident')->
 
     Route::apiResource('complaints', ResidentComplaintController::class)
         ->only(['index', 'store', 'show']);
+
+    Route::apiResource('announcements', ResidentAnnouncementController::class)
+        ->only(['index', 'show']);
 });
 
 // Collector/staff mobile routes

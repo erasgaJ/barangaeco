@@ -36,4 +36,13 @@ class AnnouncementFactory extends Factory
             'scheduled_at' => now()->addDay(),
         ]);
     }
+
+    /** Announcement published but targeted exclusively to collectors. */
+    public function collectorsOnly(): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'target_audience' => 'collectors',
+            'published_at' => now(),
+        ]);
+    }
 }
