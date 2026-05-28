@@ -68,7 +68,7 @@ Tasks:
 **Goal:** Implement the complaints list, submit, and cancel flows with full backend tests and a working frontend page.
 
 Tasks:
-- [ ] Task: Write feature tests for `Resident\ComplaintController`:
+- [x] Task: Write feature tests for `Resident\ComplaintController`:
   - `GET /resident/complaints` returns Inertia page `resident/complaints/index` with `complaints` and `zones` props; complaints are scoped to the authenticated resident
   - A resident cannot see another resident's complaints
   - `POST /resident/complaints` with valid payload creates an `open` complaint with `priority = 'low'`, `created_by = auth()->id()`, and redirects
@@ -77,12 +77,12 @@ Tasks:
   - `DELETE /resident/complaints/{id}` on an `in_progress` complaint returns 422
   - `DELETE /resident/complaints/{id}` owned by another resident returns 403
   (TDD: Red)
-- [ ] Task: Implement `Resident\ComplaintController::index()` — scope to `$resident->complaints()->with('zone')->latest()->paginate(20)`; pass active `zones` for the form; return `Inertia::render('resident/complaints/index', [...])`
-- [ ] Task: Implement `Resident\ComplaintController::store()` — validate `zone_id` (nullable, exists:zones,id), `complaint_type`, `complaint_against`, `description` (all required); create with `priority = 'low'`, `status = 'open'`, `created_by = auth()->id()`; redirect to `resident.complaints.index`
-- [ ] Task: Implement `Resident\ComplaintController::cancel()` — enforce ownership (403), check `status === 'open'` (422 otherwise), update to `cancelled`, redirect back
-- [ ] Task: Create `resources/js/pages/resident/complaints/index.jsx` — table listing with status badges; "File Complaint" button opening a modal/dialog with zone select (optional) and required text/textarea fields; cancel button on open complaints rows
-- [ ] Task: Run `vendor/bin/pint --dirty --format agent`; run `npm run build`
-- [ ] Task: Run `php artisan test --compact --filter=ResidentComplaint` — all tests green
+- [x] Task: Implement `Resident\ComplaintController::index()` — scope to `$resident->complaints()->with('zone')->latest()->paginate(20)`; pass active `zones` for the form; return `Inertia::render('resident/complaints/index', [...])`
+- [x] Task: Implement `Resident\ComplaintController::store()` — validate `zone_id` (nullable, exists:zones,id), `complaint_type`, `complaint_against`, `description` (all required); create with `priority = 'low'`, `status = 'open'`, `created_by = auth()->id()`; redirect to `resident.complaints.index`
+- [x] Task: Implement `Resident\ComplaintController::cancel()` — enforce ownership (403), check `status === 'open'` (422 otherwise), update to `cancelled`, redirect back
+- [x] Task: Create `resources/js/pages/resident/complaints/index.jsx` — table listing with status badges; "File Complaint" button opening a modal/dialog with zone select (optional) and required text/textarea fields; cancel button on open complaints rows
+- [x] Task: Run `vendor/bin/pint --dirty --format agent`; run `npm run build`
+- [x] Task: Run `php artisan test --compact --filter=ResidentComplaint` — all tests green
 - [ ] Verification: Browse to `https://barangaeco.test/resident/complaints`; file a complaint; confirm it appears with `open` status; cancel it; confirm status changes to `cancelled` [checkpoint marker]
 
 ## Phase 6: Announcements Controller and Page
