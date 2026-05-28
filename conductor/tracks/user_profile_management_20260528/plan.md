@@ -24,19 +24,19 @@ No new routes, controllers, or form request classes are needed. All backend logi
 
 ### Tasks
 
-- [ ] Task: Add "Settings" nav entry to `AdminLayout` — import `Settings` icon from `lucide-react`, add a nav item with `href="/settings/profile"` that highlights when `url.startsWith('/settings')`.
+- [x] Task: Add "Settings" nav entry to `AdminLayout` — import `Settings` icon from `lucide-react`, add a nav item with `href="/settings/profile"` that highlights when `url.startsWith('/settings')`.
 
   TDD: Write a test that loads `/settings/profile` as an authenticated admin and asserts the Inertia component is `settings/profile` (page renders, not a redirect). This test already exists in `ProfileUpdateTest` (`profile page is displayed`) — confirm it still passes as a baseline before making changes.
 
-- [ ] Task: Update `resources/js/pages/settings/profile.jsx` to use `AdminLayout` as the outer persistent layout.
+- [x] Task: Update `resources/js/pages/settings/profile.jsx` to use `AdminLayout` as the outer persistent layout.
 
   The page's `Component.layout` static property currently defines only breadcrumbs. Change it to set `AdminLayout` as the layout wrapper (following the Inertia v3 layout prop pattern used by other admin pages). Wrap inner content with `SettingsLayout` to preserve the tab navigation between Profile / Security / Appearance.
 
-- [ ] Task: Update `resources/js/pages/settings/security.jsx` to use `AdminLayout` as the outer persistent layout, same approach as profile page.
+- [x] Task: Update `resources/js/pages/settings/security.jsx` to use `AdminLayout` as the outer persistent layout, same approach as profile page.
 
-- [ ] Task: Update `resources/js/pages/settings/appearance.jsx` to use `AdminLayout` as the outer persistent layout for consistency.
+- [x] Task: Update `resources/js/pages/settings/appearance.jsx` to use `AdminLayout` as the outer persistent layout for consistency.
 
-- [ ] Verification: Navigate to `https://barangaeco.test/settings/profile` in a browser. The admin sidebar should be visible. The inner Settings tab nav (Profile / Security / Appearance) should render. Clicking the sidebar "Settings" link from another admin page should work. [checkpoint Phase 1]
+- [x] Verification: Navigate to `https://barangaeco.test/settings/profile` in a browser. The admin sidebar should be visible. The inner Settings tab nav (Profile / Security / Appearance) should render. Clicking the sidebar "Settings" link from another admin page should work. [checkpoint Phase 1] [c4b568e]
 
 ---
 
