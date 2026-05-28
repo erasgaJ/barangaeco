@@ -20,9 +20,9 @@ TDD note: this is a chore track (data/infrastructure). Tests are verification-or
 
 ### Tasks
 
-- [ ] Task: Check `residents` table migration to confirm whether `barangay_id` is nullable (read the migration file — do not run a migration). Record finding for use in ResidentSeeder.
+- [x] Task: Check `residents` table migration to confirm whether `barangay_id` is nullable (read the migration file — do not run a migration). Record finding for use in ResidentSeeder. **Finding:** `barangay_id` is NOT NULL with `->constrained()->restrictOnDelete()`. ResidentFactory uses `Barangay::factory()` to satisfy this. ResidentSeeder must create/use a real Barangay record.
 
-- [ ] Task: Create `Database\Factories\PhilippineData.php` — a plain PHP class with `static` methods/arrays:
+- [x] Task: Create `Database\Factories\PhilippineData.php` — **Already exists as `App\Support\PhilippineData` with all required methods** (firstNamesMale, firstNamesFemale, lastNames, randomFullName, mobileNumber, address, streetNames, complaintDescriptions, complaintAgainst, documentPurposes, documentReasons, announcementTitles, announcementMessages, collectionNotes, zoneNames, zoneDescriptions, barangayNames). All factories import from `App\Support\PhilippineData`.
   - `firstNamesMale(): array` — 40+ common Filipino male first names (e.g., Juan, Jose, Ramon, Eduardo, Rodrigo, Danilo, Roberto, Carlos, Manuel, Fernando, Ernesto, Alberto, Ricardo, Antonio, Miguel, Angelo, Mark, John, Ryan, Christian, ...)
   - `firstNamesFemale(): array` — 40+ common Filipino female first names (e.g., Maria, Ana, Rosario, Lourdes, Carmen, Teresita, Luzviminda, Maricel, Jennifer, Grace, Cristina, Marilou, Elaine, Patricia, Rowena, ...)
   - `lastNames(): array` — 50+ common Filipino surnames (e.g., Santos, Reyes, Cruz, Garcia, Torres, Aquino, Dela Cruz, Bautista, Villanueva, Hernandez, Ramos, Flores, Pascual, Domingo, Ocampo, Mendoza, Castillo, Padilla, ...)
@@ -39,25 +39,27 @@ TDD note: this is a chore track (data/infrastructure). Tests are verification-or
   - `collectionNotes(): array` — 15+ Filipino-language short notes for status updates
   - `zoneNames(): array` — returns the 5 named zone strings
 
-- [ ] Task: Update `UserFactory::definition()` — replace `fake()->name()` with `PhilippineData::randomFullName()` and derive email as `str_replace(' ', '.', strtolower($name)) . rand(10,99) . '@example.ph'`
+- [x] Task: Update `UserFactory::definition()` — already uses `PhilippineData::randomFullName()` and email derived from name `[e33b8a1]`
 
-- [ ] Task: Update `ResidentFactory::definition()` — replace `fake()->name()` with `PhilippineData::randomFullName()`, `fake()->phoneNumber()` with `PhilippineData::mobileNumber()`, `fake()->address()` with `PhilippineData::address()`
+- [x] Task: Update `ResidentFactory::definition()` — already uses `PhilippineData::address()`, `PhilippineData::mobileNumber()`; `full_name` derived from linked User `[e33b8a1]`
 
-- [ ] Task: Update `CollectorFactory::definition()` — replace `fake()->name()` and `fake()->phoneNumber()` with Philippine equivalents
+- [x] Task: Update `CollectorFactory::definition()` — already uses `PhilippineData::mobileNumber()`; `full_name` derived from linked User `[e33b8a1]`
 
-- [ ] Task: Update `ComplaintFactory::definition()` — replace `fake()->paragraph()` with `fake()->randomElement(PhilippineData::complaintDescriptions())`, replace `fake()->name()` for `complaint_against` with `fake()->randomElement(PhilippineData::complaintAgainst())`
+- [x] Task: Update `ComplaintFactory::definition()` — already uses `PhilippineData::complaintDescriptions()` and `PhilippineData::complaintAgainst()` `[e33b8a1]`
 
-- [ ] Task: Update `DocumentRequestFactory::definition()` — replace `fake()->sentence()` for `purpose` and `fake()->paragraph()` for `reason` with Philippine-appropriate strings from `PhilippineData`; add `good_moral_certificate` and `death_certificate_endorsement` to the `document_type` array
+- [x] Task: Update `DocumentRequestFactory::definition()` — already uses `PhilippineData::documentPurposes()` and `PhilippineData::documentReasons()`; all six document types present `[e33b8a1]`
 
-- [ ] Task: Update `AnnouncementFactory::definition()` — replace `fake()->sentence(4)` for `title` and `fake()->paragraph()` for `message` with Filipino content from `PhilippineData` (index-matched so title and message are coherent)
+- [x] Task: Update `AnnouncementFactory::definition()` — already uses index-matched `PhilippineData::announcementTitles()` and `PhilippineData::announcementMessages()` `[e33b8a1]`
 
-- [ ] Task: Update `WasteCollectionScheduleFactory::definition()` — replace `fake()->time('H:i')` with `fake()->randomElement(['06:00', '07:00', '08:00', '14:00', '15:00'])`
+- [x] Task: Update `WasteCollectionScheduleFactory::definition()` — already uses `['06:00', '07:00', '08:00', '14:00', '15:00']` `[e33b8a1]`
 
-- [ ] Task: Update `ZoneFactory::definition()` — replace `fake()->unique()->words(3, true)` with `fake()->unique()->randomElement(PhilippineData::zoneNames())` (or use a sequential counter for uniqueness in test scenarios)
+- [x] Task: Update `ZoneFactory::definition()` — already uses `PhilippineData::zoneNames()` with static counter for uniqueness `[e33b8a1]`
 
-- [ ] Task: Update `BarangayFactory::definition()` — replace `fake()->city()` with a name from a static array of real Philippine barangay names
+- [x] Task: Update `BarangayFactory::definition()` — already uses `PhilippineData::barangayNames()` `[e33b8a1]`
 
-- [ ] Verification: Run `php artisan test --compact` to confirm no existing tests break after factory changes. All tests must stay green. [checkpoint marker]
+- [x] Task: Update `CollectionStatusUpdateFactory::definition()` — updated to use `PhilippineData::collectionNotes()` instead of `fake()->sentence()` `[e33b8a1]`
+
+- [x] Verification: Run `php artisan test --compact` — 207 tests pass, 731 assertions. [checkpoint marker] `[e33b8a1]`
 
 ---
 
