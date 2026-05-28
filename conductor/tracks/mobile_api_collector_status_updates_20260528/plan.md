@@ -72,7 +72,7 @@ All PHP changes are covered by Pest feature tests following Red → Green → Re
 
 ---
 
-## Phase 3: Quality Gates
+## Phase 3: Quality Gates [checkpoint: f728d8b]
 
 **Goal:** Full CI suite passes; track committed.
 
