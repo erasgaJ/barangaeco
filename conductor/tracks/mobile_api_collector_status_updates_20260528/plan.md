@@ -43,32 +43,32 @@ All PHP changes are covered by Pest feature tests following Red → Green → Re
 
 ### Tasks
 
-- [ ] Task: Guard FR-2 — unassigned collector returns `403` (TDD: Red → Green)
+- [x] Task: Guard FR-2 — unassigned collector returns `403` (TDD: Red → Green)
   - Write test: collector not in `schedule_collector` pivot → `403`.
   - Write test: different collector from another user cannot update → `403`.
-  - Implement: the existing `abort_unless()` already covers this; confirm the test goes green without code change. If the test fails, the guard is absent — add it.
+  - Guard was ALREADY PRESENT via `abort_unless()` — both tests passed immediately (no code change needed).
 
-- [ ] Task: Guard FR-3 — draft schedule returns `422` (TDD: Red → Green)
-  - Write test: schedule with `status = 'draft'` → `422` with JSON error key `message` or `errors.schedule`.
-  - Implement: add check after collector authorization — `abort_if($schedule->status !== 'published', 422, 'Schedule is not published.')` or use `response()->json(['message' => ...], 422)` for consistency with existing error responses.
+- [x] Task: Guard FR-3 — draft schedule returns `422` (TDD: Red → Green)
+  - Write test: schedule with `status = 'draft'` → `422` with JSON error key `message`.
+  - Added guard: `if ($schedule->status !== 'published') return response()->json(['message' => 'Schedule is not published.'], 422)`.
 
-- [ ] Task: Guard FR-4 — status regression from `completed` blocked (TDD: Red → Green)
+- [x] Task: Guard FR-4 — status regression from `completed` blocked (TDD: Red → Green)
   - Write test: existing status update is `completed`; POST with `in_progress` → `422`.
   - Write test: existing status update is `completed`; POST with `pending` → `422`.
   - Write test: existing status update is `completed`; POST with `completed` → `201` (allowed).
-  - Implement: before `updateOrCreate`, load existing record — if exists and `status === 'completed'` and new status !== 'completed', return `422`.
+  - Added guard: before `updateOrCreate`, load existing record — if status is `completed` and new status !== `completed`, return `422`.
 
-- [ ] Task: Validation edge cases (TDD: Red → Green)
+- [x] Task: Validation edge cases (TDD: Red → Green)
   - Write test: missing `status` field → `422` validation error.
   - Write test: invalid `status` value (e.g., `"done"`) → `422` validation error.
   - Write test: unauthenticated request → `401`.
   - Write test: resident-role token (not collector) → `403`.
-  - Existing controller validation handles most of these; confirm tests pass; add rules if any fail.
+  - All four tests passed without additional code changes (existing validation rules + middleware cover these).
 
-- [ ] Task: Run Pint on all modified PHP files.
-  - `vendor/bin/pint --dirty --format agent`
+- [x] Task: Run Pint on all modified PHP files.
+  - `vendor/bin/pint --dirty --format agent` — passed cleanly.
 
-- [ ] Verification: Run `php artisan test --compact --filter=CollectionStatusApiTest` — all branches green. [checkpoint marker]
+- [x] Verification: Run `php artisan test --compact --filter=CollectionStatusApiTest` — all 14 tests green (4 Phase 1 + 10 Phase 2). [checkpoint marker] [6c15d74]
 
 ---
 
