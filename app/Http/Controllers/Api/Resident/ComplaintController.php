@@ -53,4 +53,19 @@ class ComplaintController extends Controller
 
         return response()->json($complaint->load('zone', 'createdBy'));
     }
+
+    public function cancel(Request $request, Complaint $complaint): JsonResponse
+    {
+        $resident = $request->user()->resident()->firstOrFail();
+
+        abort_unless($complaint->resident_id === $resident->id, 403);
+
+        if ($complaint->status !== 'open') {
+            return response()->json(['message' => 'Only open complaints can be cancelled.'], 422);
+        }
+
+        $complaint->update(['status' => 'cancelled']);
+
+        return response()->json(['data' => $complaint->fresh()], 200);
+    }
 }

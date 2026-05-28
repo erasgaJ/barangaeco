@@ -238,3 +238,116 @@ it('persists the complaint in the database with correct resident_id and status o
         'status' => 'open',
     ]);
 });
+
+// -----------------------------------------------------------------------
+// Phase 2 — Cancel endpoint
+// -----------------------------------------------------------------------
+
+it('cancels an open complaint owned by the authenticated resident', function () {
+    [$user, $token] = residentWithToken();
+    $resident = $user->resident()->first();
+
+    $complaint = Complaint::factory()->create([
+        'resident_id' => $resident->id,
+        'created_by' => $user->id,
+        'status' => 'open',
+    ]);
+
+    $response = $this->withToken($token)
+        ->patchJson("/api/resident/complaints/{$complaint->id}/cancel");
+
+    $response->assertStatus(200)
+        ->assertJsonPath('data.status', 'cancelled');
+});
+
+it('persists cancelled status in the database after cancel', function () {
+    [$user, $token] = residentWithToken();
+    $resident = $user->resident()->first();
+
+    $complaint = Complaint::factory()->create([
+        'resident_id' => $resident->id,
+        'created_by' => $user->id,
+        'status' => 'open',
+    ]);
+
+    $this->withToken($token)
+        ->patchJson("/api/resident/complaints/{$complaint->id}/cancel")
+        ->assertStatus(200);
+
+    $this->assertDatabaseHas('complaints', [
+        'id' => $complaint->id,
+        'status' => 'cancelled',
+    ]);
+});
+
+it('returns 422 when cancelling an already cancelled complaint', function () {
+    [$user, $token] = residentWithToken();
+    $resident = $user->resident()->first();
+
+    $complaint = Complaint::factory()->cancelled()->create([
+        'resident_id' => $resident->id,
+        'created_by' => $user->id,
+    ]);
+
+    $this->withToken($token)
+        ->patchJson("/api/resident/complaints/{$complaint->id}/cancel")
+        ->assertStatus(422);
+});
+
+it('returns 422 when cancelling an in_progress complaint', function () {
+    [$user, $token] = residentWithToken();
+    $resident = $user->resident()->first();
+
+    $complaint = Complaint::factory()->inProgress()->create([
+        'resident_id' => $resident->id,
+        'created_by' => $user->id,
+    ]);
+
+    $this->withToken($token)
+        ->patchJson("/api/resident/complaints/{$complaint->id}/cancel")
+        ->assertStatus(422);
+});
+
+it('returns 422 when cancelling a resolved complaint', function () {
+    [$user, $token] = residentWithToken();
+    $resident = $user->resident()->first();
+
+    $complaint = Complaint::factory()->resolved()->create([
+        'resident_id' => $resident->id,
+        'created_by' => $user->id,
+    ]);
+
+    $this->withToken($token)
+        ->patchJson("/api/resident/complaints/{$complaint->id}/cancel")
+        ->assertStatus(422);
+});
+
+it('returns 403 when cancelling a complaint belonging to another resident', function () {
+    [$userA, $tokenA] = residentWithToken();
+    [$userB, $tokenB] = residentWithToken();
+
+    $residentB = $userB->resident()->first();
+
+    $complaint = Complaint::factory()->create([
+        'resident_id' => $residentB->id,
+        'created_by' => $userB->id,
+        'status' => 'open',
+    ]);
+
+    $this->withToken($tokenA)
+        ->patchJson("/api/resident/complaints/{$complaint->id}/cancel")
+        ->assertStatus(403);
+});
+
+it('returns 404 when cancelling a non-existent complaint', function () {
+    [$user, $token] = residentWithToken();
+
+    $this->withToken($token)
+        ->patchJson('/api/resident/complaints/99999/cancel')
+        ->assertStatus(404);
+});
+
+it('returns 401 on PATCH /api/resident/complaints/{id}/cancel when unauthenticated', function () {
+    $this->patchJson('/api/resident/complaints/1/cancel')
+        ->assertStatus(401);
+});

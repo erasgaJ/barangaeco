@@ -30,4 +30,19 @@ class ComplaintFactory extends Factory
             'created_by' => User::factory(),
         ];
     }
+
+    public function cancelled(): static
+    {
+        return $this->state(fn (array $attributes) => ['status' => 'cancelled']);
+    }
+
+    public function inProgress(): static
+    {
+        return $this->state(fn (array $attributes) => ['status' => 'in_progress']);
+    }
+
+    public function resolved(): static
+    {
+        return $this->state(fn (array $attributes) => ['status' => 'resolved']);
+    }
 }

@@ -43,6 +43,8 @@ Route::middleware(['auth:sanctum', 'role:resident,admin'])->prefix('resident')->
     Route::apiResource('complaints', ResidentComplaintController::class)
         ->only(['index', 'store', 'show']);
 
+    Route::patch('complaints/{complaint}/cancel', [ResidentComplaintController::class, 'cancel']);
+
     Route::apiResource('announcements', ResidentAnnouncementController::class)
         ->only(['index', 'show']);
 });
