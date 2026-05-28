@@ -1,0 +1,7 @@
+{
+  "id": "mobile_api_collector_status_updates_20260528",
+  "description": "Mobile API — collector status updates (allow collectors to update collection status for their assigned schedules)",
+  "type": "feature",
+  "created_at": "2026-05-28T00:00:00Z",
+  "status": "pending"
+}
