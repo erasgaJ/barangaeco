@@ -103,14 +103,14 @@ All work is in two files: `DashboardController.php` and `dashboard.jsx`. No migr
 
 ### Tasks
 
-- [ ] Task: Update Residents stat card badge (real monthly count)
+- [x] Task: Update Residents stat card badge (real monthly count)
 
   In `dashboard.jsx`, in the `statCards` array, change the Residents card badge from the hardcoded `'+24 this mo'` to:
   ```js
   badge: `+${stats.residents_this_month} this mo`,
   ```
 
-- [ ] Task: Update Today's Waste Collection — use `zone_name` instead of `route_name`
+- [x] Task: Update Today's Waste Collection — use `zone_name` instead of `route_name`
 
   In the `today_schedules.map()` render block, change:
   ```js
@@ -121,14 +121,14 @@ All work is in two files: `DashboardController.php` and `dashboard.jsx`. No migr
   {schedule.zone_name ?? 'Unknown Zone'}
   ```
 
-- [ ] Task: Confirm `status_update` consumption is consistent with new shape
+- [x] Task: Confirm `status_update` consumption is consistent with new shape
 
   The frontend already reads `schedule.status_update?.status` and `schedule.status_update?.time`. Now that the controller passes a proper shaped object (not a collection), confirm:
   - `RouteIcon` receives `schedule` with `status_update` as the shaped object — no change needed to reading pattern.
   - The completed-time display `schedule.status_update?.time` will now render the formatted time string from the controller.
   - No JS-side transformation needed — just verify no `statusUpdates` (plural) references remain in the JSX file.
 
-- [ ] Task: Run lint and format checks
+- [x] Task: Run lint and format checks
 
   ```
   npm run lint:check
@@ -137,7 +137,7 @@ All work is in two files: `DashboardController.php` and `dashboard.jsx`. No migr
 
   Fix any issues with `npm run lint` and `npm run format`.
 
-- [ ] Verification: Build and visual smoke check [checkpoint marker]
+- [ ] Verification: Build and visual smoke check [checkpoint marker] [e999512]
 
   ```
   npm run build
