@@ -170,7 +170,7 @@ TDD note: this is a chore track (data/infrastructure). Tests are verification-or
 
 - [x] Task: Run `composer run ci:check` (or individual checks: pint, eslint, prettier, types) — all must pass
 
-- [x] Verification: Manual walkthrough — open `https://barangaeco.test`, log in as `admin@barangay.gov.ph` / `password`, navigate to Residents, Collectors, Complaints, Schedules, Document Requests, Announcements — confirm lists show Filipino names and content. [checkpoint marker]
+- [x] Verification: Manual walkthrough — open `https://barangaeco.test`, log in as `admin@barangay.gov.ph` / `password`, navigate to Residents, Collectors, Complaints, Schedules, Document Requests, Announcements — confirm lists show Filipino names and content. [36c9feb]
 
 ---
 
