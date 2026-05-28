@@ -14,7 +14,7 @@ All work is in two files: `DashboardController.php` and `dashboard.jsx`. No migr
 
 ### Tasks
 
-- [ ] Task: Write failing tests for `stats` shape (Red)
+- [x] Task: Write failing tests for `stats` shape (Red)
 
   Write a Pest feature test in `tests/Feature/DashboardTest.php` that:
   - Seeds known data using factories (e.g., 3 residents created this month, 2 pending document requests, 1 open complaint, 1 published today-schedule)
@@ -24,14 +24,14 @@ All work is in two files: `DashboardController.php` and `dashboard.jsx`. No migr
   - Asserts `stats.residents_this_month` equals the seeded count
   - Run: `php artisan test --compact --filter=DashboardTest` — should fail (key missing)
 
-- [ ] Task: Add `residents_this_month` to controller stats + fix eager load (Green)
+- [x] Task: Add `residents_this_month` to controller stats + fix eager load (Green)
 
   In `DashboardController::__invoke()`:
   - Replace `with('barangay', 'collectors', 'statusUpdates')` with `with('zone', 'collectors', 'statusUpdates')`
   - Add `'residents_this_month' => Resident::whereMonth('created_at', now()->month)->whereYear('created_at', now()->year)->count()` to the `stats` array
   - Run tests: `php artisan test --compact --filter=DashboardTest` — stats shape test should pass
 
-- [ ] Task: Write failing tests for `today_schedules` shape (Red)
+- [x] Task: Write failing tests for `today_schedules` shape (Red)
 
   Extend `DashboardTest.php`:
   - Assert each item in the `today_schedules` prop has a `zone_name` key (string or null)
@@ -39,7 +39,7 @@ All work is in two files: `DashboardController.php` and `dashboard.jsx`. No migr
   - Seed a schedule with a zone and a `CollectionStatusUpdate`, assert `zone_name` matches zone name and `status_update.status` matches
   - Run tests — should fail (`zone_name` missing)
 
-- [ ] Task: Shape `today_schedules` in controller (Green)
+- [x] Task: Shape `today_schedules` in controller (Green)
 
   After the `$todaySchedules` query, map the collection before passing to Inertia:
 
@@ -58,14 +58,14 @@ All work is in two files: `DashboardController.php` and `dashboard.jsx`. No migr
 
   Run tests: `php artisan test --compact --filter=DashboardTest` — shape tests should pass.
 
-- [ ] Task: Write failing test for `recent_document_requests` resident_name (Red)
+- [x] Task: Write failing test for `recent_document_requests` resident_name (Red)
 
   Extend `DashboardTest.php`:
   - Seed a document request linked to a resident with `full_name = 'Juan Dela Cruz'`
   - Assert `recent_document_requests[0].resident_name` equals `'Juan Dela Cruz'`
   - Run tests — should fail (`resident_name` missing)
 
-- [ ] Task: Add `resident_name` mapping in controller (Green)
+- [x] Task: Add `resident_name` mapping in controller (Green)
 
   Map `recent_document_requests` before passing:
 
@@ -81,19 +81,19 @@ All work is in two files: `DashboardController.php` and `dashboard.jsx`. No migr
 
   Run tests: `php artisan test --compact --filter=DashboardTest` — all Phase 1 tests green.
 
-- [ ] Task: Run Pint
+- [x] Task: Run Pint
 
   ```
   vendor/bin/pint --dirty --format agent
   ```
 
-- [ ] Verification: All Phase 1 tests pass [checkpoint marker]
+- [x] Verification: All Phase 1 tests pass [checkpoint marker] [7f23a62]
 
   ```
   php artisan test --compact --filter=DashboardTest
   ```
 
-  Confirm output is all green with no failures.
+  Confirm output is all green with no failures. 7 tests, 7 passed.
 
 ---
 
