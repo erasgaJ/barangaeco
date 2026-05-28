@@ -5,6 +5,7 @@ namespace Database\Factories;
 use App\Models\Barangay;
 use App\Models\Resident;
 use App\Models\User;
+use App\Support\PhilippineData;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -19,12 +20,14 @@ class ResidentFactory extends Factory
      */
     public function definition(): array
     {
+        $user = User::factory()->resident();
+
         return [
-            'user_id' => User::factory()->resident(),
+            'user_id' => $user,
             'barangay_id' => Barangay::factory(),
-            'full_name' => fake()->name(),
-            'address' => fake()->address(),
-            'contact_number' => fake()->phoneNumber(),
+            'full_name' => fn (array $attributes) => User::find($attributes['user_id'])->name,
+            'address' => PhilippineData::address(),
+            'contact_number' => PhilippineData::mobileNumber(),
             'photo' => null,
             'id_image' => null,
             'verification_status' => 'pending',

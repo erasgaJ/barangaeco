@@ -158,7 +158,24 @@
       "PowerShell(php artisan tinker --execute '$s = App\\\\Models\\\\WasteCollectionSchedule::find\\(3\\); $s->status = \"published\"; $s->save\\(\\); echo $s->status;' 2>&1)",
       "PowerShell(php artisan tinker --execute 'DB::table\\(\"waste_collection_schedules\"\\)->where\\(\"id\", 3\\)->update\\([\"status\" => \"published\"]\\); echo \"done\";' 2>&1)",
       "PowerShell(php artisan tinker --execute $code 2>&1)",
-      "PowerShell(php update_schedule.php 2>&1)"
+      "PowerShell(php update_schedule.php 2>&1)",
+      "Bash(Get-ChildItem \"C:\\\\herd\\\\barangaeco\\\\tests\\\\Feature\\\\Api\\\\\" -Recurse | Select-Object FullName *)",
+      "Bash(mkdir -p /c/herd/barangaeco/tests/Feature/Api/Resident)",
+      "Bash(mkdir -p /c/herd/barangaeco/tests/Feature/Api/Collector)",
+      "Bash(/c/Users/erasg/AppData/Roaming/herd/bin/php8.4.bat artisan *)",
+      "Bash(/c/Users/erasg/AppData/Roaming/Herd/bin/php8.4.bat artisan *)",
+      "Bash(C:\\\\Users\\\\erasg\\\\AppData\\\\Roaming\\\\Herd\\\\bin\\\\php84\\\\php.exe artisan *)",
+      "Bash(C:/laragon/bin/php/php8.4.1/php.exe artisan *)",
+      "Bash(where.exe php *)",
+      "Read(//c/herd/**)",
+      "Bash(vendor/bin/pint *)",
+      "Bash(php *)",
+      "Bash(C:/Users/erasg/AppData/Local/Herd/bin/php.bat artisan *)",
+      "Bash(/c/Users/erasg/.config/herd/bin/php84 *)",
+      "Bash(rm /c/herd/barangaeco/tests/Feature/Resident/AnnouncementApiTest.php)",
+      "Bash(rmdir /c/herd/barangaeco/tests/Feature/Resident/)",
+      "Bash(C:/Windows/System32/cmd.exe *)",
+      "Bash(C:\\\\herd\\\\bin\\\\php84.bat artisan *)"
     ]
   }
 }

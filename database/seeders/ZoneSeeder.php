@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Zone;
+use App\Support\PhilippineData;
 use Illuminate\Database\Seeder;
 
 class ZoneSeeder extends Seeder
@@ -12,10 +13,16 @@ class ZoneSeeder extends Seeder
      */
     public function run(): void
     {
-        foreach (range(1, 5) as $number) {
+        $names = PhilippineData::zoneNames();
+        $descriptions = PhilippineData::zoneDescriptions();
+
+        foreach ($names as $index => $name) {
             Zone::firstOrCreate(
-                ['name' => "Zone {$number}"],
-                ['description' => null, 'is_active' => true],
+                ['name' => $name],
+                [
+                    'description' => $descriptions[$index],
+                    'is_active' => true,
+                ],
             );
         }
     }

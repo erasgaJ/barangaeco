@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Barangay;
+use App\Support\PhilippineData;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -18,7 +19,7 @@ class BarangayFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->city(),
+            'name' => fake()->randomElement(PhilippineData::barangayNames()),
         ];
     }
 }

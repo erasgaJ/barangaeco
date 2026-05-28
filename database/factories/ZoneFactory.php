@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Zone;
+use App\Support\PhilippineData;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,8 +18,16 @@ class ZoneFactory extends Factory
      */
     public function definition(): array
     {
+        static $counter = 0;
+        $names = PhilippineData::zoneNames();
+        $name = $names[$counter % count($names)];
+        if ($counter >= count($names)) {
+            $name .= ' '.(floor($counter / count($names)) + 1);
+        }
+        $counter++;
+
         return [
-            'name' => fake()->unique()->words(3, true),
+            'name' => $name,
             'description' => fake()->optional()->sentence(),
             'is_active' => true,
         ];

@@ -1,15 +1,17 @@
 <?php
 
+use App\Support\PhilippineData;
 use Database\Seeders\ZoneSeeder;
 use Illuminate\Support\Facades\DB;
 
-test('ZoneSeeder creates exactly 5 zones with names Zone 1 through Zone 5', function () {
+test('ZoneSeeder creates exactly 5 zones with Philippine named zones', function () {
     $this->seed(ZoneSeeder::class);
 
     expect(DB::table('zones')->count())->toBe(5);
 
-    foreach (range(1, 5) as $number) {
-        expect(DB::table('zones')->where('name', "Zone {$number}")->exists())->toBeTrue();
+    $names = PhilippineData::zoneNames();
+    foreach ($names as $name) {
+        expect(DB::table('zones')->where('name', $name)->exists())->toBeTrue();
     }
 });
 

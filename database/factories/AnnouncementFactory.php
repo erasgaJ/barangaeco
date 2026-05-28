@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Announcement;
 use App\Models\User;
+use App\Support\PhilippineData;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -18,10 +19,12 @@ class AnnouncementFactory extends Factory
      */
     public function definition(): array
     {
+        $index = rand(0, count(PhilippineData::announcementTitles()) - 1);
+
         return [
             'created_by' => User::factory()->admin(),
-            'title' => fake()->sentence(4),
-            'message' => fake()->paragraph(),
+            'title' => PhilippineData::announcementTitles()[$index],
+            'message' => PhilippineData::announcementMessages()[$index],
             'target_audience' => fake()->randomElement(['all', 'residents', 'collectors']),
             'scheduled_at' => null,
             'published_at' => now(),

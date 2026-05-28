@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Collector;
 use App\Models\User;
+use App\Support\PhilippineData;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -18,10 +19,12 @@ class CollectorFactory extends Factory
      */
     public function definition(): array
     {
+        $user = User::factory()->collector();
+
         return [
-            'user_id' => User::factory()->collector(),
-            'full_name' => fake()->name(),
-            'contact_number' => fake()->phoneNumber(),
+            'user_id' => $user,
+            'full_name' => fn (array $attributes) => User::find($attributes['user_id'])->name,
+            'contact_number' => PhilippineData::mobileNumber(),
         ];
     }
 }

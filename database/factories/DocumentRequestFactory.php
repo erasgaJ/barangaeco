@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\DocumentRequest;
 use App\Models\Resident;
+use App\Support\PhilippineData;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -25,9 +26,11 @@ class DocumentRequestFactory extends Factory
                 'certificate_of_residency',
                 'indigency_certificate',
                 'business_permit',
+                'good_moral_certificate',
+                'death_certificate_endorsement',
             ]),
-            'purpose' => fake()->sentence(),
-            'reason' => fake()->paragraph(),
+            'purpose' => fake()->randomElement(PhilippineData::documentPurposes()),
+            'reason' => fake()->randomElement(PhilippineData::documentReasons()),
             'status' => 'pending',
             'admin_remarks' => null,
             'rejection_feedback' => null,
