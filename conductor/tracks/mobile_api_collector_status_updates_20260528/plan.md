@@ -78,18 +78,19 @@ All PHP changes are covered by Pest feature tests following Red → Green → Re
 
 ### Tasks
 
-- [~] Task: Run full test suite to ensure no regressions.
+- [x] Task: Run full test suite to ensure no regressions.
   - `php artisan test --compact`
+  - Result: 167 tests, 167 passed, 548 assertions — zero failures.
 
-- [~] Task: Run code quality checks.
-  - `vendor/bin/pint --dirty --format agent`
-  - `npm run lint:check`
-  - `npm run format:check`
-  - `npm run types:check`
+- [x] Task: Run code quality checks.
+  - `vendor/bin/pint --dirty --format agent` — passed cleanly.
+  - `npm run lint:check` — exit 0.
+  - `npm run format:check` — exit 0.
+  - `npm run types:check` — exit 0.
 
-- [~] Task: Update `conductor/tracks.md` — move track to Completed with checkpoint commit hash.
+- [x] Task: Update `conductor/tracks.md` — move track to Completed with checkpoint commit hash.
 
-- [~] Verification: All quality gates pass; commit with `phase(3): quality gates — collector status updates API`. [checkpoint marker]
+- [x] Verification: All quality gates pass; commit with `phase(3): quality gates — collector status updates API`. [checkpoint marker] [dd673af]
 
 ---
 
