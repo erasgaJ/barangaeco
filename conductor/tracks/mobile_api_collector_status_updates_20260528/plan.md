@@ -12,7 +12,7 @@ All PHP changes are covered by Pest feature tests following Red → Green → Re
 
 ---
 
-## Phase 1: Foundation — Factory and Baseline Tests
+## Phase 1: Foundation — Factory and Baseline Tests [checkpoint: 494e963]
 
 **Goal:** Create the `CollectionStatusUpdateFactory`, confirm the composite index exists (add migration if missing), and write passing tests for the happy-path `store` endpoint as it currently behaves.
 
