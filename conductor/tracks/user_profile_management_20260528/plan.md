@@ -40,7 +40,7 @@ No new routes, controllers, or form request classes are needed. All backend logi
 
 ---
 
-## Phase 2: Account Info Panel
+## Phase 2: Account Info Panel [checkpoint Phase 2] [0e15bac]
 
 **Goal:** Profile settings page shows a read-only panel with the user's role and join date.
 
@@ -52,7 +52,7 @@ No new routes, controllers, or form request classes are needed. All backend logi
 
 - [x] Task: Import and render `AccountInfoPanel` in `resources/js/pages/settings/profile.jsx`, passing `auth.user.role` and `auth.user.created_at` from `usePage().props`. Place it below the profile form and above `DeleteUser`. [8a1e9df]
 
-- [ ] Verification: On the profile settings page, a panel showing "Role: Admin" and "Member since: [date]" is visible. [checkpoint Phase 2]
+- [x] Verification: On the profile settings page, a panel showing "Role: Admin" and "Member since: [date]" is visible. [checkpoint Phase 2] [0e15bac]
 
 ---
 
