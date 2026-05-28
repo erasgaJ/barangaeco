@@ -14,6 +14,7 @@ class ComplaintController extends Controller
         $resident = $request->user()->resident()->firstOrFail();
 
         $complaints = $resident->complaints()
+            ->with('zone')
             ->latest()
             ->paginate(15);
 
@@ -23,7 +24,7 @@ class ComplaintController extends Controller
     public function store(Request $request): JsonResponse
     {
         $request->validate([
-            'barangay_id' => ['required', 'exists:barangays,id'],
+            'zone_id' => ['nullable', 'exists:zones,id'],
             'complaint_type' => ['required', 'string', 'max:255'],
             'complaint_against' => ['required', 'string', 'max:255'],
             'description' => ['required', 'string'],
@@ -32,7 +33,7 @@ class ComplaintController extends Controller
         $resident = $request->user()->resident()->firstOrFail();
 
         $complaint = $resident->complaints()->create([
-            'barangay_id' => $request->barangay_id,
+            'zone_id' => $request->zone_id,
             'complaint_type' => $request->complaint_type,
             'complaint_against' => $request->complaint_against,
             'description' => $request->description,
@@ -41,7 +42,7 @@ class ComplaintController extends Controller
             'created_by' => $request->user()->id,
         ]);
 
-        return response()->json($complaint->load('barangay'), 201);
+        return response()->json($complaint->load('zone'), 201);
     }
 
     public function show(Request $request, Complaint $complaint): JsonResponse
@@ -50,6 +51,6 @@ class ComplaintController extends Controller
 
         abort_unless($complaint->resident_id === $resident->id, 403);
 
-        return response()->json($complaint->load('barangay', 'createdBy'));
+        return response()->json($complaint->load('zone', 'createdBy'));
     }
 }
