@@ -21,9 +21,9 @@ class WasteCollectionScheduleFactory extends Factory
     {
         return [
             'zone_id' => Zone::factory(),
-            'scheduled_date' => fake()->dateTimeBetween('now', '+30 days')->format('Y-m-d'),
-            'scheduled_time' => fake()->randomElement(['06:00', '07:00', '08:00', '14:00', '15:00']),
-            'status' => fake()->randomElement(['draft', 'published']),
+            'scheduled_date' => $this->faker->dateTimeBetween('now', '+30 days')->format('Y-m-d'),
+            'scheduled_time' => $this->faker->randomElement(['06:00', '07:00', '08:00', '14:00', '15:00']),
+            'status' => $this->faker->randomElement(['draft', 'published']),
             'created_by' => User::factory()->admin(),
         ];
     }

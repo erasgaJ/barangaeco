@@ -21,7 +21,7 @@ class DocumentRequestFactory extends Factory
     {
         return [
             'resident_id' => Resident::factory(),
-            'document_type' => fake()->randomElement([
+            'document_type' => $this->faker->randomElement([
                 'barangay_clearance',
                 'certificate_of_residency',
                 'indigency_certificate',
@@ -29,8 +29,8 @@ class DocumentRequestFactory extends Factory
                 'good_moral_certificate',
                 'death_certificate_endorsement',
             ]),
-            'purpose' => fake()->randomElement(PhilippineData::documentPurposes()),
-            'reason' => fake()->randomElement(PhilippineData::documentReasons()),
+            'purpose' => $this->faker->randomElement(PhilippineData::documentPurposes()),
+            'reason' => $this->faker->randomElement(PhilippineData::documentReasons()),
             'status' => 'pending',
             'admin_remarks' => null,
             'rejection_feedback' => null,
@@ -65,7 +65,7 @@ class DocumentRequestFactory extends Factory
     {
         return $this->state(fn (array $attributes) => [
             'status' => 'rejected',
-            'rejection_feedback' => fake()->paragraph(),
+            'rejection_feedback' => $this->faker->paragraph(),
             'resolved_at' => now(),
         ]);
     }

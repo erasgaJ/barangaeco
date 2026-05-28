@@ -23,10 +23,10 @@ class ComplaintFactory extends Factory
         return [
             'resident_id' => null,
             'zone_id' => Zone::factory(),
-            'complaint_type' => fake()->randomElement(['Road', 'Noise', 'Environment', 'Infrastructure', 'Other']),
-            'complaint_against' => fake()->randomElement(PhilippineData::complaintAgainst()),
-            'description' => fake()->randomElement(PhilippineData::complaintDescriptions()),
-            'priority' => fake()->randomElement(['low', 'medium', 'high']),
+            'complaint_type' => $this->faker->randomElement(['Road', 'Noise', 'Environment', 'Infrastructure', 'Other']),
+            'complaint_against' => $this->faker->randomElement(PhilippineData::complaintAgainst()),
+            'description' => $this->faker->randomElement(PhilippineData::complaintDescriptions()),
+            'priority' => $this->faker->randomElement(['low', 'medium', 'high']),
             'status' => 'open',
             'created_by' => User::factory(),
         ];

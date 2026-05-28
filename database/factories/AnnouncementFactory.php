@@ -25,7 +25,7 @@ class AnnouncementFactory extends Factory
             'created_by' => User::factory()->admin(),
             'title' => PhilippineData::announcementTitles()[$index],
             'message' => PhilippineData::announcementMessages()[$index],
-            'target_audience' => fake()->randomElement(['all', 'residents', 'collectors']),
+            'target_audience' => $this->faker->randomElement(['all', 'residents', 'collectors']),
             'scheduled_at' => null,
             'published_at' => now(),
         ];

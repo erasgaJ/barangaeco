@@ -28,7 +28,7 @@ class ZoneFactory extends Factory
 
         return [
             'name' => $name,
-            'description' => fake()->optional()->sentence(),
+            'description' => $this->faker->optional()->sentence(),
             'is_active' => true,
         ];
     }
